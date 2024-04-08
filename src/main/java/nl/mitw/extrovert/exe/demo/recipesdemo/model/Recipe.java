@@ -1,12 +1,20 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.Set;
 
 /**
  * Nadine Beck
  * Omschrijving
  */
+
+@Entity
 public class Recipe {
+    @Id @GeneratedValue
+    private Long recipeId;
     private String name;
     private String preparation;
     private String tag;
@@ -16,6 +24,10 @@ public class Recipe {
         this.name = name;
         this.preparation = preparation;
         this.tag = tag;
+    }
+
+    public Recipe() {
+
     }
 
     public String getName() {
