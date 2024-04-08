@@ -8,16 +8,19 @@
 
 <h1>Overview of all recipes</h1>
 
-<!--<table>-->
-<!--    <tr>-->
-<!--        <th>Name</th>-->
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Preparation</th>
+        <th>Tag</th>
 
-<!--    </tr>-->
-<!--    <tr th:each="book : ${allBooks}">-->
-<!--        <td th:text="${book.title}"></td>-->
-<!--        <td th:text="${book.author}"></td>-->
-<!--    </tr>-->
-<!--</table>-->
+    </tr>
+    <tr th:each="recipe : ${allRecipes}">
+        <td th:text="${recipe.name}"></td>
+        <td th:text="${recipe.preparation}"></td>
+        <td th:text="${recipe.tag}"></td>
+    </tr>
+</table>
 
 </body>
 </html>
