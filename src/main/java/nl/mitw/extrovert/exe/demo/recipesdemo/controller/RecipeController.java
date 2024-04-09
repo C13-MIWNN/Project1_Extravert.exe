@@ -4,7 +4,10 @@ import nl.mitw.extrovert.exe.demo.recipesdemo.controller.repositories.RecipeRepo
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +31,19 @@ public class RecipeController {
 
         model.addAttribute("allRecipes", recipeRepository.findAll());
         return "recipeOverview";
+    }
+
+    @GetMapping("recipe/new")
+    private String showRecipeForm (Model model) {
+        model.addAttribute("recipe", new Recipe());
+        return "recipeForm";
+    }
+
+    @PostMapping ("recipe/new")
+        private String saveRecipe (@ModelAttribute("recipe") Recipe recipeToBeSaved, BindingResult result) {
+            if (!result.hasErrors()){
+                recipeRepository.save(recipeToBeSaved);
+        }
+            return "redirect:/";
     }
 }
