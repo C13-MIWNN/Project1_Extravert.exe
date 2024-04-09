@@ -11,17 +11,20 @@
 <table>
     <tr>
         <th>Name</th>
-        <th></th>
-        <th>PreparationTime</th>
-        <th>Tags</th>
+        <th>Unit</th>
+
 
     </tr>
-    <tr th:each="recipe : ${allRecipes}">
-        <td th:text="${recipe.name}"></td>
-        <td th:text="${recipe.preparation}"></td>
-        <td th:text="${recipe.preparationTime}"></td>
-        <td th:text="${recipe.tag}"></td>
+    <tr th:each="ingredient : ${allIngredients}">
+        <td th:text="${ingredient.name}"></td>
+        <td th:text="${ingredient.unit}"></td>
     </tr>
+    <form th:action="@{/ingredient/new}" method="post" th:object="${newIngredient}">
+        <tr>
+            <td><input type="text" th:field="*{name}"></td>
+            <td><input type="submit" value="Save new ingredient"></td>
+        </tr>
+    </form>
 </table>
 <p>
     <a th:href="@{/recipe/new}">Add a new recipe</a>
