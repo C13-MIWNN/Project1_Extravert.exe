@@ -17,12 +17,15 @@ public class Recipe {
     private Long recipeId;
     private String name;
     private String preparation;
+    private String preparationTime;
     private String tag;
 
 
-    public Recipe(String name, String preparation, String tag) {
+    public Recipe(Long recipeId, String name, String preparation, String preparationTime, String tag) {
+        this.recipeId = recipeId;
         this.name = name;
         this.preparation = preparation;
+        this.preparationTime = preparationTime;
         this.tag = tag;
     }
 
@@ -52,5 +55,21 @@ public class Recipe {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public Long getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(Long recipeId) {
+        this.recipeId = recipeId;
+    }
+
+    public String getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(String preparationTime) {
+        this.preparationTime = preparationTime;
     }
 }

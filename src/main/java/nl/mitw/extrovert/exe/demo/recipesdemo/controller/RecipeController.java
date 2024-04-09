@@ -27,7 +27,7 @@ public class RecipeController {
     @GetMapping("/")
     private String showRecipeOverview(Model model) {
         List<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe("Pasta Carbonara", "Cook it", "Pastadish"));
+
 
         model.addAttribute("allRecipes", recipeRepository.findAll());
         return "recipeOverview";
