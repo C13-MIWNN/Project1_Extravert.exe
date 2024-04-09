@@ -1,6 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
-import nl.mitw.extrovert.exe.demo.recipesdemo.controller.repositories.RecipeRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

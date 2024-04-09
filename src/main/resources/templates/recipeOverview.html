@@ -12,15 +12,19 @@
     <tr>
         <th>Name</th>
         <th>Preparation</th>
-        <th>Tag</th>
+        <th>PreparationTime</th>
+        <th>Tags</th>
 
     </tr>
     <tr th:each="recipe : ${allRecipes}">
         <td th:text="${recipe.name}"></td>
         <td th:text="${recipe.preparation}"></td>
+        <td th:text="${recipe.preparationTime}"></td>
         <td th:text="${recipe.tag}"></td>
     </tr>
 </table>
-
+<p>
+    <a th:href="@{/recipe/new}">Add a new recipe</a>
+</p>
 </body>
 </html>
