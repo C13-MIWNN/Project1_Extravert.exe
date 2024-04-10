@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Overview of all ingredients</title>
 </head>
 <body>
 
+<h1>Overview of all ingredients</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Unit</th>
+
+
+    </tr>
+    <tr th:each="ingredient : ${allIngredients}">
+        <td th:text="${ingredient.name}"></td>
+        <td th:text="${ingredient.unit}"></td>
+    </tr>
+    <form th:action="@{/ingredient/new}" method="post" th:object="${newIngredient}">
+        <tr>
+            <td><input type="text" th:field="*{name}"></td>
+            <td>
+                <select th:field="*{unit}">
+                    <option value="TEASPOON">Teaspoon</option>
+                    <option value="TABLESPOON">Tablespoon</option>
+                    <option value="GRAM">Gram</option>
+                    <option value="MILLILITERS">Milliliters</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="Save new ingredient"></td>
+        </tr>
+    </form>
+</table>
+<p>
+    <a th:href="@{/recipe/new}">Add a new recipe</a>
+</p>
 </body>
 </html>

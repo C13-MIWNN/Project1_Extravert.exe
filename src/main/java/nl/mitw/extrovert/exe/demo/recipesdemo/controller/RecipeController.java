@@ -1,6 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
-import nl.mitw.extrovert.exe.demo.recipesdemo.controller.repositories.RecipeRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +27,7 @@ public class RecipeController {
     @GetMapping("/")
     private String showRecipeOverview(Model model) {
         List<Recipe> recipes = new ArrayList<>();
-        recipes.add(new Recipe("Pasta Carbonara", "Cook it", "Pastadish"));
+
 
         model.addAttribute("allRecipes", recipeRepository.findAll());
         return "recipeOverview";
