@@ -8,10 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Nadine Beck
@@ -37,6 +39,7 @@ public class RecipeController {
         return "recipeOverview";
     }
 
+
     @GetMapping("recipe/new")
     private String showRecipeForm (Model model) {
         model.addAttribute("recipe", new Recipe());
@@ -46,10 +49,26 @@ public class RecipeController {
     }
 
     @PostMapping ("recipe/new")
-        private String saveRecipe (@ModelAttribute("recipe") Recipe recipeToBeSaved, BindingResult result) {
-            if (!result.hasErrors()){
-                recipeRepository.save(recipeToBeSaved);
-        }
-            return "redirect:/";
+    private String saveRecipe (@ModelAttribute("recipe") Recipe recipeToBeSaved, BindingResult result) {
+        if (!result.hasErrors()){
+            recipeRepository.save(recipeToBeSaved);
     }
+        return "redirect:/";
+    }
+
+    @GetMapping ("recipe/edit/{recipeName}")
+    private String showEditRecipeForm (@PathVariable("recipeName") String recipeName, Model model) {
+        Optional<Recipe> recipe = recipeRepository.findByName(recipeName);
+
+        if (recipe.isEmpty()) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("recipe", recipe.get());
+        model.addAttribute("allIngredients",ingredientRepository.findAll());
+
+        return "recipeForm";
+    }
+
+
 }
