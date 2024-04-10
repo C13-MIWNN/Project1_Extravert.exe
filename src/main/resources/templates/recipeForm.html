@@ -24,7 +24,14 @@
             <td>
                 <input type="text" id="nameField" th:field="*{name}" />
             </td>
-            <td><input type="text" id="ingredientsField" th:field="*{ingredients}" /></td>
+            <td>
+                <select id="ingredientsField" th:field="*{ingredients}" multiple>
+                    <option th:each="ingredient : ${allIngredients}"
+                            th:text="${ingredient.name}"
+                            th:value="${ingredient.ingredientId}">
+                    </option>
+                </select>
+            </td>
             <td>
                 <input type="text" id="preperationField" th:field="*{preparation}" />
             </td>
