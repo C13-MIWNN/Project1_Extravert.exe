@@ -50,6 +50,10 @@ public class RecipeController {
 
     @PostMapping ("recipe/new")
     private String saveRecipe (@ModelAttribute("recipe") Recipe recipeToBeSaved, BindingResult result) {
+        if (recipeToBeSaved.getRecipeId() == null
+                && recipeRepository.findByName(recipeToBeSaved.getName()).isPresent()) {
+            return "redirect:/recipe/new";
+        }
         if (!result.hasErrors()){
             recipeRepository.save(recipeToBeSaved);
     }
