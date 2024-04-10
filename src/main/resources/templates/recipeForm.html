@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
     <title>Create a new recipe</title>
 </head>
 <body>
 
-<h1>Create a new recipe</h1>
+<div th:replace="~{fragments/general :: navbar}"></div>
 
-<form th:action="@{/recipe/new}" method="post" th:object="${recipe}">
-    <input type="hidden" th:field="*{recipeId}">
-    <table>
-        <tr>
-            <td><label for="nameField">Name</label></td>
-            <td><label for="ingredientsField">Ingredients:</label></td>
-            <td><label for="preperationField">Preperation</label></td>
-            <td><label for="preperationTimeField">Preperation Time:</label></td>
+<div class="container">
+
+    <h1>Create a new recipe</h1>
+
+    <form th:action="@{/recipe/new}" method="post" th:object="${recipe}">
+        <input type="hidden" th:field="*{recipeId}">
+        <table>
+            <tr>
+                <td><label for="nameField">Name</label></td>
+                <td><label for="ingredientsField">Ingredients:</label></td>
+                <td><label for="preperationField">Preperation</label></td>
+                <td><label for="preperationTimeField">Preperation Time:</label></td>
 
 
 
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" id="nameField" th:field="*{name}" />
+                </td>
+                <td>
+                    <select id="ingredientsField" th:field="*{ingredients}" multiple>
+                        <option th:each="ingredient : ${allIngredients}"
+                                th:text="${ingredient.name}"
+                                th:value="${ingredient.ingredientId}">
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" id="preperationField" th:field="*{preparation}" />
+                </td>
 
-        </tr>
-        <tr>
-            <td>
-                <input type="text" id="nameField" th:field="*{name}" />
-            </td>
-            <td>
-                <select id="ingredientsField" th:field="*{ingredients}" multiple>
-                    <option th:each="ingredient : ${allIngredients}"
-                            th:text="${ingredient.name}"
-                            th:value="${ingredient.ingredientId}">
-                    </option>
-                </select>
-            </td>
-            <td>
-                <input type="text" id="preperationField" th:field="*{preparation}" />
-            </td>
-
-            <td>
-                <select id="preperationTimeField" th:field="*{preparationTime}" />
+                <td>
+                    <select id="preperationTimeField" th:field="*{preparationTime}" />
                     <option value="15 min">15 min</option>
                     <option value="30 min">30 min</option>
                     <option value="45 min">45 min</option>
@@ -46,12 +48,17 @@
                     <option value="75 min">75 min</option>
                     <option value="90 min">90 min</option>
                     <option value="90+ min">90+ min</option>
-                </select>
-            </td>
-        </tr>
-    </table>
+                    </select>
+                </td>
+            </tr>
+        </table>
 
-    <input type="submit" value="Save recipe" />
-</form>
+        <input type="submit" value="Save recipe" />
+    </form>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
 </body>
 </html>

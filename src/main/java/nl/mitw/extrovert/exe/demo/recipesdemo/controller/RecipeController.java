@@ -30,7 +30,7 @@ public class RecipeController {
         this.recipeRepository = recipeRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping({"/","/recipe"})
     private String showRecipeOverview(Model model) {
         List<Recipe> recipes = new ArrayList<>();
 
