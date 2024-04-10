@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Nadine Beck
- * Omschrijving
+ * Handles all requests regarding ingredients
  */
 @Controller
 public class IngredientController {

@@ -73,8 +73,15 @@ public class Recipe {
     public String getPreparationTime() {
         return preparationTime;
     }
-
     public void setPreparationTime(String preparationTime) {
         this.preparationTime = preparationTime;
+    }
+
+    public Set<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Set<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }

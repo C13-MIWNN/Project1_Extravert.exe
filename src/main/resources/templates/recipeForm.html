@@ -12,16 +12,23 @@
     <table>
         <tr>
             <td><label for="nameField">Name</label></td>
+            <td><label for="ingredientsField">Ingredients:</label></td>
             <td><label for="preperationField">Preperation</label></td>
             <td><label for="preperationTimeField">Preperation Time:</label></td>
+
+
+
+
         </tr>
         <tr>
             <td>
                 <input type="text" id="nameField" th:field="*{name}" />
             </td>
+            <td><input type="text" id="ingredientsField" th:field="*{ingredients}" /></td>
             <td>
                 <input type="text" id="preperationField" th:field="*{preparation}" />
             </td>
+
             <td>
                 <select id="preperationTimeField" th:field="*{preparationTime}" />
                     <option value="15 min">15 min</option>
@@ -32,7 +39,6 @@
                     <option value="90 min">90 min</option>
                     <option value="90+ min">90+ min</option>
                 </select>
-
             </td>
         </tr>
     </table>

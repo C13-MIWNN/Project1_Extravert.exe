@@ -1,5 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,12 @@ import java.util.List;
  */
 @Controller
 public class RecipeController {
-     private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
+    private final RecipeRepository recipeRepository;
 
-    public RecipeController(RecipeRepository recipeRepository) {
+
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
     }
 
@@ -36,6 +40,8 @@ public class RecipeController {
     @GetMapping("recipe/new")
     private String showRecipeForm (Model model) {
         model.addAttribute("recipe", new Recipe());
+        model.addAttribute("allIngredients",ingredientRepository.findAll());
+
         return "recipeForm";
     }
 
