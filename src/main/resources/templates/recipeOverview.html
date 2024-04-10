@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
     <title>Overview of all recipes</title>
 </head>
 <body>
 
-<h1>Overview of all recipes</h1>
+<div th:replace="~{fragments/general :: navbar}"></div>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Preparation</th>
-        <th>PreparationTime</th>
-        <th>Tags</th>
+<div class="container">
 
-    </tr>
-    <tr th:each="recipe : ${allRecipes}">
-        <td th:text="${recipe.name}"></td>
-        <td th:text="${recipe.preparation}"></td>
-        <td th:text="${recipe.preparationTime}"></td>
-        <td th:text="${recipe.tag}"></td>
-    </tr>
-</table>
-<p>
-    <a th:href="@{/recipe/new}">Add a new recipe</a>
-</p>
+    <h1>Overview of all recipes</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Ingredients</th>
+            <th>Preparation</th>
+            <th>PreparationTime</th>
+            <th>Tags</th>
+
+        </tr>
+        <tr th:each="recipe : ${allRecipes}">
+            <td th:text="${recipe.name}"></td>
+            <td th:text="${recipe.ingredients}"></td>
+            <td th:text="${recipe.preparation}"></td>
+            <td th:text="${recipe.preparationTime}"></td>
+            <td th:text="${recipe.tag}"></td>
+            <td><a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.name})}">Edit recipe</a></td>
+        </tr>
+    </table>
+    <p>
+        <a th:href="@{/recipe/new}">Add a new recipe</a>
+    </p>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
 </body>
 </html>
+
