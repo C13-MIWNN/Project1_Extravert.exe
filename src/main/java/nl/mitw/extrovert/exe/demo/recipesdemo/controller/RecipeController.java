@@ -1,8 +1,10 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +25,13 @@ import java.util.Optional;
 public class RecipeController {
     private final IngredientRepository ingredientRepository;
     private final RecipeRepository recipeRepository;
+    private final TagRepository tagRepository;
 
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, TagRepository tagRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
+        this.tagRepository = tagRepository;
     }
 
     @GetMapping({"/","/recipe"})
@@ -44,6 +48,7 @@ public class RecipeController {
     private String showRecipeForm (Model model) {
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("allIngredients",ingredientRepository.findAll());
+        model.addAttribute("allTags", tagRepository.findAll());
 
         return "recipeForm";
     }
@@ -85,5 +90,11 @@ public class RecipeController {
         model.addAttribute("recipeToBeShown", recipe.get());
         return "recipeDetail";
     }
+
+
+
+
+
+
 
 }
