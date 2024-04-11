@@ -13,17 +13,13 @@
 
     <table>
         <tr>
-            <th>Name</th>
-            <th>Ingredients</th>
-            <th>Preparation</th>
+            <th>Recipes</th>
             <th>PreparationTime</th>
             <th>Tags</th>
 
         </tr>
         <tr th:each="recipe : ${allRecipes}">
-            <td th:text="${recipe.name}"></td>
-            <td th:text="${recipe.ingredients}"></td>
-            <td th:text="${recipe.preparation}"></td>
+            <td><a th:href="@{/recipe/{recipeName}(recipeName = ${recipe.name})}" th:text="${recipe.name}"></a></td>
             <td th:text="${recipe.preparationTime}"></td>
             <td th:text="${recipe.tag}"></td>
             <td><a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.name})}">Edit recipe</a></td>
