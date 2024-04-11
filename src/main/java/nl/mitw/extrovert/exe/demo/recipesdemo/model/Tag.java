@@ -24,4 +24,20 @@ public class Tag {
     public Tag() {
 
     }
+
+    public Long getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(Long tagId) {
+        this.tagId = tagId;
+    }
+
+    public String getNameTag() {
+        return nameTag;
+    }
+
+    public void setNameTag(String nameTag) {
+        this.nameTag = nameTag;
+    }
 }

@@ -24,6 +24,6 @@ public class TagController {
 
 
         model.addAttribute("allTags", tagRepository.findAll());
-        return "tagOverview";
+        return "recipeForm";
     }
 }
