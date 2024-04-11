@@ -2,6 +2,7 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
@@ -39,13 +40,13 @@ public class InitializeController {
         Ingredient milk = makeIngredient("milk",Unit.MILLILITERS);
 
         Recipe dutchVla = makeRecipe("dutch vla", milk, "Stir it",
-                "90 min", "Breakfast");
+                "90 min");
         Recipe scrambledEggs = makeRecipe("Scrambled eggs", eggs, "Scramble it",
-                "15 min", "Breakfast");
+                "15 min");
         Recipe grilledCheese = makeRecipe("Grilled Cheese Sandwich", cheese, "Toast it",
-                "15 min","Lunch");
+                "15 min");
         Recipe milkShake = makeRecipe("Milkshake", milk, "Shake it",
-                "15 min","Dessert");
+                "15 min");
 
 
 
@@ -62,7 +63,7 @@ public class InitializeController {
     }
 
     private Recipe makeRecipe(String name, Ingredient ingredient,
-                              String preparation, String preparationTime, String tag) {
+                              String preparation, String preparationTime) {
         Recipe recipe = new Recipe();
         recipe.setName(name);
 
@@ -72,7 +73,6 @@ public class InitializeController {
 
         recipe.setPreparation(preparation);
         recipe.setPreparationTime(preparationTime);
-        recipe.setTag(tag);
 
         recipeRepository.save(recipe);
         return recipe;
