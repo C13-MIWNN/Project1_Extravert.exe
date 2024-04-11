@@ -14,6 +14,7 @@ public class Tag {
     @Id @GeneratedValue
     private Long tagId;
 
+
     private String nameTag;
 
     public Tag(Long tagId, String nameTag) {
@@ -23,6 +24,11 @@ public class Tag {
 
     public Tag() {
 
+    }
+
+    @Override
+    public String toString() {
+        return nameTag;
     }
 
     public Long getTagId() {
