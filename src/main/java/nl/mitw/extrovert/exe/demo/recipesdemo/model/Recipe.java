@@ -19,19 +19,13 @@ public class Recipe {
 
     private String preparation;
     private String preparationTime;
-    private String tag;
 
     @ManyToMany
     private Set<Ingredient> ingredients;
 
+    @ManyToMany
+    private Set<Tag> tags;
 
-    public Recipe(Long recipeId, String name, String preparation, String preparationTime, String tag) {
-        this.recipeId = recipeId;
-        this.name = name;
-        this.preparation = preparation;
-        this.preparationTime = preparationTime;
-        this.tag = tag;
-    }
 
     public Recipe() {
 
@@ -53,12 +47,12 @@ public class Recipe {
         this.preparation = preparation;
     }
 
-    public String getTag() {
-        return tag;
+    public Set<Tag> getTags() {
+        return tags;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
     }
 
     public Long getRecipeId() {
