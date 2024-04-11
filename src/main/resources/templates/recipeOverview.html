@@ -21,7 +21,7 @@
         <tr th:each="recipe : ${allRecipes}">
             <td><a th:href="@{/recipe/{recipeName}(recipeName = ${recipe.name})}" th:text="${recipe.name}"></a></td>
             <td th:text="${recipe.preparationTime}"></td>
-            <td th:text="${recipe.tag}"></td>
+            <td th:text="${recipe.tags}"></td>
             <td><a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.name})}">Edit recipe</a></td>
         </tr>
     </table>
