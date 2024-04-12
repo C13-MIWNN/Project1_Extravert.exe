@@ -26,11 +26,11 @@
             <tr>
                 <td><input type="text" th:field="*{name}"></td>
                 <td>
-                    <select th:field="*{unit}">
-                        <option value="TEASPOON">Teaspoon</option>
-                        <option value="TABLESPOON">Tablespoon</option>
-                        <option value="GRAM">Gram</option>
-                        <option value="MILLILITERS">Milliliters</option>
+                    <select id="measurementUnitField" th:field="*{unit}">
+                        <option th:each="unit : ${unit} "
+                                th:value="${unit}"
+                                th:text="${unit}">
+                        </option>
                     </select>
                 </td>
             </tr>
