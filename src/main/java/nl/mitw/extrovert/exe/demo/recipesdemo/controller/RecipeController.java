@@ -39,8 +39,7 @@ public class RecipeController {
     private String showRecipeOverview(Model model) {
         List<Recipe> recipes = new ArrayList<>();
         model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
-
-
+        model.addAttribute("allTags", tagRepository.findAll());
         model.addAttribute("allRecipes", recipeRepository.findAll());
         return "recipeOverview";
     }

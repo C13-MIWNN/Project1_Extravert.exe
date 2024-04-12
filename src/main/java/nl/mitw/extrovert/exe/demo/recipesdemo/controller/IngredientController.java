@@ -1,7 +1,5 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
@@ -52,8 +50,8 @@ public class IngredientController {
         return "redirect:/ingredient";
     }
 
-    @GetMapping("/search/{name}")
-    private String showRecipeDetails(@PathVariable("name") String name, Model model) {
+    @GetMapping("/searchByIngredient/{name}")
+    private String searchRecipeByIngredient(@PathVariable("name") String name, Model model) {
         Optional<Ingredient> ingredient = ingredientRepository.findByName(name);
         model.addAttribute("allIngredients",ingredientRepository.findAll());
 

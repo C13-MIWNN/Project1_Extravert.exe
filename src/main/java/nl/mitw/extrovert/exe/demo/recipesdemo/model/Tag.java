@@ -3,6 +3,9 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+
+import java.util.Set;
 
 /**
  * Represents a tag that can belong to one or many recipes
@@ -16,6 +19,10 @@ public class Tag {
 
 
     private String nameTag;
+
+    @ManyToMany(mappedBy = "tags")
+    private Set<Recipe> recipes;
+
 
     public Tag(Long tagId, String nameTag) {
         this.tagId = tagId;
@@ -45,5 +52,13 @@ public class Tag {
 
     public void setNameTag(String nameTag) {
         this.nameTag = nameTag;
+    }
+
+    public Set<Recipe> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(Set<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }
