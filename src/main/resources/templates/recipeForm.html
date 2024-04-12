@@ -16,9 +16,10 @@
         <table>
             <tr>
                 <td><label for="nameField">Name</label></td>
+                <td><label for="servingsField">Servings</label></td>
                 <td><label for="ingredientsField">Ingredients:</label></td>
-                <td><label for="preparationField">Preperation</label></td>
-                <td><label for="preparationTimeField">Preperation Time:</label></td>
+                <td><label for="preparationField">Preparation</label></td>
+                <td><label for="preparationTimeField">Preparation Time:</label></td>
                 <td><label for="TagField">Tags:</label></td>
 
 
@@ -27,6 +28,9 @@
             <tr>
                 <td>
                     <input type="text" id="nameField" th:field="*{name}" />
+                </td>
+                <td>
+                    <input type="text" id="servingsField" th:field="*{numberOfServings}" />
                 </td>
                 <td>
                     <select id="ingredientsField" th:field="*{ingredients}" multiple>

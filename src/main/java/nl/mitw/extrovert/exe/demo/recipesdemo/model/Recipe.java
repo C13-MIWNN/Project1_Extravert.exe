@@ -20,6 +20,7 @@ public class Recipe {
     @Column(columnDefinition = "longtext")
     private String preparation;
     private String preparationTime;
+    private int numberOfServings;
 
     @ManyToMany
     private Set<Ingredient> ingredients;
@@ -77,5 +78,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public int getNumberOfServings() {
+        return numberOfServings;
+    }
+
+    public void setNumberOfServings(int numberOfPortions) {
+        this.numberOfServings = numberOfPortions;
     }
 }
