@@ -15,6 +15,11 @@
 <!--    <ul>-->
 <!--        <li th:each="ingredient : ${ingredientToBeShown.}" th:text="${ingredient.name}"></li>-->
 <!--    </ul>-->
+    <ul>
+        <li th:each="recipe : ${ingredientToBeShown.recipes}"><a th:href="@{/recipe/{name}(name = ${recipe.name})}"
+                                                                 th:text="${recipe.name}"></a></li>
+    </ul>
+
 
 </div>
 
