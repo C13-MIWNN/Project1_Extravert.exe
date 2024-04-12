@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * Nadine Beck
- * Omschrijving
+ * Represents a recipe that can have ingredients and tags
  */
 
 @Entity

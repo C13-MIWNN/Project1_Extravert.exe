@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 /**
- * Hier worden tags aangemaakt
+ * Represents a tag that can belong to one or many recipes
  *
  * @author B.J. Falkena
  */

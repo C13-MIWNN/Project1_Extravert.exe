@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * Nadine Beck
- * Omschrijving
+ * Represents an ingredient that can belong to one or many recipes
  */
 
 @Entity
