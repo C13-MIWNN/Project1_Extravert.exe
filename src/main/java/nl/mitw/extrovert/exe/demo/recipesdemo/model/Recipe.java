@@ -17,6 +17,7 @@ public class Recipe {
     @Column(unique = true)
     private String name;
 
+    @Column(columnDefinition = "longtext")
     private String preparation;
     private String preparationTime;
 
