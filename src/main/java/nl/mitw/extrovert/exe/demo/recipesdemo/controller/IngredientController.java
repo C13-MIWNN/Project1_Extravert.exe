@@ -3,6 +3,7 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +34,7 @@ public class IngredientController {
 
     @GetMapping ("/ingredient")
     private String showAllIngredients(Model model) {
-        model.addAttribute("allIngredients", ingredientRepository.findAll());
+        model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("newIngredient",new Ingredient());
         model.addAttribute("unit",units);
 

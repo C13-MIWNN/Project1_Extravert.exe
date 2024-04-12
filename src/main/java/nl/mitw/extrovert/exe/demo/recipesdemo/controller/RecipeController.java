@@ -5,6 +5,7 @@ import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,7 +38,9 @@ public class RecipeController {
     @GetMapping({"/","/recipe"})
     private String showRecipeOverview(Model model) {
 
-        model.addAttribute("allIngredients",ingredientRepository.findAll());
+
+
+        model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
         model.addAttribute("allRecipes", recipeRepository.findAll());
 
