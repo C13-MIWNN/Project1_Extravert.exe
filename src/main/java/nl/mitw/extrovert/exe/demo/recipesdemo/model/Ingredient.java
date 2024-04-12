@@ -18,6 +18,8 @@ public class Ingredient {
     @Id @GeneratedValue
     private Long ingredientId;
     private String name;
+
+
     private Unit unit;
 
     @ManyToMany(mappedBy = "ingredients")

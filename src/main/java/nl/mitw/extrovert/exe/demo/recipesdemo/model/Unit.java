@@ -5,19 +5,22 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.model;
  *
  * @author B.J. Falkena
  */
+
+
 public enum Unit {
-    TEASPOON("teaspoon"),
-    TABLESPOON("tablespoon"),
-    GRAM("gram"),
-    MILLILITERS("milliliters");
+    tsp("teaspoon"),
+    tbs("tablespoon"),
+    gram("gram"),
+    ml("milliliters"),
+    piece("piece");
 
-    private final String name;
+    private final String value;
 
-    Unit(String name) {
-        this.name = name;
+    Unit(String value) {
+        this.value = value;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 }
