@@ -76,7 +76,7 @@ public class InitializeController {
     }
 
     private Recipe makeRecipe(String name, Ingredient ingredient,
-                              String preparation, String preparationTime, int servingSize, Tag tag) {
+                              String preparation, String preparationTime, int numberOfServings, Tag tag) {
 
         Recipe recipe = new Recipe();
         recipe.setName(name);
@@ -85,7 +85,7 @@ public class InitializeController {
         ingredientSet.add(ingredient);
         recipe.setIngredients(ingredientSet);
 
-        recipe.setNumberOfServings(servingSize);
+        recipe.setNumberOfServings(numberOfServings);
         recipe.setPreparation(preparation);
         recipe.setPreparationTime(preparationTime);
 
