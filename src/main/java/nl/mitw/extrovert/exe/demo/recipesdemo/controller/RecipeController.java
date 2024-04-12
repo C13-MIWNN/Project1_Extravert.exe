@@ -79,7 +79,7 @@ public class RecipeController {
 
         model.addAttribute("recipe", recipe.get());
         model.addAttribute("allIngredients",ingredientRepository.findAll());
-
+        model.addAttribute("allTags", tagRepository.findAll());
         return "recipeForm";
     }
 
