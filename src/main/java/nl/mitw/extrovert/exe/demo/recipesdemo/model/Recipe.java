@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * Nadine Beck
- * Omschrijving
+ * Represents a recipe that can have ingredients and tags
  */
 
 @Entity
@@ -17,6 +17,7 @@ public class Recipe {
     @Column(unique = true)
     private String name;
 
+    @Column(columnDefinition = "longtext")
     private String preparation;
     private String preparationTime;
 

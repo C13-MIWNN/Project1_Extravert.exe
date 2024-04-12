@@ -1,7 +1,7 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
 /**
- * hier de opdracht die je gaat maken
+ * Represents a measuring unit that can only have a set of values
  *
  * @author B.J. Falkena
  */
