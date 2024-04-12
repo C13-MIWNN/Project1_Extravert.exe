@@ -48,17 +48,8 @@
     </table>
     </div>
 
-    <table>
-        <tr>
-            <th>Search recipes by tag</th>
-        </tr>
-        <tr th:each="tag : ${allTags}">
-            <td><a th:href="@{/searchByTag/{nameOfTag}(nameOfTag = ${tag.nameTag})}"
-                   th:text="${tag.nameTag}"></a></td>
-        </tr>
-    </table>
 
-</div>
+</div>git
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>

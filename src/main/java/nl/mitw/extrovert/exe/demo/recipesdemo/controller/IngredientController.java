@@ -59,7 +59,7 @@ public class IngredientController {
         Optional<Ingredient> ingredient = ingredientRepository.findByName(name);
         model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
-        model.addAttribute("allTags",tagRepository.findAll());
+
 
         if(ingredient.isEmpty()) {
             return "redirect:/";
