@@ -37,6 +37,7 @@ public class RecipeController {
     @GetMapping({"/","/recipe"})
     private String showRecipeOverview(Model model) {
         List<Recipe> recipes = new ArrayList<>();
+        model.addAttribute("allIngredients",ingredientRepository.findAll());
 
 
         model.addAttribute("allRecipes", recipeRepository.findAll());
@@ -90,11 +91,4 @@ public class RecipeController {
         model.addAttribute("recipeToBeShown", recipe.get());
         return "recipeDetail";
     }
-
-
-
-
-
-
-
 }
