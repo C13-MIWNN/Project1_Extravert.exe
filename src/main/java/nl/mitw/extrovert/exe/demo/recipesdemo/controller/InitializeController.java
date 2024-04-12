@@ -67,7 +67,7 @@ public class InitializeController {
     private Ingredient makeIngredient(String name, Unit unit) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(name);
-        ingredient.setUnit(unit);
+//        ingredient.setUnit(unit);
         ingredientRepository.save(ingredient);
         return ingredient;
     }

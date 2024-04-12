@@ -18,6 +18,7 @@ public class Ingredient {
     private Unit unit;
 
 
+
     public Long getIngredientId() {
         return ingredientId;
     }

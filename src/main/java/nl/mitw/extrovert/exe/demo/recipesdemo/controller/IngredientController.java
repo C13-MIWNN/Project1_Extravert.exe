@@ -1,6 +1,7 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Nadine Beck
  * Handles all requests regarding ingredients
@@ -16,15 +20,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class IngredientController {
     private final IngredientRepository ingredientRepository;
+    private final List <Unit> units;
 
     public IngredientController(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
+        this.units = Arrays.asList(Unit.values());
     }
 
     @GetMapping ("/ingredient")
     private String showAllIngredients(Model model) {
         model.addAttribute("allIngredients", ingredientRepository.findAll());
         model.addAttribute("newIngredient",new Ingredient());
+        model.addAttribute("unit",units);
 
         return "ingredientOverview";
     }
