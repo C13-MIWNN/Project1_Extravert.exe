@@ -38,10 +38,10 @@ public class InitializeController {
     @GetMapping("/initialize")
     private String initializeDB() {
 
-        Ingredient butter = makeIngredient("butter",Unit.GRAM);
-        Ingredient cheese = makeIngredient("cheese",Unit.GRAM);
-        Ingredient eggs = makeIngredient("eggs",Unit.GRAM);
-        Ingredient milk = makeIngredient("milk",Unit.MILLILITERS);
+        Ingredient butter = makeIngredient("butter",Unit.gram);
+        Ingredient cheese = makeIngredient("cheese",Unit.gram);
+        Ingredient eggs = makeIngredient("eggs",Unit.gram);
+        Ingredient milk = makeIngredient("milk",Unit.ml);
 
 
         Tag breakfast = makeTag("Breakfast");
@@ -67,7 +67,7 @@ public class InitializeController {
     private Ingredient makeIngredient(String name, Unit unit) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(name);
-//        ingredient.setUnit(unit);
+        ingredient.setUnit(unit);
         ingredientRepository.save(ingredient);
         return ingredient;
     }

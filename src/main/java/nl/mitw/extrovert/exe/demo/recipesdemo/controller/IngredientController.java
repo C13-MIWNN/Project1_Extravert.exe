@@ -1,5 +1,7 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;

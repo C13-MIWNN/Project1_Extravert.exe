@@ -15,9 +15,8 @@ public class Ingredient {
     @Id @GeneratedValue
     private Long ingredientId;
     private String name;
+
     private Unit unit;
-
-
 
     public Long getIngredientId() {
         return ingredientId;
