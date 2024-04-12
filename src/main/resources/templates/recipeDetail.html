@@ -19,14 +19,14 @@
     </p>
 
     <h2>Ingredients:</h2>
-    <p>
+
     <ul>
         <li th:each="ingredient : ${recipeToBeShown.ingredients}" th:text="${ingredient.name}"></li>
     </ul>
-    </p>
+
 
     <h2>Preparation:</h2>
-    <p th:text="${recipeToBeShown.preparation}">
+    <p th:text="${recipeToBeShown.preparation}"> </p>
 
 
 </div>

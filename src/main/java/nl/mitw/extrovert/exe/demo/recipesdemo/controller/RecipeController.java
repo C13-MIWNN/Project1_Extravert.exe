@@ -1,6 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
+
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Optional;
 
 /**
