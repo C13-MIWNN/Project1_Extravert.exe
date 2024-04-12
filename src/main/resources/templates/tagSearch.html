@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
-    <title>Overview of all recipes</title>
+    <title th:text="|Recipes including: ${tagsToBeShown.nameTag}|"></title>
+
 </head>
 <body>
 
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
-
-    <h1>Overview of all recipes</h1>
+    <h1>Recipes including: <span th:text="${tagsToBeShown.nameTag}"></span></h1>
 
     <table>
         <tr>
             <th>Recipes</th>
             <th>PreparationTime</th>
-            <th>Tags</th>
         </tr>
-        <tr th:each="recipe : ${allRecipes}">
-            <td><a th:href="@{/recipe/{recipeName}(recipeName = ${recipe.name})}" th:text="${recipe.name}"></a></td>
+        <tr th:each="recipe : ${tagsToBeShown.recipes}">
+            <td><a th:href="@{/recipe/{name}(name = ${recipe.name})}" th:text="${recipe.name}"></a></td>
             <td th:text="${recipe.preparationTime}"></td>
-            <td th:text="${recipe.tags}"></td>
             <td><a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.name})}">Edit recipe</a></td>
         </tr>
     </table>
 
     <div class = "searchBy">
-        <table>
-            <tr>
-                <th>Search recipes by ingredient</th>
-            </tr>
-            <tr th:each="ingredient : ${allIngredients}">
-                <td><a th:href="@{/searchByIngredient/{ingredientName}(ingredientName = ${ingredient.name})}"
-                       th:text="${ingredient.name}"></a></td>
-            </tr>
-        </table>
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <th>Search recipes by ingredient</th>-->
+<!--            </tr>-->
+<!--            <tr th:each="ingredient : ${}">-->
+<!--                <td><a th:href="@{/search/{ingredientName}(ingredientName = ${ingredient.name})}"-->
+<!--                       th:text="${ingredient.name}"></a></td>-->
+<!--            </tr>-->
+<!--        </table>-->
         <table>
             <tr>
                 <th>Search recipes by tag</th>
@@ -46,6 +44,8 @@
         </table>
     </div>
 
+
+
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>
@@ -53,4 +53,3 @@
 
 </body>
 </html>
-
