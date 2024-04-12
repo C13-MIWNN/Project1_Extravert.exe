@@ -23,6 +23,8 @@
             <td th:text="${recipe.tags}"></td>
             <td><a th:href="@{/recipe/edit/{recipeName}(recipeName = ${recipe.name})}">Edit recipe</a></td>
         </tr>
+
+
     </table>
 
     <div class = "searchBy">
@@ -45,6 +47,16 @@
         </tr>
     </table>
     </div>
+
+    <table>
+        <tr>
+            <th>Search recipes by tag</th>
+        </tr>
+        <tr th:each="tag : ${allTags}">
+            <td><a th:href="@{/searchByTag/{nameOfTag}(nameOfTag = ${tag.nameTag})}"
+                   th:text="${tag.nameTag}"></a></td>
+        </tr>
+    </table>
 
 </div>
 

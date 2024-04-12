@@ -51,7 +51,7 @@ public class RecipeController {
     @GetMapping("recipe/new")
     private String showRecipeForm (Model model) {
         model.addAttribute("recipe", new Recipe());
-        model.addAttribute("allIngredients",ingredientRepository.findAll());
+        model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
 
         return "recipeForm";

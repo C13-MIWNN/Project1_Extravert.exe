@@ -1,8 +1,10 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +28,12 @@ import java.util.Optional;
 public class IngredientController {
     private final IngredientRepository ingredientRepository;
     private final List <Unit> units;
+    private final TagRepository tagRepository;
 
-    public IngredientController(IngredientRepository ingredientRepository) {
+    public IngredientController(IngredientRepository ingredientRepository, TagRepository tagRepository) {
         this.ingredientRepository = ingredientRepository;
         this.units = Arrays.asList(Unit.values());
+        this.tagRepository = tagRepository;
     }
 
     @GetMapping ("/ingredient")
@@ -53,7 +57,9 @@ public class IngredientController {
     @GetMapping("/searchByIngredient/{name}")
     private String searchRecipeByIngredient(@PathVariable("name") String name, Model model) {
         Optional<Ingredient> ingredient = ingredientRepository.findByName(name);
-        model.addAttribute("allIngredients",ingredientRepository.findAll());
+        model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
+        model.addAttribute("allTags", tagRepository.findAll());
+        model.addAttribute("allTags",tagRepository.findAll());
 
         if(ingredient.isEmpty()) {
             return "redirect:/";
