@@ -24,15 +24,15 @@
     </table>
 
     <div class = "searchBy">
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <th>Search recipes by ingredient</th>-->
-<!--            </tr>-->
-<!--            <tr th:each="ingredient : ${}">-->
-<!--                <td><a th:href="@{/search/{ingredientName}(ingredientName = ${ingredient.name})}"-->
-<!--                       th:text="${ingredient.name}"></a></td>-->
-<!--            </tr>-->
-<!--        </table>-->
+        <table>
+            <tr>
+                <th>Search recipes by ingredient</th>
+            </tr>
+            <tr th:each="ingredient : ${allIngredients}">
+                <td><a th:href="@{/searchByIngredient/{ingredientName}(ingredientName = ${ingredient.name})}"
+                       th:text="${ingredient.name}"></a></td>
+            </tr>
+        </table>
         <table>
             <tr>
                 <th>Search recipes by tag</th>

@@ -1,6 +1,5 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
 import org.springframework.stereotype.Controller;
@@ -24,10 +23,11 @@ public class tagController {
         this.tagRepository = tagRepository;
     }
 
-    @GetMapping("/searchByTag/{nameTag}")
+    @GetMapping({"/searchByTag/{nameTag}"})
     private String searchRecipeByTag(@PathVariable("nameTag") String nameTag, Model model) {
         Optional<Tag> tag = tagRepository.findByNameTag(nameTag);
         model.addAttribute("allTags",tagRepository.findAll());
+
 
         if(tag.isEmpty()) {
             return "redirect:/";
