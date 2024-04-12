@@ -44,6 +44,7 @@ public class IngredientController {
     @GetMapping("/search/{name}")
     private String showRecipeDetails(@PathVariable("name") String name, Model model) {
         Optional<Ingredient> ingredient = ingredientRepository.findByName(name);
+        model.addAttribute("allIngredients",ingredientRepository.findAll());
 
         if(ingredient.isEmpty()) {
             return "redirect:/";
