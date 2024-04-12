@@ -54,13 +54,13 @@ public class InitializeController {
 
 
         Recipe dutchVla = makeRecipe("dutch vla", milk, "Stir it",
-                "90 min", dessert);
+                "90 min", 2, dessert);
         Recipe scrambledEggs = makeRecipe("Scrambled eggs", eggs, "Scramble it",
-                "15 min", breakfast);
+                "15 min", 1, breakfast);
         Recipe grilledCheese = makeRecipe("Grilled Cheese Sandwich", cheese, "Toast it",
-                "15 min",lunch);
+                "15 min", 1, lunch);
         Recipe milkShake = makeRecipe("Milkshake", milk, "Shake it",
-                "15 min",dessert);
+                "15 min", 4, dessert);
 
 
         return "redirect:/";
@@ -76,7 +76,7 @@ public class InitializeController {
     }
 
     private Recipe makeRecipe(String name, Ingredient ingredient,
-                              String preparation, String preparationTime, Tag tag) {
+                              String preparation, String preparationTime, int servingSize, Tag tag) {
 
         Recipe recipe = new Recipe();
         recipe.setName(name);
@@ -85,6 +85,7 @@ public class InitializeController {
         ingredientSet.add(ingredient);
         recipe.setIngredients(ingredientSet);
 
+        recipe.setNumberOfServings(servingSize);
         recipe.setPreparation(preparation);
         recipe.setPreparationTime(preparationTime);
 

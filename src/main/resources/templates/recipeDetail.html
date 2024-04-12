@@ -13,7 +13,9 @@
     <p th:text="${recipeToBeShown.tags}">
     </p>
 
-    <p th:text="${recipeToBeShown.preparationTime}">
+    <p>Preparation time: <span th:text="${recipeToBeShown.preparationTime}"></span>
+    </p>
+    <p>Servings: <span th:text="${recipeToBeShown.numberOfServings}"></span>
     </p>
 
     <h2>Ingredients:</h2>
