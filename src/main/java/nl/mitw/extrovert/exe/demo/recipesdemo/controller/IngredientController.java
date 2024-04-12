@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Optional;
 
 /**
  * Nadine Beck
@@ -36,6 +39,18 @@ public class IngredientController {
             ingredientRepository.save(ingredient);
         }
         return "redirect:/ingredient";
+    }
+
+    @GetMapping("/search/{name}")
+    private String showRecipeDetails(@PathVariable("name") String name, Model model) {
+        Optional<Ingredient> ingredient = ingredientRepository.findByName(name);
+
+        if(ingredient.isEmpty()) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("ingredientToBeShown", ingredient.get());
+        return "ingredientSearch";
     }
 
 

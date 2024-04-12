@@ -8,9 +8,12 @@ import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 /**
