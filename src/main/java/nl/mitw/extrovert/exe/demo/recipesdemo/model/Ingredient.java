@@ -21,7 +21,7 @@ public class Ingredient {
 
     private Unit unit;
 
-    @OneToMany(mappedBy = "ingredient")
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipes = new ArrayList<>();
 
 

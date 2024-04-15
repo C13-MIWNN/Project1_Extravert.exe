@@ -18,7 +18,7 @@ public class RecipeIngredient {
     @GeneratedValue
     private Long recipeIngredientId;
 
-    private int Amount;
+    private int amount;
 
     @ManyToOne
     private Ingredient ingredient;
@@ -27,6 +27,14 @@ public class RecipeIngredient {
 
     public RecipeIngredient() {
 
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d %s", this.amount, this.ingredient);
+    }
+
+    public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
     }
 
     public Long getRecipeIngredientId() {
@@ -38,11 +46,11 @@ public class RecipeIngredient {
     }
 
     public int getAmount() {
-        return Amount;
+        return amount;
     }
 
     public void setAmount(int amount) {
-        Amount = amount;
+        this.amount = amount;
     }
 
     public Ingredient getIngredient() {

@@ -24,7 +24,7 @@ public class Recipe {
     private String preparationTime;
     private int numberOfServings;
 
-    @OneToMany (mappedBy = "recipe")
+    @OneToMany (mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> ingredients = new ArrayList<>();
 
     @ManyToMany
@@ -34,6 +34,7 @@ public class Recipe {
     public Recipe() {
 
     }
+
 
     public String getName() {
         return name;

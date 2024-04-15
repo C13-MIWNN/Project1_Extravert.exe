@@ -1,7 +1,9 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.RecipeIngredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeIngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
@@ -27,12 +29,14 @@ public class RecipeController {
     private final IngredientRepository ingredientRepository;
     private final RecipeRepository recipeRepository;
     private final TagRepository tagRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
 
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, TagRepository tagRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, TagRepository tagRepository, RecipeIngredientRepository recipeIngredientRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
+        this.recipeIngredientRepository = recipeIngredientRepository;
     }
 
     @GetMapping({"/","/recipe"})
@@ -53,9 +57,22 @@ public class RecipeController {
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
+        model.addAttribute("allRecipeIngredientAmounts",recipeIngredientRepository.findAll());
+        model.addAttribute(("RecipeIngredient"),new RecipeIngredient());
 
         return "recipeForm";
     }
+
+    @PostMapping("/amount/new")
+    private String saveOrUpdateRecipeIngredientAmount
+            (@ModelAttribute("newRecipeIngredientAmount") RecipeIngredient recipeIngredient, BindingResult result) {
+        if (!result.hasErrors()) {
+            recipeIngredientRepository.save(recipeIngredient);
+        }
+
+        return "redirect:/amount";
+    }
+
 
     @PostMapping ("recipe/new")
     private String saveRecipe (@ModelAttribute("recipe") Recipe recipeToBeSaved, BindingResult result) {
