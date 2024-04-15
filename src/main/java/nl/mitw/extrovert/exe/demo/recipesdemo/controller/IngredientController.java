@@ -49,25 +49,12 @@ public class IngredientController {
     @PostMapping("/ingredient/new")
     private String saveOrUpdateIngredient(@ModelAttribute("newIngredient") Ingredient ingredient,
                                           BindingResult result) {
-        if (!result.hasErrors()) {
-            if (ingredient.getIngredientId() == null) {
-                ingredientRepository.save(ingredient);
-            } else {
-                Ingredient existingIngredient =
-                        ingredientRepository.findById(ingredient.getIngredientId()).orElse(null);
-                if (existingIngredient != null) {
 
-                    existingIngredient.setName(ingredient.getName());
-                    existingIngredient.setUnit(ingredient.getUnit());
-
-                    ingredientRepository.save(existingIngredient);
-                } else {
-                    System.out.println("Ingredient with ID " + ingredient.getIngredientId() + " not found");
-                }
-            }
+        if (!result.hasErrors()){
+            ingredientRepository.save(ingredient);
         }
-
         return "redirect:/ingredient";
+
     }
 
     @GetMapping("/searchByIngredient/{name}")
