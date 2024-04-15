@@ -27,12 +27,14 @@
                 <td><input type="text" id="nameField" th:field="*{name}" /></td>
                 <td><input type="text" id="servingsField" th:field="*{numberOfServings}" /></td>
                 <td>
-                    <select id="ingredientsField">
-                        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}" th:text="${ingredient.name}"></option>
+                    <select id="ingredientsField" onchange="updateIngredientAmountField()">
+                        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}"
+                                th:text="${ingredient.name + ' ' + ingredient.unit.value}"></option>
                     </select>
                 </td>
-                <td><input type="number" id="ingredientAmountField"></td>
-                <td><textarea type="text" id="preparationField" rows="5" cols="50" th:field="*{preparation}"></textarea></td>
+                <td><input type="text" id="ingredientAmountField"></td>
+                <td><textarea type="text" id="preparationField" rows="5" cols="50"
+                              th:field="*{preparation}"></textarea></td>
                 <td>
                     <select id="preparationTimeField" th:field="*{preparationTime}">
                         <option value="15 min">15 min</option>
@@ -71,7 +73,6 @@
             p.textContent = ingredientName + ": " + amount;
             displayDiv.appendChild(p);
 
-            // Create hidden input fields to store ingredient id and amount
             var inputIngredientId = document.createElement("input");
             inputIngredientId.type = "hidden";
             inputIngredientId.name = "selectedIngredients";
@@ -84,6 +85,16 @@
 
             displayDiv.appendChild(inputIngredientId);
             displayDiv.appendChild(inputAmount);
+        }
+    </script>
+
+    <script>
+        function updateIngredientAmountField() {
+
+            var selectElement = document.getElementById("ingredientsField");
+            var ingredientAmountField = document.getElementById("ingredientAmountField");
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+            ingredientAmountField.value = selectedOption.textContent.split(' ').pop();
         }
     </script>
 

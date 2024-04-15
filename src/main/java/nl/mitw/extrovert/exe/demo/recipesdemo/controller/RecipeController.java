@@ -69,13 +69,10 @@ public class RecipeController {
             BindingResult recipeResult) {
 
         if (recipeResult.hasErrors()) {
-            // Handle errors
         }
 
-        // Save or update the recipe
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
 
-        // Retrieve and link selected ingredients to the recipe with their amounts
         List<Ingredient> selectedIngredients = ingredientRepository.findAllById(selectedIngredientIds);
         for (int i = 0; i < selectedIngredients.size(); i++) {
             Ingredient ingredient = selectedIngredients.get(i);
@@ -85,7 +82,6 @@ public class RecipeController {
             recipeIngredient.setRecipe(savedRecipe);
             recipeIngredient.setIngredient(ingredient);
             recipeIngredient.setAmount(amount);
-            // You can set other properties of recipeIngredient here if needed
             recipeIngredientRepository.save(recipeIngredient);
         }
 
