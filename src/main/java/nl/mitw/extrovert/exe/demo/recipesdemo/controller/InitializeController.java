@@ -83,7 +83,7 @@ public class InitializeController {
 
         Set<Ingredient> ingredientSet = new HashSet<>();
         ingredientSet.add(ingredient);
-        recipe.setIngredients(ingredientSet);
+//        recipe.setIngredients(ingredientSet);
 
         recipe.setNumberOfServings(numberOfServings);
         recipe.setPreparation(preparation);
