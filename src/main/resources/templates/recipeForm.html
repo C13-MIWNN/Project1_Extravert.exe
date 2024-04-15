@@ -52,42 +52,40 @@
             </tr>
         </table>
 
-
         <button type="button" onclick="addIngredient()">Add Ingredient</button>
 
         <div id="addedIngredients"></div>
 
         <input type="submit" value="Save recipe" />
     </form>
-</div>
 
-<script>
-    function addIngredient() {
-        var ingredientId = document.getElementById("ingredientsField").value;
-        var ingredientName = document.getElementById("ingredientsField")
-            .options[document.getElementById("ingredientsField").selectedIndex].text;
-        var amount = document.getElementById("ingredientAmountField").value;
-        var displayDiv = document.getElementById("addedIngredients");
+    <script>
+        function addIngredient() {
+            var ingredientId = document.getElementById("ingredientsField").value;
+            var ingredientName = document.getElementById("ingredientsField")
+                .options[document.getElementById("ingredientsField").selectedIndex].text;
+            var amount = document.getElementById("ingredientAmountField").value;
+            var displayDiv = document.getElementById("addedIngredients");
 
-        var p = document.createElement("p");
-        p.textContent = ingredientName + ": " + amount;
-        displayDiv.appendChild(p);
+            var p = document.createElement("p");
+            p.textContent = ingredientName + ": " + amount;
+            displayDiv.appendChild(p);
 
-        // Create hidden input fields to store ingredient id and amount
-        var inputIngredientId = document.createElement("input");
-        inputIngredientId.type = "hidden";
-        inputIngredientId.name = "newRecipeIngredientAmount.ingredient.ingredientId";
-        inputIngredientId.value = ingredientId;
+            // Create hidden input fields to store ingredient id and amount
+            var inputIngredientId = document.createElement("input");
+            inputIngredientId.type = "hidden";
+            inputIngredientId.name = "selectedIngredients";
+            inputIngredientId.value = ingredientId;
 
-        var inputAmount = document.createElement("input");
-        inputAmount.type = "hidden";
-        inputAmount.name = "newRecipeIngredientAmount.amount";
-        inputAmount.value = amount;
+            var inputAmount = document.createElement("input");
+            inputAmount.type = "hidden";
+            inputAmount.name = "ingredientAmounts";
+            inputAmount.value = amount;
 
-        displayDiv.appendChild(inputIngredientId);
-        displayDiv.appendChild(inputAmount);
-    }
-</script>
+            displayDiv.appendChild(inputIngredientId);
+            displayDiv.appendChild(inputAmount);
+        }
+    </script>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>

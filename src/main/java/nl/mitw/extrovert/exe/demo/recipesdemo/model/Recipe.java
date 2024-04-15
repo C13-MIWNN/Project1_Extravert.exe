@@ -35,6 +35,12 @@ public class Recipe {
 
     }
 
+    public void addIngredient(Ingredient ingredient, int amount) {
+        RecipeIngredient recipeIngredient = new RecipeIngredient(this, ingredient, amount);
+        ingredients.add(recipeIngredient);
+        ingredient.getRecipes().add(recipeIngredient);
+    }
+
 
     public String getName() {
         return name;

@@ -1,5 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.RecipeIngredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
@@ -11,10 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,20 +64,29 @@ public class RecipeController {
     @PostMapping("/recipe/new")
     private String saveOrUpdateRecipeOrIngredient(
             @ModelAttribute("recipe") Recipe recipeToBeSaved,
-            @ModelAttribute("newRecipeIngredientAmount") RecipeIngredient recipeIngredient,
-            BindingResult recipeResult, BindingResult ingredientResult) {
+            @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
+            @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
+            BindingResult recipeResult) {
 
-        if (!ingredientResult.hasErrors()) {
+        if (recipeResult.hasErrors()) {
+            // Handle errors
+        }
+
+        // Save or update the recipe
+        Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
+
+        // Retrieve and link selected ingredients to the recipe with their amounts
+        List<Ingredient> selectedIngredients = ingredientRepository.findAllById(selectedIngredientIds);
+        for (int i = 0; i < selectedIngredients.size(); i++) {
+            Ingredient ingredient = selectedIngredients.get(i);
+            Integer amount = ingredientAmounts.get(i);
+
+            RecipeIngredient recipeIngredient = new RecipeIngredient();
+            recipeIngredient.setRecipe(savedRecipe);
+            recipeIngredient.setIngredient(ingredient);
+            recipeIngredient.setAmount(amount);
+            // You can set other properties of recipeIngredient here if needed
             recipeIngredientRepository.save(recipeIngredient);
-        }
-
-        if (recipeToBeSaved.getRecipeId() == null
-                && recipeRepository.findByName(recipeToBeSaved.getName()).isPresent()) {
-            return "redirect:/recipe/new";
-        }
-
-        if (!recipeResult.hasErrors()) {
-            recipeRepository.save(recipeToBeSaved);
         }
 
         return "redirect:/";

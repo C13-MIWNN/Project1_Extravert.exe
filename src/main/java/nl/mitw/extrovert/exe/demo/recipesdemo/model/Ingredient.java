@@ -24,6 +24,16 @@ public class Ingredient {
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipes = new ArrayList<>();
 
+    public Ingredient(Long ingredientId, String name, Unit unit, List<RecipeIngredient> recipes) {
+        this.ingredientId = ingredientId;
+        this.name = name;
+        this.unit = unit;
+        this.recipes = recipes;
+    }
+
+    public Ingredient() {
+
+    }
 
     public Long getIngredientId() {
         return ingredientId;
@@ -47,6 +57,14 @@ public class Ingredient {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public List<RecipeIngredient> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<RecipeIngredient> recipes) {
+        this.recipes = recipes;
     }
 
     @Override
