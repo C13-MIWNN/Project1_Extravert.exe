@@ -1,10 +1,9 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -22,9 +21,19 @@ public class Ingredient {
 
     private Unit unit;
 
-    @ManyToMany(mappedBy = "ingredients")
-    private Set<Recipe> recipes;
+    @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RecipeIngredient> recipes = new ArrayList<>();
 
+    public Ingredient(Long ingredientId, String name, Unit unit, List<RecipeIngredient> recipes) {
+        this.ingredientId = ingredientId;
+        this.name = name;
+        this.unit = unit;
+        this.recipes = recipes;
+    }
+
+    public Ingredient() {
+
+    }
 
     public Long getIngredientId() {
         return ingredientId;
@@ -42,20 +51,20 @@ public class Ingredient {
         this.name = name;
     }
 
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
-
     public Unit getUnit() {
         return unit;
     }
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+
+    public List<RecipeIngredient> getRecipes() {
+        return recipes;
+    }
+
+    public void setRecipes(List<RecipeIngredient> recipes) {
+        this.recipes = recipes;
     }
 
     @Override

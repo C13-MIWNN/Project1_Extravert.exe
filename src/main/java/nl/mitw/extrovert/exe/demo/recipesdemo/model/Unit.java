@@ -8,11 +8,11 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
 
 public enum Unit {
-    tsp("teaspoon"),
-    tbs("tablespoon"),
-    gram("gram"),
+    tsp("teaspoons"),
+    tbs("tablespoons"),
+    gram("grams"),
     ml("milliliters"),
-    piece("piece");
+    piece(" ");
 
     private final String value;
 
