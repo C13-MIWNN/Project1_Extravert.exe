@@ -9,36 +9,39 @@
 
 <div class="container">
 
-    <h1>Overview of all ingredients</h1>
+        <h1>Overview of all ingredients</h1>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Unit</th>
-
-
-        </tr>
-        <tr th:each="ingredient : ${allIngredients}">
-            <td th:text="${ingredient.name}"></td>
-            <td th:text="${ingredient.unit}"></td>
-        </tr>
-        <form th:action="@{/ingredient/new}" method="post" th:object="${newIngredient}">
+        <table>
             <tr>
-                <td><input type="text" th:field="*{name}"></td>
-                <td>
-                    <select id="measurementUnitField" th:field="*{unit}">
-                        <option th:each="unit : ${unit} "
-                                th:value="${unit}"
-                                th:text="${unit}">
-                        </option>
-                    </select>
-                </td>
+                <th>Name</th>
+                <th>Unit</th>
+
+
             </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Save new ingredient"></td>
+            <tr th:each="ingredient : ${allIngredients}">
+                <td th:text="${ingredient.name}"></td>
+                <td th:text="${ingredient.unit}"></td>
+                <td><a th:href="@{/ingredient/edit/{ingredientName}(ingredientName = ${ingredient.name})}">
+                    Edit ingredient</a> </td>
             </tr>
-        </form>
-    </table>
+            <form th:action="@{/ingredient/new}" method="post" th:object="${newIngredient}">
+                <tr>
+                    <td><input type="text" th:field="*{name}"></td>
+                    <td>
+                        <select id="measurementUnitField" th:field="*{unit}">
+                            <option th:each="unit : ${unit} "
+                                    th:value="${unit}"
+                                    th:text="${unit}">
+                            </option>
+                        </select>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Save new ingredient"></td>
+                </tr>
+            </form>
+        </table>
 
 
 </div>

@@ -1,6 +1,7 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
@@ -67,6 +68,20 @@ public class IngredientController {
 
         model.addAttribute("ingredientToBeShown", ingredient.get());
         return "ingredientSearch";
+    }
+
+    @GetMapping ("recipe/edit/{ingredientName}")
+    private String showEditIngredientForm (@PathVariable("ingredientName") String ingredientName, Model model) {
+        Optional<Ingredient> ingredient = ingredientRepository.findByName(ingredientName);
+
+        if (ingredient.isEmpty()) {
+            return "redirect:/";
+        }
+
+        model.addAttribute("ingredient", ingredient.get());
+        model.addAttribute("allIngredients",ingredientRepository.findAll());
+
+        return "ingredientForm";
     }
 
 

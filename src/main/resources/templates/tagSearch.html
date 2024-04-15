@@ -23,26 +23,7 @@
         </tr>
     </table>
 
-    <div class = "searchBy">
-        <table>
-            <tr>
-                <th>Search recipes by ingredient</th>
-            </tr>
-            <tr th:each="ingredient : ${allIngredients}">
-                <td><a th:href="@{/searchByIngredient/{ingredientName}(ingredientName = ${ingredient.name})}"
-                       th:text="${ingredient.name}"></a></td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <th>Search recipes by tag</th>
-            </tr>
-            <tr th:each="tag : ${allTags}">
-                <td><a th:href="@{/searchByTag/{nameOfTag}(nameOfTag = ${tag.nameTag})}"
-                       th:text="${tag.nameTag}"></a></td>
-            </tr>
-        </table>
-    </div>
+    <div th:replace="~{fragments/general :: searchBy}"></div>
 
 
 
