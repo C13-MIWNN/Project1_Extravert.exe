@@ -63,26 +63,25 @@ public class RecipeController {
         return "recipeForm";
     }
 
-    @PostMapping("/amount/new")
-    private String saveOrUpdateRecipeIngredientAmount
-            (@ModelAttribute("newRecipeIngredientAmount") RecipeIngredient recipeIngredient, BindingResult result) {
-        if (!result.hasErrors()) {
+    @PostMapping("/recipe/new")
+    private String saveOrUpdateRecipeOrIngredient(
+            @ModelAttribute("recipe") Recipe recipeToBeSaved,
+            @ModelAttribute("newRecipeIngredientAmount") RecipeIngredient recipeIngredient,
+            BindingResult recipeResult, BindingResult ingredientResult) {
+
+        if (!ingredientResult.hasErrors()) {
             recipeIngredientRepository.save(recipeIngredient);
         }
 
-        return "redirect:/amount";
-    }
-
-
-    @PostMapping ("recipe/new")
-    private String saveRecipe (@ModelAttribute("recipe") Recipe recipeToBeSaved, BindingResult result) {
         if (recipeToBeSaved.getRecipeId() == null
                 && recipeRepository.findByName(recipeToBeSaved.getName()).isPresent()) {
             return "redirect:/recipe/new";
         }
-        if (!result.hasErrors()){
+
+        if (!recipeResult.hasErrors()) {
             recipeRepository.save(recipeToBeSaved);
-    }
+        }
+
         return "redirect:/";
     }
 

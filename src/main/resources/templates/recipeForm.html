@@ -18,59 +18,76 @@
                 <td><label for="nameField">Name</label></td>
                 <td><label for="servingsField">Servings</label></td>
                 <td><label for="ingredientsField">Ingredients:</label></td>
+                <td><label for="ingredientAmountField">Amount:</label></td>
                 <td><label for="preparationField">Preparation</label></td>
                 <td><label for="preparationTimeField">Preparation Time:</label></td>
                 <td><label for="TagField">Tags:</label></td>
-
-
-
             </tr>
             <tr>
+                <td><input type="text" id="nameField" th:field="*{name}" /></td>
+                <td><input type="text" id="servingsField" th:field="*{numberOfServings}" /></td>
                 <td>
-                    <input type="text" id="nameField" th:field="*{name}" />
-                </td>
-                <td>
-                    <input type="text" id="servingsField" th:field="*{numberOfServings}" />
-                </td>
-                <td>
-                    <select id="ingredientsField" th:field="*{ingredients}" multiple>
-                        <option th:each="ingredient : ${allIngredients}"
-                                th:text="${ingredient.name}"
-                                th:value="${ingredient.ingredientId}">
-                        </option>
+                    <select id="ingredientsField">
+                        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}" th:text="${ingredient.name}"></option>
                     </select>
                 </td>
+                <td><input type="number" id="ingredientAmountField"></td>
+                <td><textarea type="text" id="preparationField" rows="5" cols="50" th:field="*{preparation}"></textarea></td>
                 <td>
-
-                    <textarea type="text" id="preparationField" rows="5" cols="50" th:field="*{preparation}"></textarea>
-
-                </td>
-
-                <td>
-                    <select id="preparationTimeField" th:field="*{preparationTime}" />
-                    <option value="15 min">15 min</option>
-                    <option value="30 min">30 min</option>
-                    <option value="45 min">45 min</option>
-                    <option value="60 min">60 min</option>
-                    <option value="75 min">75 min</option>
-                    <option value="90 min">90 min</option>
-                    <option value="90+ min">90+ min</option>
+                    <select id="preparationTimeField" th:field="*{preparationTime}">
+                        <option value="15 min">15 min</option>
+                        <option value="30 min">30 min</option>
+                        <option value="45 min">45 min</option>
+                        <option value="60 min">60 min</option>
+                        <option value="75 min">75 min</option>
+                        <option value="90 min">90 min</option>
+                        <option value="90+ min">90+ min</option>
                     </select>
                 </td>
                 <td>
                     <select id="TagField" th:field="*{tags}" multiple>
-                        <option th:each="tag : ${allTags}"
-                                th:text="${tag.nameTag}"
-                                th:value="${tag.tagId}">
-                        </option>
+                        <option th:each="tag : ${allTags}" th:value="${tag.tagId}" th:text="${tag.nameTag}"></option>
                     </select>
                 </td>
             </tr>
         </table>
 
+
+        <button type="button" onclick="addIngredient()">Add Ingredient</button>
+
+        <div id="addedIngredients"></div>
+
         <input type="submit" value="Save recipe" />
     </form>
 </div>
+
+<script>
+    function addIngredient() {
+        var ingredientId = document.getElementById("ingredientsField").value;
+        var ingredientName = document.getElementById("ingredientsField")
+            .options[document.getElementById("ingredientsField").selectedIndex].text;
+        var amount = document.getElementById("ingredientAmountField").value;
+        var displayDiv = document.getElementById("addedIngredients");
+
+        var p = document.createElement("p");
+        p.textContent = ingredientName + ": " + amount;
+        displayDiv.appendChild(p);
+
+        // Create hidden input fields to store ingredient id and amount
+        var inputIngredientId = document.createElement("input");
+        inputIngredientId.type = "hidden";
+        inputIngredientId.name = "newRecipeIngredientAmount.ingredient.ingredientId";
+        inputIngredientId.value = ingredientId;
+
+        var inputAmount = document.createElement("input");
+        inputAmount.type = "hidden";
+        inputAmount.name = "newRecipeIngredientAmount.amount";
+        inputAmount.value = amount;
+
+        displayDiv.appendChild(inputIngredientId);
+        displayDiv.appendChild(inputAmount);
+    }
+</script>
 
 <div th:replace="~{fragments/general :: footer}"></div>
 <div th:replace="~{fragments/general :: bottomScripts}"></div>
