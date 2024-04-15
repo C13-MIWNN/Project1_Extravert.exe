@@ -2,6 +2,8 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,9 +20,11 @@ public class Recipe {
     private String name;
 
     @Column(columnDefinition = "longtext")
-    private String preparation;
     private String preparationTime;
     private int numberOfServings;
+
+    @ElementCollection @OrderColumn
+    private List<String> recipeSteps = new ArrayList<>();
 
     @ManyToMany
     private Set<Ingredient> ingredients;
@@ -39,14 +43,6 @@ public class Recipe {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPreparation() {
-        return preparation;
-    }
-
-    public void setPreparation(String preparation) {
-        this.preparation = preparation;
     }
 
     public Set<Tag> getTags() {
@@ -86,5 +82,13 @@ public class Recipe {
 
     public void setNumberOfServings(int numberOfPortions) {
         this.numberOfServings = numberOfPortions;
+    }
+
+    public List<String> getRecipeSteps() {
+        return recipeSteps;
+    }
+
+    public void setRecipeSteps(List<String> recipeSteps) {
+        this.recipeSteps = recipeSteps;
     }
 }

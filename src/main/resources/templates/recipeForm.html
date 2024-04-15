@@ -18,12 +18,8 @@
                 <td><label for="nameField">Name</label></td>
                 <td><label for="servingsField">Servings</label></td>
                 <td><label for="ingredientsField">Ingredients:</label></td>
-                <td><label for="preparationField">Preparation</label></td>
                 <td><label for="preparationTimeField">Preparation Time:</label></td>
                 <td><label for="TagField">Tags:</label></td>
-
-
-
             </tr>
             <tr>
                 <td>
@@ -40,12 +36,6 @@
                         </option>
                     </select>
                 </td>
-                <td>
-
-                    <textarea type="text" id="preparationField" rows="5" cols="50" th:field="*{preparation}"></textarea>
-
-                </td>
-
                 <td>
                     <select id="preparationTimeField" th:field="*{preparationTime}" />
                     <option value="15 min">15 min</option>
@@ -67,9 +57,33 @@
                 </td>
             </tr>
         </table>
+        <table id="stepsTable">
+            <td><label for="recipeStepInput">Preparation:</label></td>
+            <tr th:each="step, index : *{recipeSteps}">
+                <td><input type="text" id="recipeStepInput"
+                           th:field="*{recipeSteps[__${index.index}__]}" size="77"/>
+                </td>
+            </tr>
+        </table>
+
+        <button type="button" onclick="addStep()">Add another step</button>
+
 
         <input type="submit" value="Save recipe" />
     </form>
+
+    <script th:inline="javascript">
+        function addStep() {
+            var stepsTable = document.getElementById('stepsTable');
+            var newRow = stepsTable.insertRow(-1);
+            var cell = newRow.insertCell(0);
+
+            var newInput = document.createElement('input');
+            newInput.setAttribute('type', 'text');
+            newInput.setAttribute('name', 'recipeSteps');
+            cell.appendChild(newInput);
+        }
+    </script>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

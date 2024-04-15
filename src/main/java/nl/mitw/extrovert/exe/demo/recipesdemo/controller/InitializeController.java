@@ -12,9 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Jeroen van der Weide
@@ -86,7 +84,7 @@ public class InitializeController {
         recipe.setIngredients(ingredientSet);
 
         recipe.setNumberOfServings(numberOfServings);
-        recipe.setPreparation(preparation);
+        recipe.setRecipeSteps(makeRecipeStep());
         recipe.setPreparationTime(preparationTime);
 
         Set<Tag> tagSet = new HashSet<>();
@@ -103,4 +101,19 @@ public class InitializeController {
         tagRepository.save(tag);
         return tag;
     }
+
+    private List<String> makeRecipeStep() {
+        List<String> steps = new ArrayList<>();
+        steps.add("*First you do this*");
+        steps.add("*Secondly you do this*");
+        steps.add("*Don't forget to do this*");
+        steps.add("*And then you do this*");
+        steps.add("*Finally you do this*");
+        steps.add("*But also you do this*");
+        steps.add("*Finish it by doing this*");
+
+        return steps;
+    }
+
+
 }
