@@ -49,9 +49,24 @@ public class IngredientController {
     @PostMapping("/ingredient/new")
     private String saveOrUpdateIngredient(@ModelAttribute("newIngredient") Ingredient ingredient,
                                           BindingResult result) {
-        if (!result.hasErrors()){
-            ingredientRepository.save(ingredient);
+        if (!result.hasErrors()) {
+            if (ingredient.getIngredientId() == null) {
+                ingredientRepository.save(ingredient);
+            } else {
+                Ingredient existingIngredient =
+                        ingredientRepository.findById(ingredient.getIngredientId()).orElse(null);
+                if (existingIngredient != null) {
+
+                    existingIngredient.setName(ingredient.getName());
+                    existingIngredient.setUnit(ingredient.getUnit());
+
+                    ingredientRepository.save(existingIngredient);
+                } else {
+                    System.out.println("Ingredient with ID " + ingredient.getIngredientId() + " not found");
+                }
+            }
         }
+
         return "redirect:/ingredient";
     }
 
@@ -70,7 +85,7 @@ public class IngredientController {
         return "ingredientSearch";
     }
 
-    @GetMapping ("recipe/edit/{ingredientName}")
+    @GetMapping ("ingredient/edit/{ingredientName}")
     private String showEditIngredientForm (@PathVariable("ingredientName") String ingredientName, Model model) {
         Optional<Ingredient> ingredient = ingredientRepository.findByName(ingredientName);
 
@@ -80,6 +95,7 @@ public class IngredientController {
 
         model.addAttribute("ingredient", ingredient.get());
         model.addAttribute("allIngredients",ingredientRepository.findAll());
+        model.addAttribute("unit",units);
 
         return "ingredientForm";
     }
