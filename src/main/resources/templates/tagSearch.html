@@ -14,7 +14,7 @@
     <table>
         <tr>
             <th>Recipes</th>
-            <th>PreparationTime</th>
+            <th>Total Time</th>
         </tr>
         <tr th:each="recipe : ${tagsToBeShown.recipes}">
             <td><a th:href="@{/recipe/{name}(name = ${recipe.name})}" th:text="${recipe.name}"></a></td>
