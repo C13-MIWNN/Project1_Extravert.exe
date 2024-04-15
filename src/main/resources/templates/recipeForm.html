@@ -57,19 +57,21 @@
                 </td>
             </tr>
         </table>
+        <h2>Directions
+        </h2>
+        <p>Click on "Next step" to add step-by-step directions to your recipe</p>
         <table id="stepsTable">
-            <td><label for="recipeStepInput">Preparation:</label></td>
+            <td><label for="recipeStepInput">Steps:</label></td>
+            <button type="button" onclick="addStep()">Next step</button>
             <tr th:each="step, index : *{recipeSteps}">
                 <td><input type="text" id="recipeStepInput"
-                           th:field="*{recipeSteps[__${index.index}__]}" size="77"/>
+                           th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
                 </td>
             </tr>
         </table>
-
-        <button type="button" onclick="addStep()">Add another step</button>
-
-
-        <input type="submit" value="Save recipe" />
+        <div>
+                <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
+        </div>
     </form>
 
     <script th:inline="javascript">

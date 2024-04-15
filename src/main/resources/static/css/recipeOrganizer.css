@@ -19,3 +19,12 @@ footer {
     background-color: #466f67;
     padding: 35px 0;
 }
+
+#submitButton {
+    font-size: 24px;
+    width: 250px;
+    top:77%;
+    left:75%;
+    height:55px;
+    position: fixed;
+}
