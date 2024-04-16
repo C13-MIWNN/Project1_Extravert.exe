@@ -29,7 +29,7 @@
                 <td><input type="text" id="nameField" th:field="*{name}" /></td>
                 <td><input type="text" id="servingsField" th:field="*{numberOfServings}" /></td>
                 <td>
-                    <select id="ingredientsField" onchange="updateIngredientAmountField()">
+                    <select id="ingredientsField">
                         <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}"
                                 th:text="${ingredient.name + ' ' + ingredient.unit.value}"></option>
                     </select>

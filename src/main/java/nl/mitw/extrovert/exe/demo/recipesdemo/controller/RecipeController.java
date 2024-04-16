@@ -60,7 +60,7 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/new")
-    private String saveOrUpdateRecipeOrIngredient(
+    private String saveOrUpdateRecipe(
             @ModelAttribute("recipe") Recipe recipeToBeSaved,
             @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
             @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
@@ -79,7 +79,6 @@ public class RecipeController {
             recipeIngredient.setAmount(amount);
             recipeIngredientRepository.save(recipeIngredient);
 
-
         }
 
         return "redirect:/";
@@ -96,8 +95,6 @@ public class RecipeController {
         model.addAttribute("recipe", recipe.get());
         model.addAttribute("allIngredients",ingredientRepository.findAll());
         model.addAttribute("allTags", tagRepository.findAll());
-        model.addAttribute("allRecipeIngredientAmounts",recipeIngredientRepository.findAll());
-
         return "recipeForm";
     }
 
