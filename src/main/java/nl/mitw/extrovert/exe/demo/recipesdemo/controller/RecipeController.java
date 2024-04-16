@@ -1,5 +1,4 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
-
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.RecipeIngredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
@@ -14,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

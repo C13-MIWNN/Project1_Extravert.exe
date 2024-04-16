@@ -13,22 +13,24 @@
     <p th:text="${recipeToBeShown.tags}">
     </p>
 
-    <p>Preparation time: <span th:text="${recipeToBeShown.preparationTime}"></span>
+    <p>Total time: <span th:text="${recipeToBeShown.preparationTime}"></span>
     </p>
     <p>Servings: <span th:text="${recipeToBeShown.numberOfServings}"></span>
     </p>
 
     <h2>Ingredients:</h2>
-    <p>
+
     <ul>
         <li th:each="ingredient : ${recipeToBeShown.ingredients}" th:text="${ingredient.name}"></li>
     </ul>
-    </p>
+
 
     <h2>Preparation:</h2>
+
     <ol id="recipeStepList" type="1">
         <li th:each="step : ${recipeToBeShown.recipeSteps}" th:text="${step}"></li>
     </ol>
+
 
 
 
