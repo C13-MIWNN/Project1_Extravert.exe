@@ -1,7 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.RecipeIngredient;
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeIngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
@@ -94,10 +93,8 @@ public class RecipeController {
         if (optionalRecipe.isPresent()) {
             Recipe recipe = optionalRecipe.get();
 
-            // Fetch RecipeIngredients for the specific recipe
             List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.findByRecipe(recipe);
 
-            // Add recipe, ingredients, tags, and recipeIngredients to the model
             model.addAttribute("recipe", recipe);
             model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
             model.addAttribute("allTags", tagRepository.findAll());
@@ -105,8 +102,8 @@ public class RecipeController {
 
             return "editRecipeForm";
         } else {
-            // Handle case where recipe with given id is not found
-            return "redirect:/"; // Or any appropriate error handling
+
+            return "redirect:/";
         }
     }
 
