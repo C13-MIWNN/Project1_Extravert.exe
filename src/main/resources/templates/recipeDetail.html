@@ -18,12 +18,15 @@
     <p>Servings: <span th:text="${recipeToBeShown.numberOfServings}"></span>
     </p>
 
-    <h2>Ingredients:</h2>
-
-<!--    <ul>-->
-<!--        <li th:each="ingredient : ${recipeToBeShown.getIngredients()}" th:text="${ingredient.name}"></li>-->
-<!--    </ul>-->
-
+    <table class>
+        <tr>
+            <th>Ingredients</th>
+        </tr>
+    <tr th:each="recipeIngredient : ${recipeToBeShown.getIngredients()}">
+        <td th:text="${recipeIngredient.ingredient.name}"></td>
+        <td th:text="${recipeIngredient.amount + ' ' + recipeIngredient.ingredient.unit}"></td>
+    </tr>
+    </table>
 
     <h2>Preparation:</h2>
 
