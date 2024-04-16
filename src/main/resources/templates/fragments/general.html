@@ -23,6 +23,28 @@
     </ul>
 </div>
 
+<div th:fragment="searchBy">
+    <table>
+        <tr>
+            <th>Search recipes by ingredient</th>
+        </tr>
+        <tr th:each="ingredient : ${allIngredients}">
+            <td><a th:href="@{/searchByIngredient/{ingredientName}(ingredientName = ${ingredient.name})}"
+                   th:text="${ingredient.name}"></a></td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <th>Search recipes by tag</th>
+        </tr>
+        <tr th:each="tag : ${allTags}">
+            <td><a th:href="@{/searchByTag/{nameOfTag}(nameOfTag = ${tag.nameTag})}"
+                   th:text="${tag.nameTag}"></a></td>
+        </tr>
+    </table>
+</div>
+
+
 <div th:fragment="footer">
     <footer><p class="text-center text text-muted">Copyright Extrovert.exe.inc &copy;2024</p></footer>
 </div>
@@ -32,6 +54,7 @@
     <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </div>
+
 
 </body>
 </html>

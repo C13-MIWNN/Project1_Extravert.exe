@@ -19,16 +19,18 @@
     </p>
 
     <h2>Ingredients:</h2>
-    <p>
+
     <ul>
         <li th:each="ingredient : ${recipeToBeShown.ingredients}" th:text="${ingredient.name}"></li>
     </ul>
-    </p>
+
 
     <h2>Preparation:</h2>
+
     <ol id="recipeStepList" type="1">
         <li th:each="step : ${recipeToBeShown.recipeSteps}" th:text="${step}"></li>
     </ol>
+
 
 
 

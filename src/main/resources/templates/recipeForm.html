@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
-    <title>Create a new recipe</title>
+    <title>Create or edit a recipe</title>
 </head>
 <body>
 
@@ -9,7 +9,7 @@
 
 <div class="container">
 
-    <h1>Create a new recipe</h1>
+    <h1>Create or edit a recipe</h1>
 
     <form th:action="@{/recipe/new}" method="post" th:object="${recipe}">
         <input type="hidden" th:field="*{recipeId}">
@@ -37,7 +37,9 @@
                     </select>
                 </td>
                 <td>
+
                     <select id="preparationTimeField" th:field="*{preparationTime}" />
+
                     <option value="15 min">15 min</option>
                     <option value="30 min">30 min</option>
                     <option value="45 min">45 min</option>

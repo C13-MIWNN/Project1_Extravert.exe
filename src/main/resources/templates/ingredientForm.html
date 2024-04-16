@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
+    <title>Edit an ingredient </title>
+</head>
+<body>
+
+<div th:replace="~{fragments/general :: navbar}"></div>
+
+<div class="container">
+
+    <h1>Edit an ingredient </h1>
+
+    <form th:action="@{/ingredient/new}" method="post" th:object="${ingredient}">
+        <input type="hidden" th:field="*{ingredientId}">
+        <table>
+            <tr>
+                <td><label for="nameField">Name</label></td>
+                <td><label for="measurementUnitField">Unit</label></td>
+
+            </tr>
+            <tr>
+                <td><input id="nameField" type="text" th:field="*{name}"></td>
+                <td>
+                    <select id="measurementUnitField" th:field="*{unit}">
+                        <option th:each="unit : ${unit} "
+                                th:value="${unit}"
+                                th:text="${unit}">
+                        </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" value="Save ingredient"></td>
+            </tr>
+        </table>
+    </form>
+    <p></p>
+    <a th:href="@{/ingredient}">Back to ingredient overview</a>
+</div>
+
+<div th:replace="~{fragments/general :: footer}"></div>
+<div th:replace="~{fragments/general :: bottomScripts}"></div>
+
+</body>
+</html>
