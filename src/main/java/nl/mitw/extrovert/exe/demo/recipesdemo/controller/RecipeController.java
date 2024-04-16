@@ -65,6 +65,9 @@ public class RecipeController {
             @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
             @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
             BindingResult recipeResult) {
+        if (recipeResult.hasErrors()) {
+            return "redirect:/";
+        }
 
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
 
