@@ -26,7 +26,12 @@
 
 
     <h2>Preparation:</h2>
-    <p th:text="${recipeToBeShown.preparation}"> </p>
+
+    <ol id="recipeStepList" type="1">
+        <li th:each="step : ${recipeToBeShown.recipeSteps}" th:text="${step}"></li>
+    </ol>
+
+
 
 
 </div>
