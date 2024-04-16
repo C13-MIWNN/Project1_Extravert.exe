@@ -22,8 +22,8 @@
 
     <ul>
         <li th:each="recipeIngredient : ${recipeToBeShown.getIngredients()}"
-            th:text="${recipeIngredient.ingredient.name + ' ' +
-            recipeIngredient.ingredient.unit}"></li>
+            th:text="${recipeIngredient.ingredient.name + ' ' + recipeIngredient.amount + ' ' +
+            recipeIngredient.ingredient}"></li>
     </ul>
 
 
