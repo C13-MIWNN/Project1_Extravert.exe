@@ -38,8 +38,6 @@ public class RecipeController {
     @GetMapping({"/","/recipe"})
     private String showRecipeOverview(Model model) {
 
-
-
         model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
         model.addAttribute("allRecipes", recipeRepository.findAll());
@@ -65,7 +63,8 @@ public class RecipeController {
             @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
             @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
             BindingResult recipeResult) {
-        if (recipeResult.hasErrors()) {
+
+        if (!recipeResult.hasErrors()) {
             return "redirect:/";
         }
 
@@ -84,22 +83,26 @@ public class RecipeController {
 
         }
 
-        return "redirect:/";
+        return "recipeForm";
     }
 
     @GetMapping ("recipe/edit/{recipeName}")
-    private String showEditRecipeForm (@PathVariable("recipeName") String recipeName, Model model) {
-        Optional<Recipe> recipe = recipeRepository.findByName(recipeName);
-
-        if (recipe.isEmpty()) {
+    private String showEditRecipeForm(@PathVariable Long id, Model model) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+        if (optionalRecipe.isPresent()) {
+            Recipe recipe = optionalRecipe.get();
+            model.addAttribute("recipe", recipe);
+            model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
+            model.addAttribute("allTags", tagRepository.findAll());
+            model.addAttribute("allRecipeIngredientAmounts", recipeIngredientRepository.findAll());
+            model.addAttribute("RecipeIngredient", new RecipeIngredient());
+            return "recipeForm";
+        } else {
             return "redirect:/";
         }
-
-        model.addAttribute("recipe", recipe.get());
-        model.addAttribute("allIngredients",ingredientRepository.findAll());
-        model.addAttribute("allTags", tagRepository.findAll());
-        return "recipeForm";
     }
+
+
 
     @GetMapping("/recipe/{name}")
     private String showRecipeDetails(@PathVariable("name") String name, Model model) {
