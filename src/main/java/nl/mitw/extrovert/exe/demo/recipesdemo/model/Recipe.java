@@ -2,6 +2,8 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**

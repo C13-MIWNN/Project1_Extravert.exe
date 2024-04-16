@@ -20,7 +20,7 @@
                 <td><label for="ingredientsField">Ingredients:</label></td>
                 <td><label for="ingredientAmountField">Amount:</label></td>
                 <td><label for="preparationField">Preparation</label></td>
-                <td><label for="preparationTimeField">Preparation Time:</label></td>
+                <td><label for="preparationTimeField">Preparation Time</label></td>
                 <td><label for="TagField">Tags:</label></td>
 
 
@@ -56,6 +56,11 @@
                 </td>
             </tr>
         </table>
+
+        <button type="button" onclick="addIngredient()">Add Ingredient</button>
+
+        <div id="addedIngredients"></div>
+
         <h2>Directions
         </h2>
         <p>Click on "Next step" to add step-by-step directions to your recipe</p>
@@ -71,26 +76,9 @@
         <div>
                 <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
         </div>
-
-        <button type="button" onclick="addIngredient()">Add Ingredient</button>
-
-        <div id="addedIngredients"></div>
-
-        <input type="submit" value="Save recipe" />
     </form>
 
-    <script th:inline="javascript">
-        function addStep() {
-            var stepsTable = document.getElementById('stepsTable');
-            var newRow = stepsTable.insertRow(-1);
-            var cell = newRow.insertCell(0);
 
-            var newInput = document.createElement('input');
-            newInput.setAttribute('type', 'text');
-            newInput.setAttribute('name', 'recipeSteps');
-            cell.appendChild(newInput);
-        }
-    </script>
 
 
     <script>
@@ -127,6 +115,19 @@
             var ingredientAmountField = document.getElementById("ingredientAmountField");
             var selectedOption = selectElement.options[selectElement.selectedIndex];
             ingredientAmountField.value = selectedOption.textContent.split(' ').pop();
+        }
+    </script>
+
+    <script th:inline="javascript">
+        function addStep() {
+            var stepsTable = document.getElementById('stepsTable');
+            var newRow = stepsTable.insertRow(-1);
+            var cell = newRow.insertCell(0);
+
+            var newInput = document.createElement('input');
+            newInput.setAttribute('type', 'text');
+            newInput.setAttribute('name', 'recipeSteps');
+            cell.appendChild(newInput);
         }
     </script>
 </div>

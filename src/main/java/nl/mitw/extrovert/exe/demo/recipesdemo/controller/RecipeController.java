@@ -68,9 +68,6 @@ public class RecipeController {
             @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
             BindingResult recipeResult) {
 
-        if (recipeResult.hasErrors()) {
-        }
-
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
 
         List<Ingredient> selectedIngredients = ingredientRepository.findAllById(selectedIngredientIds);
@@ -82,7 +79,10 @@ public class RecipeController {
             recipeIngredient.setRecipe(savedRecipe);
             recipeIngredient.setIngredient(ingredient);
             recipeIngredient.setAmount(amount);
-            recipeIngredientRepository.save(recipeIngredient);
+            if (!recipeResult.hasErrors()) {
+                recipeIngredientRepository.save(recipeIngredient);
+            }
+
         }
 
         return "redirect:/";
