@@ -23,7 +23,7 @@
     <ul>
         <li th:each="recipeIngredient : ${recipeToBeShown.getIngredients()}"
             th:text="${recipeIngredient.ingredient.name + ' ' + recipeIngredient.amount + ' ' +
-            recipeIngredient.ingredient}"></li>
+            recipeIngredient.ingredient.unit}"></li>
     </ul>
 
 
