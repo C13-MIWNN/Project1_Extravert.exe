@@ -1,9 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
+import nl.mitw.extrovert.exe.demo.recipesdemo.model.*;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
@@ -50,17 +47,6 @@ public class InitializeController {
         Tag dessert = makeTag("Dessert");
 
 
-
-        Recipe dutchVla = makeRecipe("dutch vla", milk, "Stir it",
-                "90 min", 2, dessert);
-        Recipe scrambledEggs = makeRecipe("Scrambled eggs", eggs, "Scramble it",
-                "15 min", 1, breakfast);
-        Recipe grilledCheese = makeRecipe("Grilled Cheese Sandwich", cheese, "Toast it",
-                "15 min", 1, lunch);
-        Recipe milkShake = makeRecipe("Milkshake", milk, "Shake it",
-                "15 min", 4, dessert);
-
-
         return "redirect:/";
     }
 
@@ -71,28 +57,6 @@ public class InitializeController {
         ingredient.setUnit(unit);
         ingredientRepository.save(ingredient);
         return ingredient;
-    }
-
-    private Recipe makeRecipe(String name, Ingredient ingredient,
-                              String preparation, String preparationTime, int numberOfServings, Tag tag) {
-
-        Recipe recipe = new Recipe();
-        recipe.setName(name);
-
-        Set<Ingredient> ingredientSet = new HashSet<>();
-        ingredientSet.add(ingredient);
-//        recipe.setIngredients(ingredientSet);
-
-        recipe.setNumberOfServings(numberOfServings);
-        recipe.setRecipeSteps(makeRecipeStep());
-        recipe.setPreparationTime(preparationTime);
-
-        Set<Tag> tagSet = new HashSet<>();
-        tagSet.add(tag);
-        recipe.setTags(tagSet);
-
-        recipeRepository.save(recipe);
-        return recipe;
     }
 
     private Tag makeTag(String name) {

@@ -94,4 +94,12 @@ public class Recipe {
     public void setRecipeSteps(List<String> recipeSteps) {
         this.recipeSteps = recipeSteps;
     }
+
+    public List<RecipeIngredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<RecipeIngredient> ingredients) {
+        this.ingredients = ingredients;
+    }
 }

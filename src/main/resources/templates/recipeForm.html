@@ -19,7 +19,6 @@
                 <td><label for="servingsField">Number of servings:</label></td>
                 <td><label for="ingredientsField">Ingredients:</label></td>
                 <td><label for="ingredientAmountField">Amount:</label></td>
-                <td><label for="preparationField">Preparation</label></td>
                 <td><label for="preparationTimeField">Preparation Time</label></td>
                 <td><label for="TagField">Tags:</label></td>
 
@@ -36,10 +35,8 @@
                     </select>
                 </td>
                 <td><input type="text" id="ingredientAmountField"></td>
-                <td><textarea type="text" id="preparationField" rows="5" cols="50"
-                              th:field="*{preparation}"></textarea></td>
+
                 <td>
-<<<<<<< HEAD
                     <select id="preparationTimeField" th:field="*{preparationTime}">
                         <option value="15 min">15 min</option>
                         <option value="30 min">30 min</option>
@@ -109,15 +106,7 @@
         }
     </script>
 
-    <script>
-        function updateIngredientAmountField() {
 
-            var selectElement = document.getElementById("ingredientsField");
-            var ingredientAmountField = document.getElementById("ingredientAmountField");
-            var selectedOption = selectElement.options[selectElement.selectedIndex];
-            ingredientAmountField.value = selectedOption.textContent.split(' ').pop();
-        }
-    </script>
 
     <script th:inline="javascript">
         function addStep() {
