@@ -5,6 +5,9 @@ import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeIngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.services.CulinaryCompanionUserService;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,20 +28,33 @@ public class InitializeController {
     private final TagRepository tagRepository;
     private final RecipeIngredientRepository recipeIngredientRepository;
 
+    private final CulinaryCompanionUserService culinaryCompanionUserService;
+
 
     public InitializeController(IngredientRepository ingredientRepository,
                                 RecipeRepository recipeRepository,
                                 TagRepository tagRepository,
-                                RecipeIngredientRepository recipeIngredientRepository) {
+                                RecipeIngredientRepository recipeIngredientRepository,
+                                CulinaryCompanionUserService culinaryCompanionUserService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
+        this.culinaryCompanionUserService = culinaryCompanionUserService;
     }
-
+    @EventListener
+    private void seed(ContextRefreshedEvent event) {
+        if (culinaryCompanionUserService.isNotInitialised()) {
+            initializeDB();
+        }
+    }
 
     @GetMapping("/initialize")
     private String initializeDB() {
+        CulinaryCompanionUser jeroen = makeUser("Jeroen","Jeroen");
+        CulinaryCompanionUser bart = makeUser("Bart", "Bart");
+        CulinaryCompanionUser nadine = makeUser("Nadine","Nadine");
+
 
         Ingredient butter = makeIngredient("butter",Unit.gram);
         Ingredient cheese = makeIngredient("cheese",Unit.gram);
@@ -49,6 +65,7 @@ public class InitializeController {
         Tag breakfast = makeTag("Breakfast");
         Tag lunch = makeTag("Lunch");
         Tag dessert = makeTag("Dessert");
+
 
         Recipe dutchVla = makeRecipe("dutch vla", milk, 400,
                 "90 min", 2, dessert);
@@ -120,5 +137,13 @@ public class InitializeController {
         recipeIngredientRepository.save(recipeIngredient);
 
         return recipe;
+    }
+
+    private CulinaryCompanionUser makeUser(String username, String password) {
+        CulinaryCompanionUser user = new CulinaryCompanionUser();
+        user.setUsername(username);
+        user.setPassword(password);
+        culinaryCompanionUserService.saveUser(user);
+        return user;
     }
 }

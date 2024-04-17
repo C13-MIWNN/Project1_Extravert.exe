@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org">
+
 <head th:fragment="baseHeader(title)">
     <meta charset="UTF-8">
     <title th:replace="${title}"></title>
@@ -19,6 +21,12 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" th:href="@{/recipe/new}">Add Recipe</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAnonymous()">
+            <a class="nav-link" th:href="@{/login}">Login</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
+            <a class="nav-link" th:href="@{/logout}"><span sec:authentication="name"></span> Logout</a>
         </li>
     </ul>
 </div>
