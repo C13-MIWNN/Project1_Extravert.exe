@@ -58,20 +58,6 @@ public class IngredientController {
 
     }
 
-    @GetMapping("/searchByIngredient/{name}")
-    private String searchRecipeByIngredient(@PathVariable("name") String name, Model model) {
-        Optional<Ingredient> ingredient = ingredientRepository.findByName(name);
-        model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
-        model.addAttribute("allTags", tagRepository.findAll());
-
-        if(ingredient.isEmpty()) {
-            return "redirect:/";
-        }
-
-        model.addAttribute("ingredientToBeShown", ingredient.get());
-        return "ingredientSearch";
-    }
-
     @GetMapping ("ingredient/edit/{ingredientName}")
     private String showEditIngredientForm (@PathVariable("ingredientName") String ingredientName, Model model) {
         Optional<Ingredient> ingredient = ingredientRepository.findByName(ingredientName);
@@ -86,6 +72,4 @@ public class IngredientController {
 
         return "ingredientForm";
     }
-
-
 }
