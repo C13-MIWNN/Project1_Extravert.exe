@@ -34,7 +34,8 @@ public class InitializeController {
     public InitializeController(IngredientRepository ingredientRepository,
                                 RecipeRepository recipeRepository,
                                 TagRepository tagRepository,
-                                RecipeIngredientRepository recipeIngredientRepository, CulinaryCompanionUserService culinaryCompanionUserService) {
+                                RecipeIngredientRepository recipeIngredientRepository,
+                                CulinaryCompanionUserService culinaryCompanionUserService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
@@ -50,9 +51,9 @@ public class InitializeController {
 
     @GetMapping("/initialize")
     private String initializeDB() {
-        makeUser("Jeroen","Jeroen");
-        makeUser("Bart", "Bart");
-        makeUser("Nadine","Nadine");
+        CulinaryCompanionUser jeroen = makeUser("Jeroen","Jeroen");
+        CulinaryCompanionUser bart = makeUser("Bart", "Bart");
+        CulinaryCompanionUser nadine = makeUser("Nadine","Nadine");
 
 
         Ingredient butter = makeIngredient("butter",Unit.gram);
@@ -64,6 +65,7 @@ public class InitializeController {
         Tag breakfast = makeTag("Breakfast");
         Tag lunch = makeTag("Lunch");
         Tag dessert = makeTag("Dessert");
+
 
         Recipe dutchVla = makeRecipe("dutch vla", milk, 400,
                 "90 min", 2, dessert);

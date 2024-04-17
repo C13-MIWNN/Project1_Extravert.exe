@@ -27,6 +27,7 @@ public class CulinaryCompanionSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form.permitAll())
+                //custom login form possible here
                 .logout((logout) -> logout.logoutSuccessUrl("/").permitAll());
 
         return http.build();
