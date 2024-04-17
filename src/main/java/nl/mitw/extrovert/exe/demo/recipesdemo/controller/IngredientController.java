@@ -5,6 +5,7 @@ import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -62,7 +63,6 @@ public class IngredientController {
         Optional<Ingredient> ingredient = ingredientRepository.findByName(name);
         model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
-
 
         if(ingredient.isEmpty()) {
             return "redirect:/";

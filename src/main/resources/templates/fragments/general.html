@@ -24,24 +24,22 @@
 </div>
 
 <div th:fragment="searchBy">
-    <table>
-        <tr>
-            <th>Search recipes by ingredient</th>
-        </tr>
-        <tr th:each="ingredient : ${allIngredients}">
-            <td><a th:href="@{/searchByIngredient/{ingredientName}(ingredientName = ${ingredient.name})}"
-                   th:text="${ingredient.name}"></a></td>
-        </tr>
-    </table>
-    <table>
-        <tr>
-            <th>Search recipes by tag</th>
-        </tr>
-        <tr th:each="tag : ${allTags}">
-            <td><a th:href="@{/searchByTag/{nameOfTag}(nameOfTag = ${tag.nameTag})}"
-                   th:text="${tag.nameTag}"></a></td>
-        </tr>
-    </table>
+    <div class="dropdown">
+        <button class="dropbtn">Search by ingredient</button>
+        <div class="dropdown-content">
+            <a th:each="ingredient : ${allIngredients}"
+               th:href="@{/searchByIngredient/{ingredientName}(ingredientName = ${ingredient.name})}"
+               th:text="${ingredient.name}"></a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Search by tag</button>
+        <div class="dropdown-content">
+            <a th:each="tag : ${allTags}"
+               th:href="@{/searchByTag/{nameOfTag}(nameOfTag = ${tag.nameTag})}"
+               th:text="${tag.nameTag}"></a>
+        </div>
+    </div>
 </div>
 
 

@@ -1,7 +1,6 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.RecipeIngredient;
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Tag;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeIngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
@@ -28,7 +27,8 @@ public class RecipeController {
     private final RecipeIngredientRepository recipeIngredientRepository;
 
 
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, TagRepository tagRepository, RecipeIngredientRepository recipeIngredientRepository) {
+    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository,
+                            TagRepository tagRepository, RecipeIngredientRepository recipeIngredientRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
@@ -40,20 +40,19 @@ public class RecipeController {
 
 
 
-        model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
+        model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
         model.addAttribute("allRecipes", recipeRepository.findAll());
 
         return "recipeOverview";
     }
 
-
     @GetMapping("recipe/new")
     private String showRecipeForm (Model model) {
         model.addAttribute("recipe", new Recipe());
-        model.addAttribute("allIngredients",ingredientRepository.findAll(Sort.by("name")));
+        model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
-        model.addAttribute("allRecipeIngredientAmounts",recipeIngredientRepository.findAll());
+        model.addAttribute("allRecipeIngredientAmounts", recipeIngredientRepository.findAll());
         model.addAttribute(("RecipeIngredient"),new RecipeIngredient());
 
         return "recipeForm";
@@ -85,8 +84,8 @@ public class RecipeController {
         return "redirect:/";
     }
 
-    @GetMapping ("recipe/edit/{recipeName}")
-    private String showEditRecipeForm (@PathVariable("recipeName") String recipeName, Model model) {
+    @GetMapping("recipe/edit/{recipeName}")
+    private String showEditRecipeForm(@PathVariable("recipeName") String recipeName, Model model) {
         Optional<Recipe> recipe = recipeRepository.findByName(recipeName);
 
         if (recipe.isEmpty()) {
@@ -94,9 +93,9 @@ public class RecipeController {
         }
 
         model.addAttribute("recipe", recipe.get());
-        model.addAttribute("allIngredients",ingredientRepository.findAll());
+        model.addAttribute("allIngredients", ingredientRepository.findAll());
         model.addAttribute("allTags", tagRepository.findAll());
-        model.addAttribute("allRecipeIngredientAmounts",recipeIngredientRepository.findAll());
+        model.addAttribute("allRecipeIngredientAmounts", recipeIngredientRepository.findAll());
 
         return "recipeForm";
     }
@@ -105,7 +104,7 @@ public class RecipeController {
     private String showRecipeDetails(@PathVariable("name") String name, Model model) {
         Optional<Recipe> recipe = recipeRepository.findByName(name);
 
-        if(recipe.isEmpty()) {
+        if (recipe.isEmpty()) {
             return "redirect:/";
         }
 
