@@ -2,12 +2,13 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.*;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeIngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 import java.util.*;
 
@@ -22,14 +23,17 @@ public class InitializeController {
     private final IngredientRepository ingredientRepository;
     private final RecipeRepository recipeRepository;
     private final TagRepository tagRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
 
 
     public InitializeController(IngredientRepository ingredientRepository,
                                 RecipeRepository recipeRepository,
-                                TagRepository tagRepository) {
+                                TagRepository tagRepository,
+                                RecipeIngredientRepository recipeIngredientRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
+        this.recipeIngredientRepository = recipeIngredientRepository;
     }
 
 
@@ -38,13 +42,22 @@ public class InitializeController {
 
         Ingredient butter = makeIngredient("butter",Unit.gram);
         Ingredient cheese = makeIngredient("cheese",Unit.gram);
-        Ingredient eggs = makeIngredient("eggs",Unit.gram);
+        Ingredient eggs = makeIngredient("eggs",Unit.piece);
         Ingredient milk = makeIngredient("milk",Unit.ml);
 
 
         Tag breakfast = makeTag("Breakfast");
         Tag lunch = makeTag("Lunch");
         Tag dessert = makeTag("Dessert");
+
+        Recipe dutchVla = makeRecipe("dutch vla", milk, 400,
+                "90 min", 2, dessert);
+        Recipe scrambledEggs = makeRecipe("Scrambled eggs", eggs, 4,
+                "15 min", 1, breakfast);
+        Recipe grilledCheese = makeRecipe("Grilled Cheese Sandwich", cheese, 200,
+                "15 min", 1, lunch);
+        Recipe milkShake = makeRecipe("Milkshake", milk, 700,
+                "15 min", 4, dessert);
 
 
         return "redirect:/";
@@ -79,5 +92,33 @@ public class InitializeController {
         return steps;
     }
 
+    private Recipe makeRecipe(String name, Ingredient ingredient, int amount,
+                              String preparationTime, int numberOfServings, Tag tag) {
 
+        Recipe recipe = new Recipe();
+        RecipeIngredient recipeIngredient = new RecipeIngredient();
+
+        List<RecipeIngredient> ingredientList = new ArrayList<>();
+        ingredientList.add(recipeIngredient);
+        recipe.setIngredients(ingredientList);
+
+        recipe.setName(name);
+        recipe.setNumberOfServings(numberOfServings);
+        recipe.setRecipeSteps(makeRecipeStep());
+        recipe.setPreparationTime(preparationTime);
+
+        Set<Tag> tagSet = new HashSet<>();
+        tagSet.add(tag);
+        recipe.setTags(tagSet);
+
+        recipeRepository.save(recipe);
+
+        recipeIngredient.setRecipe(recipe);
+        recipeIngredient.setIngredient(ingredient);
+        recipeIngredient.setAmount(amount);
+
+        recipeIngredientRepository.save(recipeIngredient);
+
+        return recipe;
+    }
 }

@@ -59,11 +59,13 @@ public class RecipeController {
     }
 
     @PostMapping("/recipe/new")
-    private String saveOrUpdateRecipeOrIngredient(
+    private String saveRecipe(
             @ModelAttribute("recipe") Recipe recipeToBeSaved,
             @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
             @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
             BindingResult recipeResult) {
+
+        if (!recipeResult.hasErrors()) {
 
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
 
@@ -76,29 +78,72 @@ public class RecipeController {
             recipeIngredient.setRecipe(savedRecipe);
             recipeIngredient.setIngredient(ingredient);
             recipeIngredient.setAmount(amount);
-            recipeIngredientRepository.save(recipeIngredient);
 
+                recipeIngredientRepository.save(recipeIngredient);
+            }
 
         }
 
         return "redirect:/";
     }
 
-    @GetMapping("recipe/edit/{recipeName}")
-    private String showEditRecipeForm(@PathVariable("recipeName") String recipeName, Model model) {
-        Optional<Recipe> recipe = recipeRepository.findByName(recipeName);
+    @GetMapping("/recipe/{id}/edit")
+    private String showEditForm(@PathVariable("id") Long id, Model model) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+        if (optionalRecipe.isPresent()) {
+            Recipe recipe = optionalRecipe.get();
 
-        if (recipe.isEmpty()) {
+            List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.findByRecipe(recipe);
+
+            model.addAttribute("recipe", recipe);
+            model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
+            model.addAttribute("allTags", tagRepository.findAll());
+            model.addAttribute("recipeIngredients", recipeIngredients);
+
+            return "editRecipeForm";
+        } else {
+
             return "redirect:/";
         }
-
-        model.addAttribute("recipe", recipe.get());
-        model.addAttribute("allIngredients", ingredientRepository.findAll());
-        model.addAttribute("allTags", tagRepository.findAll());
-        model.addAttribute("allRecipeIngredientAmounts", recipeIngredientRepository.findAll());
-
-        return "recipeForm";
     }
+
+    @PostMapping("/recipe/{id}/edit")
+    private String updateRecipe(
+            @ModelAttribute("recipe") Recipe recipeToBeSaved,
+            @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
+            @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
+            @PathVariable("id") Long id,
+            BindingResult recipeResult) {
+
+        if (!recipeResult.hasErrors()) {
+            Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+            if (optionalRecipe.isPresent()) {
+                Recipe existingRecipe = optionalRecipe.get();
+
+                List<RecipeIngredient> existingRecipeIngredients = existingRecipe.getIngredients();
+                List<Ingredient> selectedIngredients = ingredientRepository.findAllById(selectedIngredientIds);
+
+                for (int i = 0; i < selectedIngredients.size(); i++) {
+                    Ingredient ingredient = selectedIngredients.get(i);
+                    Integer amount = ingredientAmounts.get(i);
+
+                    RecipeIngredient recipeIngredient = new RecipeIngredient();
+                    recipeIngredient.setRecipe(existingRecipe);
+                    recipeIngredient.setIngredient(ingredient);
+                    recipeIngredient.setAmount(amount);
+
+                    existingRecipeIngredients.add(recipeIngredient);
+                }
+
+                existingRecipe.setIngredients(existingRecipeIngredients);
+
+                recipeRepository.save(existingRecipe);
+            }
+        }
+
+        return "redirect:/";
+    }
+
 
     @GetMapping("/recipe/{name}")
     private String showRecipeDetails(@PathVariable("name") String name, Model model) {
