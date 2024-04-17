@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:fragment="baseHeader(title)">
     <meta charset="UTF-8">
     <title th:replace="${title}"></title>
@@ -21,6 +21,13 @@
             <a class="nav-link" th:href="@{/recipe/new}">Add Recipe</a>
         </li>
     </ul>
+</div>
+
+<div th:fragment="searchbar" th:class="searchbar">
+    <form action="/search" method="GET">
+    <input type="text" name="keyword" placeholder="Search all recipes...">
+    <button type="submit">Search</button>
+    </form>
 </div>
 
 <div th:fragment="footer">

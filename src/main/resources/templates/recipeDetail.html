@@ -24,7 +24,7 @@
         </tr>
     <tr th:each="recipeIngredient : ${recipeToBeShown.getIngredients()}">
         <td th:text="${recipeIngredient.ingredient.name}"></td>
-        <td th:text="${recipeIngredient.amount + ' ' + recipeIngredient.ingredient.unit}"></td>
+        <td th:text="${recipeIngredient.amount + ' ' + recipeIngredient.ingredient.unit.value}"></td>
     </tr>
     </table>
 
