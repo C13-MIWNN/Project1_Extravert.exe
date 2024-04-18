@@ -17,7 +17,9 @@
             <tr>
                 <td><label for="nameField">Name</label></td>
                 <td><label for="measurementUnitField">Unit</label></td>
-
+                <td><label for="proteinField">Protein</label></td>
+                <td><label for="carbField">Carbohydrates</label></td>
+                <td><label for="fatField">Fat</label></td>
             </tr>
             <tr>
                 <td><input id="nameField" type="text" th:field="*{name}"></td>
@@ -29,6 +31,9 @@
                         </option>
                     </select>
                 </td>
+                <td><input id="protgeinField" type="text" th:field="*{protein}"></td>
+                <td><input id="carbField" type="text" th:field="*{carbohydrates}"></td>
+                <td><input id="fatField" type="text" th:field="*{fat}"></td>
             </tr>
             <tr>
                 <td colspan="2"><input type="submit" value="Save ingredient"></td>

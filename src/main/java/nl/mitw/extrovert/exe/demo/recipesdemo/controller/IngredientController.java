@@ -67,7 +67,6 @@ public class IngredientController {
         }
 
         model.addAttribute("ingredient", ingredient.get());
-        model.addAttribute("allIngredients",ingredientRepository.findAll());
         model.addAttribute("unit",units);
 
         return "ingredientForm";

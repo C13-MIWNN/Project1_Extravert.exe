@@ -56,10 +56,10 @@ public class InitializeController {
         CulinaryCompanionUser nadine = makeUser("Nadine","Nadine");
 
 
-        Ingredient butter = makeIngredient("butter",Unit.gram);
-        Ingredient cheese = makeIngredient("cheese",Unit.gram);
-        Ingredient eggs = makeIngredient("eggs",Unit.piece);
-        Ingredient milk = makeIngredient("milk",Unit.ml);
+        Ingredient butter = makeIngredient("butter",Unit.gram, 1, 0, 81);
+        Ingredient cheese = makeIngredient("cheese",Unit.gram, 22, 5, 27);
+        Ingredient eggs = makeIngredient("eggs",Unit.piece,6, 1, 5 );
+        Ingredient milk = makeIngredient("milk",Unit.ml, 4, 5, 2);
 
 
         Tag breakfast = makeTag("Breakfast");
@@ -81,10 +81,13 @@ public class InitializeController {
     }
 
 
-    private Ingredient makeIngredient(String name, Unit unit) {
+    private Ingredient makeIngredient(String name, Unit unit, int protein, int carb, int fat) {
         Ingredient ingredient = new Ingredient();
         ingredient.setName(name);
         ingredient.setUnit(unit);
+        ingredient.setProtein(protein);
+        ingredient.setCarbohydrates(carb);
+        ingredient.setFat(fat);
         ingredientRepository.save(ingredient);
         return ingredient;
     }
