@@ -17,22 +17,30 @@ public class Ingredient {
     @Id @GeneratedValue
     private Long ingredientId;
     private String name;
-
-
+    private int protein;
+    private int carbohydrate;
+    private int fat;
     private Unit unit;
 
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipes = new ArrayList<>();
 
-    public Ingredient(Long ingredientId, String name, Unit unit, List<RecipeIngredient> recipes) {
+    public Ingredient(Long ingredientId, String name, Unit unit, List<RecipeIngredient> recipes,
+                      int protein, int carbohydrate, int fat) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.unit = unit;
         this.recipes = recipes;
+        this.protein = protein;
+        this.carbohydrate = carbohydrate;
+        this.fat = fat;
     }
 
     public Ingredient() {
+    }
 
+    public int calculateCalories() {
+        return  4 * protein + 4 * carbohydrate + 9 * fat;
     }
 
     public Long getIngredientId() {
@@ -65,6 +73,30 @@ public class Ingredient {
 
     public void setRecipes(List<RecipeIngredient> recipes) {
         this.recipes = recipes;
+    }
+
+    public int getProtein() {
+        return protein;
+    }
+
+    public void setProtein(int protein) {
+        this.protein = protein;
+    }
+
+    public int getCarbohydrates() {
+        return carbohydrate;
+    }
+
+    public void setCarbohydrates(int carbohydrates) {
+        this.carbohydrate= carbohydrates;
+    }
+
+    public int getFat() {
+        return fat;
+    }
+
+    public void setFat(int fat) {
+        this.fat = fat;
     }
 
     @Override

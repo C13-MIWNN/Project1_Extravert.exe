@@ -10,17 +10,23 @@
 <div class="container">
 
         <h1>Overview of all ingredients</h1>
-
-        <table>
+    <div class="table-container">
+        <table class="table">
             <tr>
                 <th>Name</th>
                 <th>Unit</th>
-
-
+                <th>Protein</th>
+                <th>Carbohydrates</th>
+                <th>Fat</th>
+                <th>kcal</th>
             </tr>
             <tr th:each="ingredient : ${allIngredients}">
                 <td th:text="${ingredient.name}"></td>
                 <td th:text="${ingredient.unit}"></td>
+                <td th:text="${ingredient.protein}"></td>
+                <td th:text="${ingredient.carbohydrates}"></td>
+                <td th:text="${ingredient.fat}"></td>
+                <td th:text="${ingredient.calculateCalories()}"></td>
                 <td><a th:href="@{/ingredient/edit/{ingredientName}(ingredientName = ${ingredient.name})}">
                     Edit ingredient</a> </td>
             </tr>
@@ -35,14 +41,16 @@
                             </option>
                         </select>
                     </td>
-
+                    <td><input type="text" th:field="*{protein}"></td>
+                    <td><input type="text" th:field="*{carbohydrates}"></td>
+                    <td><input type="text" th:field="*{fat}"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input type="submit" value="Save new ingredient"></td>
+                    <td colspan="2"><input type="submit" value="Save ingredient"></td>
                 </tr>
             </form>
         </table>
-
+    </div>
 
 </div>
 
