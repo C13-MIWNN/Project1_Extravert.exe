@@ -6,10 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-/**
- * Nadine Beck
- * Omschrijving
- */
+
 public interface SearchRepository extends JpaRepository<Recipe, Long> {
 
     @Query(value = "select recipe FROM Recipe recipe"
