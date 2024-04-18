@@ -30,8 +30,11 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @Autowired
-    public RecipeController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository,
-                            TagRepository tagRepository, RecipeIngredientRepository recipeIngredientRepository, RecipeService recipeService) {
+    public RecipeController(RecipeRepository recipeRepository,
+                            IngredientRepository ingredientRepository,
+                            TagRepository tagRepository,
+                            RecipeIngredientRepository recipeIngredientRepository,
+                            RecipeService recipeService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
@@ -41,8 +44,6 @@ public class RecipeController {
 
     @GetMapping({"/","/recipe"})
     private String showRecipeOverview(Model model) {
-
-
 
         model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
