@@ -26,9 +26,6 @@ public class RecipeIngredient {
 
     @ManyToOne Recipe recipe;
 
-    public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
-    }
-
     public RecipeIngredient() {
 
     }

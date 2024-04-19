@@ -2,20 +2,17 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.services;
 
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.SearchRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
 @Service
-public class RecipeService {
+public class SearchService {
 
     private SearchRepository searchRepository;
 
-
-    @Autowired
-    public RecipeService(SearchRepository searchRepository) {
+    public SearchService(SearchRepository searchRepository) {
         this.searchRepository = searchRepository;
     }
 
