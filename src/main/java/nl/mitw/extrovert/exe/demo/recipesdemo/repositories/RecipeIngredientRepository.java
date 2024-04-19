@@ -15,4 +15,6 @@ import java.util.Optional;
  */
 public interface RecipeIngredientRepository extends JpaRepository <RecipeIngredient, Long> {
     List<RecipeIngredient> findByRecipe(Recipe recipe);
+    Optional<RecipeIngredient> findByRecipeIngredientId(Long recipeIngredientId);
+
 }

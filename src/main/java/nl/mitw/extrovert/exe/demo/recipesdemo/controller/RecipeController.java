@@ -115,8 +115,6 @@ public class RecipeController {
     @PostMapping("/recipe/{id}/edit")
     private String updateRecipe(
             @ModelAttribute("recipe") Recipe recipeToBeSaved,
-            @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
-            @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
             @PathVariable("id") Long id,
             BindingResult recipeResult) {
 
@@ -125,22 +123,10 @@ public class RecipeController {
             if (optionalRecipe.isPresent()) {
                 Recipe existingRecipe = optionalRecipe.get();
 
-                List<RecipeIngredient> existingRecipeIngredients = existingRecipe.getIngredients();
-                List<Ingredient> selectedIngredients = ingredientRepository.findAllById(selectedIngredientIds);
-
-                for (int i = 0; i < selectedIngredients.size(); i++) {
-                    Ingredient ingredient = selectedIngredients.get(i);
-                    Integer amount = ingredientAmounts.get(i);
-
-                    RecipeIngredient recipeIngredient = new RecipeIngredient();
-                    recipeIngredient.setRecipe(existingRecipe);
-                    recipeIngredient.setIngredient(ingredient);
-                    recipeIngredient.setAmount(amount);
-
-                    existingRecipeIngredients.add(recipeIngredient);
-                }
-
-                existingRecipe.setIngredients(existingRecipeIngredients);
+                existingRecipe.setName(recipeToBeSaved.getName());
+                existingRecipe.setNumberOfServings(recipeToBeSaved.getNumberOfServings());
+                existingRecipe.setPreparationTime(recipeToBeSaved.getPreparationTime());
+                existingRecipe.setTags(recipeToBeSaved.getTags());
 
                 recipeRepository.save(existingRecipe);
             }
@@ -148,6 +134,9 @@ public class RecipeController {
 
         return "redirect:/";
     }
+
+
+
 
 
     @GetMapping("/recipe/{name}")

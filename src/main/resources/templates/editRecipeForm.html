@@ -13,6 +13,7 @@
 
     <form th:action="@{'/recipe/' + ${recipe.recipeId} + '/edit'}" method="post" th:object="${recipe}">
         <input type="hidden" th:field="*{recipeId}">
+        <input type="hidden" id="removedIngredients" name="removedIngredients" />
         <table>
             <tr>
                 <td><label for="nameField">Add a name:</label></td>
@@ -40,11 +41,9 @@
                     <select id="preparationTimeField" th:field="*{preparationTime}">
                         <option value="15 min">15 min</option>
                         <option value="30 min">30 min</option>
-                        <option value="45 min">45 min</option>
                         <option value="60 min">60 min</option>
-                        <option value="75 min">75 min</option>
-                        <option value="90 min">90 min</option>
-                        <option value="90+ min">90+ min</option>
+                        <option value="1 uur 30 min">90 min</option>
+                        <option value="langer dan 1 uur 30 min">90+ min</option>
                     </select>
                 </td>
                 <td>
@@ -56,19 +55,32 @@
         </table>
 
         <h2>Already Added Ingredients:</h2>
-        <table>
-            <tr>
-                <th>Ingredient</th>
-                <th>Amount</th>
-            </tr>
+        <table id="ingredientTable">
             <tr th:each="recipeIngredient : ${recipe.ingredients}">
                 <td th:text="${recipeIngredient.ingredient.name + ' ' + recipeIngredient.ingredient.unit.value}"></td>
                 <td th:text="${recipeIngredient.amount}"></td>
+                <td>
+                    <form th:action="@{'/recipeIngredient/delete/{id}'(id=${recipeIngredient.recipeIngredientId})}"
+                          method="post" style="display: inline;">
+                        <input type="hidden" th:method="DELETE" value="DELETE" />
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
             </tr>
         </table>
 
+        <table>
+            <tr>
+                <form th:action="@{'/recipe/' + ${recipe.recipeId} + '/add-ingredient'}" method="post" id="addIngredientForm">
+                    <input type="hidden" id="ingredientIdField" name="ingredientId" />
+                    <input type="hidden" id="amountField" name="amount" />
+                    <button type="button" onclick="addIngredient()">Add Ingredient</button>
+                </form>
+            </tr>
+        </table>
+
+
         <div id="addedIngredients"></div>
-        <button type="button" onclick="addIngredient()">Add Ingredient</button>
 
         <h2>Directions
         </h2>
@@ -90,29 +102,30 @@
     <script>
         function addIngredient() {
             var ingredientId = document.getElementById("ingredientsField").value;
-            var ingredientName = document.getElementById("ingredientsField")
-                .options[document.getElementById("ingredientsField").selectedIndex].text;
             var amount = document.getElementById("ingredientAmountField").value;
-            var displayDiv = document.getElementById("addedIngredients");
 
-            var p = document.createElement("p");
-            p.textContent = ingredientName + ": " + amount;
-            displayDiv.appendChild(p);
+            document.getElementById("ingredientIdField").value = ingredientId;
 
-            var inputIngredientId = document.createElement("input");
-            inputIngredientId.type = "hidden";
-            inputIngredientId.name = "selectedIngredients";
-            inputIngredientId.value = ingredientId;
+            document.getElementById("amountField").value = amount;
 
-            var inputAmount = document.createElement("input");
-            inputAmount.type = "hidden";
-            inputAmount.name = "ingredientAmounts";
-            inputAmount.value = amount;
-
-            displayDiv.appendChild(inputIngredientId);
-            displayDiv.appendChild(inputAmount);
+            document.getElementById("addIngredientForm").submit();
         }
     </script>
+
+    <script th:inline="javascript">
+        function addStep() {
+            var stepsTable = document.getElementById('stepsTable');
+            var newRow = stepsTable.insertRow(-1);
+            var cell = newRow.insertCell(0);
+
+            var newInput = document.createElement('input');
+            newInput.setAttribute('type', 'text');
+            newInput.setAttribute('name', 'recipeSteps');
+            cell.appendChild(newInput);
+        }
+    </script>
+
+
 
 </div>
 
