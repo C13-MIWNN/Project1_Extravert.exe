@@ -21,12 +21,13 @@ class RecipesDemoApplicationTests {
 	@Test
 	@DisplayName("Should calculate calories")
 	void shouldCalculateCalories() {
+		//Comments for understanding how to write a test
 		//Arrange a test case
 		int protein = 10;
 		int carbs = 20;
 		int fat = 10;
 		Ingredient ingredient = new Ingredient
-				(1L, "Test ingredient", Unit.gram, null, protein, carbs,fat);
+				(1L, "Test Ingredient", Unit.gram, protein, carbs, fat,null);
 		int expectedCalories = (4 * protein) + (4 * carbs) + (9 * fat);
 
 		//Act on the target behavior

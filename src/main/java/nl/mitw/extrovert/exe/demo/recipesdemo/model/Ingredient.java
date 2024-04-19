@@ -24,14 +24,20 @@ public class Ingredient {
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipes = new ArrayList<>();
 
-    public Ingredient(String name) {
+    public Ingredient(Long ingredientId, String name, Unit unit,
+                      int protein, int carbohydrate, int fat,
+                      List<RecipeIngredient> recipes) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.unit = unit;
-        this.recipes = recipes;
         this.protein = protein;
         this.carbohydrate = carbohydrate;
         this.fat = fat;
+        this.recipes = recipes;
+    }
+
+    public Ingredient(String name) {
+        this(null, name, null, 0, 0, 0, null);
     }
 
     public Ingredient() {
