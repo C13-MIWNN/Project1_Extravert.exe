@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Nadine Beck
@@ -25,8 +24,7 @@ public class Ingredient {
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipes = new ArrayList<>();
 
-    public Ingredient(Long ingredientId, String name, Unit unit, List<RecipeIngredient> recipes,
-                      int protein, int carbohydrate, int fat) {
+    public Ingredient(String name) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.unit = unit;

@@ -38,6 +38,39 @@ public class Recipe {
 
     }
 
+    public double calculateRecipeCarbs() {
+        double recipeCarbs = 0;
+
+        for (RecipeIngredient recipeIngredient: ingredients) {
+            recipeCarbs += recipeIngredient.calculateCarbsForAmount();
+        }
+
+        return (recipeCarbs / numberOfServings);
+    }
+
+    public double calculateRecipeFat() {
+        double recipeFat = 0;
+
+        for (RecipeIngredient recipeIngredient: ingredients) {
+            recipeFat += recipeIngredient.calculateFatForAmount();
+        }
+
+        return (recipeFat / numberOfServings);
+    }
+
+    public double calculateRecipeProtein() {
+        double recipeProtein = 0;
+
+        for (RecipeIngredient recipeIngredient: ingredients) {
+            recipeProtein += recipeIngredient.calculateProteinForAmount();
+        }
+
+        return (recipeProtein / numberOfServings);
+    }
+
+    public double calculateRecipeCaloriesPerPortion() {
+        return (4 * calculateRecipeProtein() + 4 * calculateRecipeCarbs() + 9 * calculateRecipeFat());
+    }
 
     public String getName() {
         return name;
