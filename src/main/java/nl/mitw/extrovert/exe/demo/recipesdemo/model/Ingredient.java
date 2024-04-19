@@ -12,6 +12,9 @@ import java.util.List;
 
 @Entity
 public class Ingredient {
+    public static final int FACTOR_PROTEIN_TO_KCAL = 4;
+    public static final int FACTOR_CARBS_TO_KCAL = 4;
+    public static final int FACTOR_FAT_TO_KCAL = 9;
 
     @Id @GeneratedValue
     private Long ingredientId;
@@ -44,7 +47,9 @@ public class Ingredient {
     }
 
     public int calculateCalories() {
-        return  4 * protein + 4 * carbohydrate + 9 * fat;
+        return  FACTOR_PROTEIN_TO_KCAL * protein +
+                FACTOR_CARBS_TO_KCAL * carbohydrate +
+                FACTOR_FAT_TO_KCAL * fat;
     }
 
     public Long getIngredientId() {
