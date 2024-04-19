@@ -6,7 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 /**
- * hier de opdracht die je gaat maken
+ * Represents the relation between a recipe and an ingredient
  *
  * @author B.J. Falkena
  */

@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * @author Jeroen van der Weide
  * <p>
- * Configure security for our recipeOrganizer application
+ * Configures security for our recipeOrganizer application
  **/
 
 @Configuration
