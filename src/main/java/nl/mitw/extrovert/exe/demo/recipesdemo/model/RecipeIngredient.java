@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class RecipeIngredient {
+    private static final int GRAMS_IN_HUNDRED_GRAMS = 100;
 
     @Id
     @GeneratedValue
@@ -27,6 +28,33 @@ public class RecipeIngredient {
 
     public RecipeIngredient() {
 
+    }
+
+    public double calculateCarbsForAmount() {
+        double carbohydrateForAmount = calculateMacroForAmount(ingredient.getCarbohydrates());
+
+        return carbohydrateForAmount;
+    }
+
+    public double calculateFatForAmount() {
+        double fatForAmount = calculateMacroForAmount(ingredient.getFat());
+
+        return fatForAmount;
+    }
+
+    public double calculateProteinForAmount() {
+        double proteinForAmount  = calculateMacroForAmount(ingredient.getProtein());
+
+        return proteinForAmount;
+    }
+
+    public double calculateMacroForAmount(int macro) {
+
+        if (ingredient.getUnit() == Unit.gram || ingredient.getUnit() == Unit.ml) {
+            return ((double) amount / GRAMS_IN_HUNDRED_GRAMS) * macro;
+        }
+
+        return amount * macro;
     }
 
     @Override
