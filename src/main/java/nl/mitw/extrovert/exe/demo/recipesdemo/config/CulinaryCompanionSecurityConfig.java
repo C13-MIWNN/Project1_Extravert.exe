@@ -23,7 +23,7 @@ public class CulinaryCompanionSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/recipe").permitAll()
-                        .requestMatchers("/webjars/**", "/css/**").permitAll()
+                        .requestMatchers("/webjars/**", "/css/**", "/static/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form.permitAll())
