@@ -33,39 +33,46 @@ public class Recipe {
     @ManyToMany
     private Set<Tag> tags;
 
+    public enum MacroType {
+        CARBS,
+        FAT,
+        PROTEIN
+    }
 
     public Recipe() {
 
     }
 
     public double calculateRecipeCarbs() {
-        double recipeCarbs = 0;
-
-        for (RecipeIngredient recipeIngredient: ingredients) {
-            recipeCarbs += recipeIngredient.calculateCarbsForAmount();
-        }
-
-        return (recipeCarbs / numberOfServings);
+        return calculateRecipeMacro(MacroType.CARBS);
     }
 
     public double calculateRecipeFat() {
-        double recipeFat = 0;
-
-        for (RecipeIngredient recipeIngredient: ingredients) {
-            recipeFat += recipeIngredient.calculateFatForAmount();
-        }
-
-        return (recipeFat / numberOfServings);
+        return calculateRecipeMacro(MacroType.FAT);
     }
 
     public double calculateRecipeProtein() {
-        double recipeProtein = 0;
+        return calculateRecipeMacro(MacroType.PROTEIN);
+    }
+
+    public double calculateRecipeMacro(MacroType macroType) {
+        double recipeMacro = 0;
 
         for (RecipeIngredient recipeIngredient: ingredients) {
-            recipeProtein += recipeIngredient.calculateProteinForAmount();
-        }
+            switch (macroType){
+                case CARBS:
+                    recipeMacro += recipeIngredient.calculateCarbsForAmount();
+                    break;
+                case FAT:
+                    recipeMacro += recipeIngredient.calculateFatForAmount();
+                    break;
+                case PROTEIN:
+                    recipeMacro += recipeIngredient.calculateProteinForAmount();
+                    break;
 
-        return (recipeProtein / numberOfServings);
+            }
+        }
+        return (recipeMacro / numberOfServings);
     }
 
     public double calculateRecipeCaloriesPerPortion() {
@@ -110,7 +117,6 @@ public class Recipe {
     public void setPreparationTime(String preparationTime) {
         this.preparationTime = preparationTime;
     }
-
 
     public int getNumberOfServings() {
         return numberOfServings;

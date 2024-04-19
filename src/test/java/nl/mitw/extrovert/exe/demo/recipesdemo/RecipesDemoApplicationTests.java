@@ -27,7 +27,7 @@ class RecipesDemoApplicationTests {
 		int carbs = 20;
 		int fat = 10;
 		Ingredient ingredient = new Ingredient
-				(1L, "Test Ingredient", Unit.gram, protein, carbs, fat,null);
+				(1L, "Test Ingredient", Unit.GRAM, protein, carbs, fat,null);
 		int expectedCalories = (4 * protein) + (4 * carbs) + (9 * fat);
 
 		//Act on the target behavior

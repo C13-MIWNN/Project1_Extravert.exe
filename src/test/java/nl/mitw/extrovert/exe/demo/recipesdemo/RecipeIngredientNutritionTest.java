@@ -69,7 +69,7 @@ class RecipeIngredientNutritionTest {
     @DisplayName("Fat for ingredient with 10 grams amount and 100 grams of fat")
     void hundredGramsFatForTenGramIngredient() {
         Ingredient ingredient = new Ingredient();
-        ingredient.setUnit(Unit.gram);
+        ingredient.setUnit(Unit.GRAM);
         ingredient.setFat(100);
 
         RecipeIngredient recipeIngredient = new RecipeIngredient();
@@ -87,7 +87,7 @@ class RecipeIngredientNutritionTest {
     @DisplayName("Fat for ingredient with 10 pieces amount and 100 grams of fat")
     void hundredGramsFatForTenPieceIngredient() {
         Ingredient ingredient = new Ingredient();
-        ingredient.setUnit(Unit.piece);
+        ingredient.setUnit(Unit.PIECE);
         ingredient.setFat(100);
 
         RecipeIngredient recipeIngredient = new RecipeIngredient();

@@ -31,38 +31,28 @@ public class RecipeIngredient {
     }
 
     public double calculateCarbsForAmount() {
-        double carbohydrateForAmount = calculateMacroForAmount(ingredient.getCarbohydrates());
-
-        return carbohydrateForAmount;
+        return calculateMacroForAmount(ingredient.getCarbohydrates());
     }
 
     public double calculateFatForAmount() {
-        double fatForAmount = calculateMacroForAmount(ingredient.getFat());
+        return calculateMacroForAmount(ingredient.getFat());
 
-        return fatForAmount;
     }
 
     public double calculateProteinForAmount() {
-        double proteinForAmount  = calculateMacroForAmount(ingredient.getProtein());
-
-        return proteinForAmount;
+        return calculateMacroForAmount(ingredient.getProtein());
     }
 
     public double calculateMacroForAmount(int macro) {
-
-        if (ingredient.getUnit() == Unit.gram || ingredient.getUnit() == Unit.ml) {
+        if (ingredient.getUnit() == Unit.GRAM || ingredient.getUnit() == Unit.ML) {
             return ((double) amount / GRAMS_IN_HUNDRED_GRAMS) * macro;
         }
-
         return amount * macro;
     }
 
     @Override
     public String toString() {
         return String.format("%d %s", this.amount, this.ingredient);
-    }
-
-    public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
     }
 
     public Long getRecipeIngredientId() {
