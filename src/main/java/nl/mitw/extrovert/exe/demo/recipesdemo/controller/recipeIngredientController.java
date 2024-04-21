@@ -41,7 +41,7 @@ public class recipeIngredientController {
         return "redirect:/error";
     }
 
-    @RequestMapping(value = "/recipe/{id}/add-ingredient", method = RequestMethod.POST)
+    @RequestMapping(value = "/recipe/add/{id}", method = RequestMethod.POST)
     public String addRecipeIngredient(@PathVariable Long id,
                                       @ModelAttribute("ingredientId") Long ingredientId,
                                       @ModelAttribute("amount") Integer amount) {
@@ -61,6 +61,7 @@ public class recipeIngredientController {
 
         }
         return "redirect:/recipe/" + id + "/edit";
+
     }
 }
 

@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import nonapi.io.github.classgraph.json.JSONUtils;
 
 import java.util.Set;
 
@@ -23,15 +24,10 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     private Set<Recipe> recipes;
 
-
-    public Tag(Long tagId, String nameTag) {
-        this.tagId = tagId;
-        this.nameTag = nameTag;
-    }
-
     public Tag() {
 
     }
+
 
     @Override
     public String toString() {

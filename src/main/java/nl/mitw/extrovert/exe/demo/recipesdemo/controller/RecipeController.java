@@ -121,6 +121,7 @@ public class RecipeController {
                 existingRecipe.setNumberOfServings(recipeToBeSaved.getNumberOfServings());
                 existingRecipe.setPreparationTime(recipeToBeSaved.getPreparationTime());
                 existingRecipe.setTags(recipeToBeSaved.getTags());
+                existingRecipe.setRecipeSteps(recipeToBeSaved.getRecipeSteps());
 
                 recipeRepository.save(existingRecipe);
             }
