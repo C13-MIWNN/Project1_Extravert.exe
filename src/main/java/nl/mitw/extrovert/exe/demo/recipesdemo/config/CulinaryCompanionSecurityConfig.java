@@ -11,7 +11,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * @author Jeroen van der Weide
  * <p>
- * Configure security for our recipeOrganizer application
+ * Configures security for our recipeOrganizer application
  **/
 
 @Configuration
@@ -23,7 +23,7 @@ public class CulinaryCompanionSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/recipe").permitAll()
-                        .requestMatchers("/webjars/**", "/css/**").permitAll()
+                        .requestMatchers("/webjars/**", "/css/**", "/static/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form.permitAll())

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Nadine Beck
@@ -13,6 +12,9 @@ import java.util.Set;
 
 @Entity
 public class Ingredient {
+    public static final int FACTOR_PROTEIN_TO_KCAL = 4;
+    public static final int FACTOR_CARBS_TO_KCAL = 4;
+    public static final int FACTOR_FAT_TO_KCAL = 9;
 
     @Id @GeneratedValue
     private Long ingredientId;
@@ -25,22 +27,29 @@ public class Ingredient {
     @OneToMany(mappedBy = "ingredient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> recipes = new ArrayList<>();
 
-    public Ingredient(Long ingredientId, String name, Unit unit, List<RecipeIngredient> recipes,
-                      int protein, int carbohydrate, int fat) {
+    public Ingredient(Long ingredientId, String name, Unit unit,
+                      int protein, int carbohydrate, int fat,
+                      List<RecipeIngredient> recipes) {
         this.ingredientId = ingredientId;
         this.name = name;
         this.unit = unit;
-        this.recipes = recipes;
         this.protein = protein;
         this.carbohydrate = carbohydrate;
         this.fat = fat;
+        this.recipes = recipes;
+    }
+
+    public Ingredient(String name) {
+        this(null, name, null, 0, 0, 0, null);
     }
 
     public Ingredient() {
     }
 
     public int calculateCalories() {
-        return  4 * protein + 4 * carbohydrate + 9 * fat;
+        return  FACTOR_PROTEIN_TO_KCAL * protein +
+                FACTOR_CARBS_TO_KCAL * carbohydrate +
+                FACTOR_FAT_TO_KCAL * fat;
     }
 
     public Long getIngredientId() {

@@ -4,7 +4,7 @@
     <title th:text="|Details for: ${recipeToBeShown.name}|"></title>
 </head>
 <body>
-
+<div th:replace="~{fragments/general :: logo}"></div>
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
@@ -35,9 +35,21 @@
         <li th:each="step : ${recipeToBeShown.recipeSteps}" th:text="${step}"></li>
     </ol>
 
-
-
-
+    <div class="nutrition-container">
+        <h1>Nutrition Details</h1>
+        <div class="card">
+            <div class="card-body">
+                <h2>per Serving</h2>
+                <p class="card-text">Calories: <span th:text="${recipeToBeShown.calculateRecipeCaloriesPerPortion()}"></span></p>
+                <p class="card-text">Macros:</p>
+                <ul class="list-group">
+                    <li class="list-group-item">Protein: <span th:text="${recipeToBeShown.calculateRecipeProtein()}"></span></li>
+                    <li class="list-group-item">Carbohydrates: <span th:text="${recipeToBeShown.calculateRecipeCarbs()}"></span></li>
+                    <li class="list-group-item">Fat: <span th:text="${recipeToBeShown.calculateRecipeFat()}"></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

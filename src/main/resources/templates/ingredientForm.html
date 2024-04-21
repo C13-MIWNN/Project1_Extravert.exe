@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{fragments/general :: baseHeader(~{:: title})}">
-    <title>Edit an ingredient </title>
+    <title>Edit an ingredient</title>
 </head>
 <body>
-
+<div th:replace="~{fragments/general :: logo}"></div>
 <div th:replace="~{fragments/general :: navbar}"></div>
 
 <div class="container">
@@ -31,7 +31,7 @@
                         </option>
                     </select>
                 </td>
-                <td><input id="protgeinField" type="text" th:field="*{protein}"></td>
+                <td><input id="proteinField" type="text" th:field="*{protein}"></td>
                 <td><input id="carbField" type="text" th:field="*{carbohydrates}"></td>
                 <td><input id="fatField" type="text" th:field="*{fat}"></td>
             </tr>

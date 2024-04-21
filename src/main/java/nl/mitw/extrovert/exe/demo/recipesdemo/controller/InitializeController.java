@@ -56,10 +56,10 @@ public class InitializeController {
         CulinaryCompanionUser nadine = makeUser("Nadine","Nadine");
 
 
-        Ingredient butter = makeIngredient("butter",Unit.gram, 1, 0, 81);
-        Ingredient cheese = makeIngredient("cheese",Unit.gram, 22, 5, 27);
-        Ingredient eggs = makeIngredient("eggs",Unit.piece,6, 1, 5 );
-        Ingredient milk = makeIngredient("milk",Unit.ml, 4, 5, 2);
+        Ingredient butter = makeIngredient("butter",Unit.GRAM, 1, 0, 81);
+        Ingredient cheese = makeIngredient("cheese",Unit.GRAM, 22, 5, 27);
+        Ingredient eggs = makeIngredient("eggs",Unit.PIECE,6, 1, 5 );
+        Ingredient milk = makeIngredient("milk",Unit.ML, 4, 5, 2);
 
 
         Tag breakfast = makeTag("Breakfast");

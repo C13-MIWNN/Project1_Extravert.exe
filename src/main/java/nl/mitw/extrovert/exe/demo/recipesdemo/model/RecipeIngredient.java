@@ -6,13 +6,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
 /**
- * hier de opdracht die je gaat maken
+ * Represents the relation between a recipe and an ingredient
  *
  * @author B.J. Falkena
  */
 
 @Entity
 public class RecipeIngredient {
+    private static final int GRAMS_IN_HUNDRED_GRAMS = 100;
 
     @Id
     @GeneratedValue
@@ -29,12 +30,29 @@ public class RecipeIngredient {
 
     }
 
+    public double calculateCarbsForAmount() {
+        return calculateMacroForAmount(ingredient.getCarbohydrates());
+    }
+
+    public double calculateFatForAmount() {
+        return calculateMacroForAmount(ingredient.getFat());
+
+    }
+
+    public double calculateProteinForAmount() {
+        return calculateMacroForAmount(ingredient.getProtein());
+    }
+
+    public double calculateMacroForAmount(int macro) {
+        if (ingredient.getUnit() == Unit.GRAM || ingredient.getUnit() == Unit.ML) {
+            return ((double) amount / GRAMS_IN_HUNDRED_GRAMS) * macro;
+        }
+        return amount * macro;
+    }
+
     @Override
     public String toString() {
         return String.format("%d %s", this.amount, this.ingredient);
-    }
-
-    public RecipeIngredient(Recipe recipe, Ingredient ingredient, int amount) {
     }
 
     public Long getRecipeIngredientId() {

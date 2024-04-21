@@ -6,8 +6,6 @@ import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeIngredientRepos
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
-import nl.mitw.extrovert.exe.demo.recipesdemo.services.RecipeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,19 +25,15 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final TagRepository tagRepository;
     private final RecipeIngredientRepository recipeIngredientRepository;
-    private final RecipeService recipeService;
 
-    @Autowired
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
                             TagRepository tagRepository,
-                            RecipeIngredientRepository recipeIngredientRepository,
-                            RecipeService recipeService) {
+                            RecipeIngredientRepository recipeIngredientRepository) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
-        this.recipeService = recipeService;
     }
 
     @GetMapping({"/","/recipe"})
@@ -150,16 +144,4 @@ public class RecipeController {
         model.addAttribute("recipeToBeShown", recipe.get());
         return "recipeDetail";
     }
-
-    @GetMapping("/search")
-    public String searchRecipes (Model model, @RequestParam("keyword") String keyword) {
-        List<Recipe> searchResults = recipeService.searchRecipes(keyword);
-        model.addAttribute("searchResults", searchResults);
-
-        if (searchResults.isEmpty()) {
-            return "redirect:/";
-        }
-        return "searchResults";
-    }
-
 }
