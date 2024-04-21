@@ -62,7 +62,7 @@
                 <td>
                     <form th:action="@{'/recipeIngredient/delete/{id}'(id=${recipeIngredient.recipeIngredientId})}"
                           method="post" style="display: inline;">
-                        <input type="hidden" th:method="DELETE" value="DELETE" />
+                        <input type="hidden" name="_method" value="DELETE" />
                         <button type="submit" class="btn btn-outline-secondary btn-sm">remove</button>
                     </form>
                 </td>
