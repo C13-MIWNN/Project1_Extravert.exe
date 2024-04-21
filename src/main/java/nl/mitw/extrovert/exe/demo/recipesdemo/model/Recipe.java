@@ -72,7 +72,8 @@ public class Recipe {
 
             }
         }
-        return (recipeMacro / numberOfServings);
+        long roundNumber = Math.round(recipeMacro);
+        return roundNumber / (double) numberOfServings;
     }
 
     public double calculateRecipeCaloriesPerPortion() {
