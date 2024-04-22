@@ -14,18 +14,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 
 class RecipeIngredientNutritionTest {
+
+    private Ingredient setupIngredient(int fat, Unit unit) {
+        Ingredient ingredient = new Ingredient();
+        ingredient.setFat(fat);
+        ingredient.setUnit(unit);
+        return ingredient;
+    }
+
+    private RecipeIngredient setupRecipeIngredient(Ingredient ingredient, int amount) {
+        RecipeIngredient recipeIngredient = new RecipeIngredient();
+        recipeIngredient.setIngredient(ingredient);
+        recipeIngredient.setAmount(amount);
+        return recipeIngredient;
+    }
     @Test
     @DisplayName("Fat for ingredient with no amount and 0 fat")
     void noFatForIngredientWithNoAmount() {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setFat(0);
+        Ingredient ingredient = setupIngredient(0, Unit.GRAM);
 
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
-        recipeIngredient.setIngredient(ingredient);
-        recipeIngredient.setAmount(1);
+        RecipeIngredient recipeIngredient = setupRecipeIngredient(ingredient, 1);
 
         double expectedFat = 0;
-
         double fat = recipeIngredient.calculateFatForAmount();
 
         assertEquals(expectedFat, fat);
@@ -34,15 +44,11 @@ class RecipeIngredientNutritionTest {
     @Test
     @DisplayName("Fat for ingredient with no amount and 100 grams of fat")
     void hundredGramsFatForIngredientWithNoAmount() {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setFat(100);
+        Ingredient ingredient = setupIngredient(100, Unit.GRAM);
 
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
-        recipeIngredient.setIngredient(ingredient);
-        recipeIngredient.setAmount(0);
+        RecipeIngredient recipeIngredient = setupRecipeIngredient(ingredient, 0);
 
         double expectedFat = 0;
-
         double fat = recipeIngredient.calculateFatForAmount();
 
         assertEquals(expectedFat, fat);
@@ -51,15 +57,11 @@ class RecipeIngredientNutritionTest {
     @Test
     @DisplayName("Fat for ingredient with 10g amount and 0 fat")
     void noFatForTenGramAmountIngredient() {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setFat(0);
+        Ingredient ingredient = setupIngredient(0, Unit.GRAM);
 
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
-        recipeIngredient.setIngredient(ingredient);
-        recipeIngredient.setAmount(10);
+        RecipeIngredient recipeIngredient = setupRecipeIngredient(ingredient, 10);
 
         double expectedFat = 0;
-
         double fat = recipeIngredient.calculateFatForAmount();
 
         assertEquals(expectedFat, fat);
@@ -68,16 +70,11 @@ class RecipeIngredientNutritionTest {
     @Test
     @DisplayName("Fat for ingredient with 10 grams amount and 100 grams of fat")
     void hundredGramsFatForTenGramIngredient() {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setUnit(Unit.GRAM);
-        ingredient.setFat(100);
+        Ingredient ingredient = setupIngredient(100, Unit.GRAM);
 
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
-        recipeIngredient.setIngredient(ingredient);
-        recipeIngredient.setAmount(10);
+        RecipeIngredient recipeIngredient = setupRecipeIngredient(ingredient, 10);
 
         double expectedFat = 10;
-
         double fat = recipeIngredient.calculateFatForAmount();
 
         assertEquals(expectedFat, fat);
@@ -86,18 +83,14 @@ class RecipeIngredientNutritionTest {
     @Test
     @DisplayName("Fat for ingredient with 10 pieces amount and 100 grams of fat")
     void hundredGramsFatForTenPieceIngredient() {
-        Ingredient ingredient = new Ingredient();
-        ingredient.setUnit(Unit.PIECE);
-        ingredient.setFat(100);
+        Ingredient ingredient = setupIngredient(100, Unit.PIECE);
 
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
-        recipeIngredient.setIngredient(ingredient);
-        recipeIngredient.setAmount(10);
+        RecipeIngredient recipeIngredient = setupRecipeIngredient(ingredient, 10);
 
         double expectedFat = 1000;
-
         double fat = recipeIngredient.calculateFatForAmount();
 
         assertEquals(expectedFat, fat);
     }
+
 }

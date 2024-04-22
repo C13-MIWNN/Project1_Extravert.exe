@@ -75,14 +75,16 @@
         <h3>Directions</h3>
         <p>Click on "Next step" to add step-by-step directions to your recipe</p>
         <table id="stepsTable">
-            <td><label for="recipeStepInput">Steps:</label></td>
-            <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
+            <tr>
+                <td><label for="recipeStepInput">Steps:</label></td>
+            </tr>
             <tr th:each="step, index : *{recipeSteps}">
                 <td><input type="text" id="recipeStepInput" class="form-control"
                            th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
                 </td>
             </tr>
         </table>
+        <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
         <div>
             <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
         </div>
@@ -90,22 +92,22 @@
 
     <script>
         function addIngredient() {
-            var ingredientId = document.getElementById("ingredientsField").value;
-            var ingredientName = document.getElementById("ingredientsField")
+            let ingredientId = document.getElementById("ingredientsField").value;
+            let ingredientName = document.getElementById("ingredientsField")
                 .options[document.getElementById("ingredientsField").selectedIndex].text;
-            var amount = document.getElementById("ingredientAmountField").value;
-            var displayDiv = document.getElementById("addedIngredients");
+            let amount = document.getElementById("ingredientAmountField").value;
+            let displayDiv = document.getElementById("addedIngredients");
 
-            var p = document.createElement("p");
+            let p = document.createElement("p");
             p.textContent = ingredientName + ": " + amount;
             displayDiv.appendChild(p);
 
-            var inputIngredientId = document.createElement("input");
+            let inputIngredientId = document.createElement("input");
             inputIngredientId.type = "hidden";
             inputIngredientId.name = "selectedIngredients";
             inputIngredientId.value = ingredientId;
 
-            var inputAmount = document.createElement("input");
+            let inputAmount = document.createElement("input");
             inputAmount.type = "hidden";
             inputAmount.name = "ingredientAmounts";
             inputAmount.value = amount;
@@ -119,11 +121,11 @@
 
     <script th:inline="javascript">
         function addStep() {
-            var stepsTable = document.getElementById('stepsTable');
-            var newRow = stepsTable.insertRow(-1);
-            var cell = newRow.insertCell(0);
+            let stepsTable = document.getElementById('stepsTable');
+            let newRow = stepsTable.insertRow(-1);
+            let cell = newRow.insertCell(0);
 
-            var newInput = document.createElement('input');
+            let newInput = document.createElement('input');
             newInput.setAttribute('type', 'text');
             newInput.setAttribute('name', 'recipeSteps');
             cell.appendChild(newInput);
