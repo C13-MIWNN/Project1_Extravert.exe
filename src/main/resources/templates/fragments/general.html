@@ -21,6 +21,9 @@
                 <a th:href="@{/login}">Login</a>
             </li>
             <li sec:authorize="hasRole('ROLE_USER')">
+                <a th:href="@{/user/new}">Add User</a>
+            </li>
+            <li sec:authorize="hasRole('ROLE_USER')">
                 <a th:href="@{/logout}">
                     Logout <span sec:authentication="name"></span>
                 </a>
