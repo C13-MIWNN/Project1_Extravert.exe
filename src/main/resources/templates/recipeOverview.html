@@ -10,18 +10,24 @@
     <h1>Overview of all recipes</h1>
     <div th:replace="~{fragments/general :: searchbar}"></div>
 
-    <table>
-        <tr>
-            <th>Recipes</th>
-            <th>Total Time</th>
-            <th>Tags</th>
-        </tr>
-        <tr th:each="recipe : ${allRecipes}">
-            <td><a th:href="@{/recipe/{recipeName}(recipeName = ${recipe.name})}" th:text="${recipe.name}"></a></td>
-            <td th:text="${recipe.preparationTime}"></td>
-            <td th:text="${recipe.tags}"></td>
-            <td><a th:href="@{/recipe/{id}/edit(id=${recipe.recipeId})}">Edit recipe</a></td>
-        </tr>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th>Recipes</th>
+                <th>Total Time</th>
+                <th>Tags</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="recipe : ${allRecipes}">
+                <td><a th:href="@{/recipe/{recipeName}(recipeName = ${recipe.name})}" th:text="${recipe.name}"
+                       class="btn btn-outline-secondary btn-sm"></a></td>
+                <td th:text="${recipe.preparationTime}"></td>
+                <td th:text="${recipe.tags}" ></td>
+                <td><a th:href="@{/recipe/{id}/edit(id=${recipe.recipeId})}" class="btn btn-secondary btn-sm">Edit recipe</a></td>
+            </tr>
+        </tbody>
     </table>
 
 </div>
