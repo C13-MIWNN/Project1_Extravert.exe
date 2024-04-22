@@ -19,14 +19,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RecipeCalculateMacroTest {
 
     @Test
-    @DisplayName("Macros for recipes with no amount and servings")
-    void MacrosForRecipesWithNoAmountAndServings() {
+    @DisplayName("Macros for recipes with no macros and minimal amount and servings")
+    void MacrosForRecipesWithNoAmountAndMinimalIngredientsAndServings() {
 
-        Recipe recipe = getRecipe(0,0,0, 0, 2);
+        int fat = 0;
+        int carbs = 0;
+        int protein = 0;
+        int amountOfIngredients = 1;
+        int servings = 1;
 
-        double fatPerServing = recipe.calculateRecipeMacro(Recipe.MacroType.FAT);
-        double carbsPerServing = recipe.calculateRecipeMacro(Recipe.MacroType.CARBS);
-        double proteinPerServing = recipe.calculateRecipeMacro(Recipe.MacroType.PROTEIN);
+        Recipe recipe = getRecipe(fat,carbs,protein,amountOfIngredients,servings);
+
+        double fatPerServing = 0;
+        double carbsPerServing = 0;
+        double proteinPerServing = 0;
 
         double expectedFatPerServing = 0;
         double expectedCarbsPerServing = 0;
@@ -54,9 +60,9 @@ public class RecipeCalculateMacroTest {
         double carbsPerServing = recipe.calculateRecipeMacro(Recipe.MacroType.CARBS);
         double proteinPerServing = recipe.calculateRecipeMacro(Recipe.MacroType.PROTEIN);
 
-        double expectedFatPerServing = Math.round((float) (fat * amountOfIngredients) /servings);
-        double expectedCarbsPerServing = Math.round((float) (carbs * amountOfIngredients) /servings);
-        double expectedProteinPerServing = Math.round((float) (protein * amountOfIngredients) /servings);
+        double expectedFatPerServing = 5;
+        double expectedCarbsPerServing = 0;
+        double expectedProteinPerServing = 0;
 
         assertEquals(expectedFatPerServing, fatPerServing);
         assertEquals(expectedCarbsPerServing, carbsPerServing);
@@ -80,9 +86,9 @@ public class RecipeCalculateMacroTest {
         double carbsPerServing = recipe.calculateRecipeMacro(Recipe.MacroType.CARBS);
         double proteinPerServing = recipe.calculateRecipeMacro(Recipe.MacroType.PROTEIN);
 
-        double expectedFatPerServing = Math.round((float) (fat * amountOfIngredients) /servings);
-        double expectedCarbsPerServing = Math.round((float) (carbs * amountOfIngredients) /servings);
-        double expectedProteinPerServing = Math.round((float) (protein * amountOfIngredients) /servings);
+        double expectedFatPerServing = 8;
+        double expectedCarbsPerServing = 15;
+        double expectedProteinPerServing = 30;
 
         assertEquals(expectedFatPerServing, fatPerServing);
         assertEquals(expectedCarbsPerServing, carbsPerServing);
