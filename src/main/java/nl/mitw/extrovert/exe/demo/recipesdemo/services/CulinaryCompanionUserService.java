@@ -1,7 +1,9 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.services;
 
+import nl.mitw.extrovert.exe.demo.recipesdemo.dtos.CulinaryCompanionUserFormDTO;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.CulinaryCompanionUser;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.CulinaryCompanionUserRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.services.mappers.CulinaryCompanionUserMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,9 +27,17 @@ public class CulinaryCompanionUserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
+    public boolean userExists(String username) {
+        return culinaryCompanionUserRepository.findByUsername(username).isPresent();
+    }
+
     public void saveUser(CulinaryCompanionUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         culinaryCompanionUserRepository.save(user);
+    }
+
+    public void saveUser (CulinaryCompanionUserFormDTO dto) {
+        saveUser(CulinaryCompanionUserMapper.fromDTO(dto));
     }
 
     public boolean isNotInitialised() {
