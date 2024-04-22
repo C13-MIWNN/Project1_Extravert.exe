@@ -82,14 +82,22 @@
             </tbody>
         </table>
 
-        <table>
-            <tr>
-                <form th:action="@{'/recipe/add/' + ${recipe.recipeId}}" method="post" id="addIngredientForm">
+
+
+        <form th:action="@{'/recipe/add/' + ${recipe.recipeId}}" method="post" id="addIngredientForm">
+            <table>
+                <tr>
+                    <td>
                     <input type="hidden" id="ingredientIdField" name="ingredientId" />
+                    </td>
+                    <td>
                     <input type="hidden" id="amountField" name="amount" />
-                </form>
-            </tr>
-        </table>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+
 
 
         <div id="addedIngredients"></div>
@@ -97,14 +105,15 @@
         <h3>Directions</h3>
         <p>Click on "Next step" to add step-by-step directions to your recipe</p>
         <table id="stepsTable">
-            <td><label for="recipeStepInput">Steps:</label></td>
-            <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
             <tr th:each="step, index : *{recipeSteps}">
-                <td><input type="text" id="recipeStepInput" class="form-control"
+                <td>
+                    <label th:if="${index.index == 0}" for="recipeStepInput">Steps:</label>
+                    <input type="text" id="recipeStepInput" class="form-control"
                            th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
                 </td>
             </tr>
         </table>
+        <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
         <div>
             <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
         </div>
@@ -112,8 +121,8 @@
 
     <script>
         function addIngredient() {
-            var ingredientId = document.getElementById("ingredientsField").value;
-            var amount = document.getElementById("ingredientAmountField").value;
+            let ingredientId = document.getElementById("ingredientsField").value;
+            let amount = document.getElementById("ingredientAmountField").value;
 
             document.getElementById("ingredientIdField").value = ingredientId;
 
@@ -125,11 +134,11 @@
 
     <script th:inline="javascript">
         function addStep() {
-            var stepsTable = document.getElementById('stepsTable');
-            var newRow = stepsTable.insertRow(-1);
-            var cell = newRow.insertCell(0);
+            let stepsTable = document.getElementById('stepsTable');
+            let newRow = stepsTable.insertRow(-1);
+            let cell = newRow.insertCell(0);
 
-            var newInput = document.createElement('input');
+            let newInput = document.createElement('input');
             newInput.setAttribute('type', 'text');
             newInput.setAttribute('name', 'recipeSteps');
             newInput.classList.add('form-control');
