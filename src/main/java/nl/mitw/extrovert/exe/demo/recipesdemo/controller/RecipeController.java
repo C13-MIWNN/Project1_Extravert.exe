@@ -92,12 +92,10 @@ public class RecipeController {
         if (optionalRecipe.isPresent()) {
             Recipe recipe = optionalRecipe.get();
 
-            List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.findByRecipe(recipe);
-
             model.addAttribute("recipe", recipe);
-            model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
+            model.addAttribute("allIngredients",
+                    ingredientRepository.findAll(Sort.by("name")));
             model.addAttribute("allTags", tagRepository.findAll());
-            model.addAttribute("recipeIngredients", recipeIngredients);
 
             return "editRecipeForm";
         } else {
@@ -129,10 +127,6 @@ public class RecipeController {
 
         return "redirect:/";
     }
-
-
-
-
 
     @GetMapping("/recipe/{name}")
     private String showRecipeDetails(@PathVariable("name") String name, Model model) {
