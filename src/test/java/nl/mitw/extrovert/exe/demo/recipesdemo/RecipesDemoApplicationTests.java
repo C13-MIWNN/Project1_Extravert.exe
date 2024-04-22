@@ -2,13 +2,13 @@ package nl.mitw.extrovert.exe.demo.recipesdemo;
 
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Unit;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+
 
 
 @SpringBootTest
@@ -21,7 +21,7 @@ class RecipesDemoApplicationTests {
 	@Test
 	@DisplayName("Should calculate calories")
 	void shouldCalculateCalories() {
-		//Comments for understanding how to write a test
+
 		//Arrange a test case
 		int protein = 10;
 		int carbs = 20;
