@@ -18,7 +18,7 @@
         <thead class="thead-light">
         <tr>
             <th scope="col"><label for="ingredientsField">Ingredients:</label></th>
-            <th scope="col"><label for="ingredientAmountField">Amount:</label></th>
+            <th scope="col"><label for="ingredientAmountField">Amount: <span id="selectedUnitValue"></span></label></th>
             <th></th>
         </tr>
         </thead>
@@ -36,8 +36,9 @@
         </tr>
         <tr>
             <td >
-                <select class="form-control" id="ingredientsField">
+                <select class="form-control" id="ingredientsField" onchange="updateUnitValue()">
                     <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}"
+                            th:data-unit-value="${ingredient.unit.value}"
                             th:text="${ingredient.name + ' ' + ingredient.unit.value}"></option>
                 </select>
             </td>
@@ -71,18 +72,27 @@
         <h3>Directions</h3>
         <p>Click on "Next step" to add step-by-step directions to your recipe</p>
         <table id="stepsTable">
-            <tr>
-                <td>
-                    <label for="recipeStepInput">Steps:</label>
-                </td>
-            </tr>
-            <tr th:each="step, index : *{recipeSteps}">
-                <td>
-                    <input type="text" id="recipeStepInput" class="form-control"
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">
+                        <label for="recipeStepInput">Steps:</label>
+                    <th/>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="step, index : *{recipeSteps}">
+                    <td>
+                        <input type="text" id="recipeStepInput" class="form-control"
                            th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
-                </td>
-            </tr>
+                    </td>
+                    <td>
+                        <button type="button" onclick="removeRow(this)" class="btn btn-secondary btn-sm">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
         </table>
+
         <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
 
         <table class="table">
@@ -122,10 +132,6 @@
 
     </form>
 
-
-
-
-
     <script>
         function addIngredient() {
             let ingredientId = document.getElementById("ingredientsField").value;
@@ -139,20 +145,64 @@
         }
     </script>
 
-    <script th:inline="javascript">
+    <script>
         function addStep() {
             let stepsTable = document.getElementById('stepsTable');
+
+            let index = 0;
+            if (stepsTable.rows.length > 1) {
+                let lastRowIndex = stepsTable.rows.length - 1;
+                let lastRow = stepsTable.rows[lastRowIndex];
+                let lastInput = lastRow.cells[0].querySelector('input[type="text"]');
+                let lastIndex = parseInt(lastInput.name.match(/\d+/)[0]);
+                index = lastIndex + 1;
+            }
+
             let newRow = stepsTable.insertRow(-1);
-            let cell = newRow.insertCell(0);
+            let cell1 = newRow.insertCell(0);
+            let cell2 = newRow.insertCell(1);
 
             let newInput = document.createElement('input');
             newInput.setAttribute('type', 'text');
-            newInput.setAttribute('name', 'recipeSteps');
+            newInput.setAttribute('name', 'recipeSteps[' + index + ']');
             newInput.classList.add('form-control');
-            cell.appendChild(newInput);
+            newInput.setAttribute('size', '100');
+            cell1.appendChild(newInput);
 
-            document.getElementById('recipeForm').appendChild(newInput);
+            let removeButton = document.createElement('button');
+            removeButton.setAttribute('type', 'button');
+            removeButton.className = "btn btn-secondary btn-sm";
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                stepsTable.deleteRow(newRow.rowIndex);
+            };
+            cell2.appendChild(removeButton);
         }
+
+        function removeRow(button) {
+            let row = button.parentNode.parentNode;
+            let index = row.rowIndex - 1;
+            let stepsTable = document.getElementById('stepsTable');
+            let inputs = stepsTable.querySelectorAll('input[type="text"]');
+            row.parentNode.removeChild(row);
+            inputs.forEach(function(input) {
+                let currentIndex = parseInt(input.name.match(/\d+/)[0]);
+                if (currentIndex > index) {
+                    input.setAttribute('name', input.getAttribute('name').replace(/\[\d+]/,
+                        '[' + (currentIndex - 1) + ']'));
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function updateUnitValue() {
+            let selectElement = document.getElementById("ingredientsField");
+            let selectedIndex = selectElement.selectedIndex;
+            let selectedOption = selectElement.options[selectedIndex];
+            document.getElementById("selectedUnitValue").textContent = selectedOption.getAttribute("data-unit-value");
+        }
+        updateUnitValue();
     </script>
 
 
