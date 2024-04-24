@@ -16,12 +16,12 @@
     <form th:action="@{/recipe/new}" method="post" th:object="${recipe}">
         <table class="table">
             <thead class="thead-light">
-            <tr>
+                <tr>
                 <th scope="col"><label for="nameField">Add a name:</label></th>
                 <th scope="col"><label for="servingsField">Number of servings:</label></th>
                 <th scope="col"><label for="preparationTimeField">Preparation Time</label></th>
                 <th scope="col"><label for="TagField">Tags:</label></th>
-            </tr>
+                </tr>
             </thead>
             <tbody>
             <tr>
@@ -78,12 +78,13 @@
                 <td><label for="recipeStepInput">Steps:</label></td>
             </tr>
             <tr th:each="step, index : *{recipeSteps}">
-                <td><input type="text" id="recipeStepInput" class="form-control"
+                <td>
+                    <input type="text" id="recipeStepInput" class="form-control"
                            th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
                 </td>
             </tr>
         </table>
-        <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
+        <button type="button" onclick="addStep()" id="addButtonField" class="btn btn-secondary btn-sm">Next step</button>
 
         <div>
             <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
@@ -144,15 +145,24 @@
         function addStep() {
             let stepsTable = document.getElementById('stepsTable');
             let newRow = stepsTable.insertRow(-1);
-            let cell = newRow.insertCell(0);
+            let cell1 = newRow.insertCell(0);
+            let cell2 = newRow.insertCell(1);
 
             let newInput = document.createElement('input');
             newInput.setAttribute('type', 'text');
             newInput.setAttribute('name', 'recipeSteps');
             newInput.classList.add('form-control');
-            cell.appendChild(newInput);
+            newInput.setAttribute('size', '100');
+            cell1.appendChild(newInput);
 
-            document.getElementById('recipeForm').appendChild(newInput);
+            let removeButton = document.createElement('button');
+            removeButton.setAttribute('type', 'button');
+            removeButton.classList.add('btn', 'btn-secondary');
+            removeButton.textContent = 'Remove';
+            removeButton.onclick = function() {
+                stepsTable.deleteRow(newRow.rowIndex);
+            };
+            cell2.appendChild(removeButton);
         }
     </script>
 
