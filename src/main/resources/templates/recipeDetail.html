@@ -9,48 +9,67 @@
 <div th:replace="~{fragments/general :: searchbar}"></div>
 
 <div class="container">
-    <h1><span th:text="${recipeToBeShown.name}"></span></h1>
+    <div class="title-details-container">
+        <h1 class="title-details"><span th:text="${recipeToBeShown.name}"></span></h1>
+        <div class="top-details">
+            <p>Total time: <span th:text="${recipeToBeShown.preparationTime}"></span></p>
+            <p>Servings: <span th:text="${recipeToBeShown.numberOfServings}"></span></p>
+        </div>
+    </div>
 
-    <p th:text="${recipeToBeShown.tags}">
-    </p>
-
-    <p>Total time: <span th:text="${recipeToBeShown.preparationTime}"></span>
-    </p>
-    <p>Servings: <span th:text="${recipeToBeShown.numberOfServings}"></span>
-    </p>
-
-    <table class>
-        <tr>
-            <th>Ingredients</th>
-        </tr>
-    <tr th:each="recipeIngredient : ${recipeToBeShown.getIngredients()}">
-        <td th:text="${recipeIngredient.ingredient.name}"></td>
-        <td th:text="${recipeIngredient.amount + ' ' + recipeIngredient.ingredient.unit.value}"></td>
+    <tr>
+        <td>
+            <span th:each="tag : ${recipeToBeShown.tags}" class="tags" th:text="${tag.nameTag}"></span>
+        </td>
     </tr>
-    </table>
 
+    <div class="directions-ingredients-container">
 
-    <h2>Preparation:</h2>
+        <div class="ingredient-container">
+            <table class="ingredient-table">
+                <tr>
+                    <th>Ingredients</th>
+                </tr>
+            <tr th:each="recipeIngredient : ${recipeToBeShown.getIngredients()}">
+                <td th:text="${recipeIngredient.amount + ' ' + recipeIngredient.ingredient.unit.value}"></td>
+                <td th:text="${recipeIngredient.ingredient.name}"></td>
+            </tr>
+            </table>
+        </div>
 
-    <ol id="recipeStepList" type="1">
-        <li th:each="step : ${recipeToBeShown.recipeSteps}" th:text="${step}"></li>
-    </ol>
-
-    <div class="nutrition-container">
-        <h1>Nutrition Details</h1>
-        <div class="card">
-            <div class="card-body">
-                <h2>Per Serving</h2>
-                <p class="card-text">Calories: <span th:text="${recipeToBeShown.calculateRecipeCaloriesPerPortion()}"></span></p>
-                <p class="card-text">Macros:</p>
-                <ul class="list-group">
-                    <li class="list-group-item">Protein: <span th:text="${recipeToBeShown.calculateRecipeProtein()}"></span></li>
-                    <li class="list-group-item">Carbohydrates: <span th:text="${recipeToBeShown.calculateRecipeCarbs()}"></span></li>
-                    <li class="list-group-item">Fat: <span th:text="${recipeToBeShown.calculateRecipeFat()}"></span></li>
-                </ul>
+        <div class="directions-container">
+            <div class="directions-wrapper">
+                <h3>Directions</h3>
+                <ol id="recipeStepList" type="1">
+                    <li th:each="step : ${recipeToBeShown.recipeSteps}" th:text="${step}"></li>
+                </ol>
             </div>
         </div>
     </div>
+
+    <h3>Nutrition per serving</h3>
+    <table class="table nutrition-table">
+        <thead>
+        <tr>
+            <th>Calories <span th:text="${recipeToBeShown.calculateRecipeCaloriesPerPortion()}"></span> kcal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Fat</td>
+            <td><span th:text="${recipeToBeShown.calculateRecipeFat()}"></span>g</td>
+        </tr>
+        <tr>
+            <td>Carbohydrates</td>
+            <td><span th:text="${recipeToBeShown.calculateRecipeCarbs()}"></span>g</td>
+        </tr>
+        <tr>
+            <td>Protein</td>
+            <td><span th:text="${recipeToBeShown.calculateRecipeFat()}"></span>g</td>
+        </tr>
+        </tbody>
+    </table>
+
 </div>
 
 <div th:replace="~{fragments/general :: footer}"></div>

@@ -75,8 +75,8 @@ public class Recipe {
         return Math.round(recipeMacro / numberOfServings);
     }
 
-    public double calculateRecipeCaloriesPerPortion() {
-        return (4 * calculateRecipeProtein() + 4 * calculateRecipeCarbs() + 9 * calculateRecipeFat());
+    public int calculateRecipeCaloriesPerPortion() {
+        return (int) (4 * calculateRecipeProtein() + 4 * calculateRecipeCarbs() + 9 * calculateRecipeFat());
     }
 
     public String getName() {
