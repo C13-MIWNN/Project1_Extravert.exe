@@ -14,6 +14,56 @@
 
 
     <form th:action="@{/recipe/new}" method="post" th:object="${recipe}">
+
+        <h3>Ingredients</h3>
+        <table class="table" id="ingredientTable">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"><label for="ingredientsField">Ingredients:</label></th>
+                <th scope="col"><label for="ingredientAmountField">Amount: <span id="selectedUnitValue"></span></label></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td >
+                    <select class="form-control" id="ingredientsField" onchange="updateUnitValue()">
+                        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}"
+                                th:data-unit-value="${ingredient.unit.value}"
+                                th:text="${ingredient.name}"></option>
+                    </select>
+                </td>
+                <td><input class="form-control" type="text" id="ingredientAmountField"></td>
+                <td>
+                    <button type="button" onclick="addIngredient()" class="btn btn-secondary btn-sm">Add Ingredient</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+        <h3>Directions</h3>
+        <p>Click on "Next step" to add step-by-step directions to your recipe</p>
+        <table id="stepsTable">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col">
+                    <label for="recipeStepInput">Steps:</label>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="step, index : *{recipeSteps}">
+                <td>
+                    <input type="text" id="recipeStepInput" class="form-control"
+                           th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="button" onclick="addStep()" id="addButtonField" class="btn btn-secondary btn-sm">Next step</button>
+
         <table class="table">
             <thead class="thead-light">
                 <tr>
@@ -45,46 +95,6 @@
             </tbody>
         </table>
 
-        <h3>Ingredients</h3>
-        <table class="table" id="ingredientTable">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col"><label for="ingredientsField">Ingredients:</label></th>
-                <th scope="col"><label for="ingredientAmountField">Amount: <span id="selectedUnitValue"></span></label></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td >
-                    <select class="form-control" id="ingredientsField" onchange="updateUnitValue()">
-                        <option th:each="ingredient : ${allIngredients}" th:value="${ingredient.ingredientId}"
-                                th:data-unit-value="${ingredient.unit.value}"
-                                th:text="${ingredient.name}"></option>
-                    </select>
-                </td>
-                <td><input class="form-control" type="text" id="ingredientAmountField"></td>
-                <td>
-                    <button type="button" onclick="addIngredient()" class="btn btn-secondary btn-sm">Add Ingredient</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-
-        <h3>Directions</h3>
-        <p>Click on "Next step" to add step-by-step directions to your recipe</p>
-        <table id="stepsTable">
-            <tr>
-                <td><label for="recipeStepInput">Steps:</label></td>
-            </tr>
-            <tr th:each="step, index : *{recipeSteps}">
-                <td>
-                    <input type="text" id="recipeStepInput" class="form-control"
-                           th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
-                </td>
-            </tr>
-        </table>
-        <button type="button" onclick="addStep()" id="addButtonField" class="btn btn-secondary btn-sm">Next step</button>
 
         <div>
             <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>

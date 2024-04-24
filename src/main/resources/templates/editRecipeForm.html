@@ -14,7 +14,7 @@
     <h1>Edit a recipe</h1>
 
     <h3>Ingredients</h3>
-    <table class="table" id="ingredientTable">
+    <table class="table" id="ingredientTable" >
         <thead class="thead-light">
         <tr>
             <th scope="col"><label for="ingredientsField">Ingredients:</label></th>
@@ -76,7 +76,7 @@
                 <tr>
                     <th scope="col">
                         <label for="recipeStepInput">Steps:</label>
-                    <th/>
+                    </th>
                     <th></th>
                 </tr>
             </thead>
@@ -188,8 +188,7 @@
             inputs.forEach(function(input) {
                 let currentIndex = parseInt(input.name.match(/\d+/)[0]);
                 if (currentIndex > index) {
-                    input.setAttribute('name', input.getAttribute('name').replace(/\[\d+]/,
-                        '[' + (currentIndex - 1) + ']'));
+                    input.name = input.name.replace(/\[\d+]/, '[' + (currentIndex - 1) + ']');
                 }
             });
         }
