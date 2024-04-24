@@ -70,9 +70,6 @@
             </tbody>
         </table>
 
-
-        <div id="addedIngredients" class="form-control"></div>
-
         <h3>Directions</h3>
         <p>Click on "Next step" to add step-by-step directions to your recipe</p>
         <table id="stepsTable">
@@ -97,24 +94,42 @@
             let ingredientName = document.getElementById("ingredientsField")
                 .options[document.getElementById("ingredientsField").selectedIndex].text;
             let amount = document.getElementById("ingredientAmountField").value;
-            let displayDiv = document.getElementById("addedIngredients");
+            let displayTable = document.getElementById("ingredientTable").getElementsByTagName('tbody')[0];
 
-            let p = document.createElement("p");
-            p.textContent = ingredientName + ": " + amount;
-            displayDiv.appendChild(p);
+            let newRow = displayTable.insertRow();
+
+            let cellIngredient = newRow.insertCell(0);
+            let cellAmount = newRow.insertCell(1);
+            let cellRemove = newRow.insertCell(2);
+
+            cellIngredient.innerHTML = ingredientName;
+
+            cellAmount.innerHTML = amount;
 
             let inputIngredientId = document.createElement("input");
             inputIngredientId.type = "hidden";
             inputIngredientId.name = "selectedIngredients";
             inputIngredientId.value = ingredientId;
+            newRow.appendChild(inputIngredientId);
 
             let inputAmount = document.createElement("input");
             inputAmount.type = "hidden";
             inputAmount.name = "ingredientAmounts";
             inputAmount.value = amount;
+            newRow.appendChild(inputAmount);
 
-            displayDiv.appendChild(inputIngredientId);
-            displayDiv.appendChild(inputAmount);
+            let removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+            removeButton.className = "btn btn-secondary btn-sm";
+            removeButton.type = "button";
+            removeButton.onclick = removeIngredient;
+            cellRemove.appendChild(removeButton);
+        }
+
+        function removeIngredient() {
+            let displayTable = document.getElementById("ingredientTable").getElementsByTagName('tbody')[0];
+            let rowToRemove = this.parentNode.parentNode;
+            displayTable.removeChild(rowToRemove);
         }
     </script>
 
