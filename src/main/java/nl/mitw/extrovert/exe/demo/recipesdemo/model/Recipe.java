@@ -76,7 +76,9 @@ public class Recipe {
     }
 
     public double calculateRecipeCaloriesPerPortion() {
-        return (4 * calculateRecipeProtein() + 4 * calculateRecipeCarbs() + 9 * calculateRecipeFat());
+        return (Ingredient.FACTOR_PROTEIN_TO_KCAL * calculateRecipeProtein() +
+                Ingredient.FACTOR_CARBS_TO_KCAL * calculateRecipeCarbs() +
+                Ingredient.FACTOR_FAT_TO_KCAL * calculateRecipeFat());
     }
 
     public String getName() {
