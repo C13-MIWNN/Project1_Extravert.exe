@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,15 +21,24 @@ public class CulinaryCompanionSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/recipe").permitAll()
                         .requestMatchers("/webjars/**", "/css/**", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
-                //custom login form possible here
-                .logout((logout) -> logout.logoutSuccessUrl("/").permitAll());
+                .logout((logout) -> logout
+//                        .logoutSuccessUrl("/")
+                        .permitAll()
+                )
+                .formLogin((formLogin) -> formLogin
+
+//                        .loginPage("/login")
+//                        .loginProcessingUrl("/login")
+                        .permitAll()
+                );
 
         return http.build();
     }

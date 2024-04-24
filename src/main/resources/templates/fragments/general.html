@@ -20,10 +20,10 @@
             <li sec:authorize="isAnonymous()">
                 <a th:href="@{/login}">Login</a>
             </li>
-            <li sec:authorize="hasRole('ROLE_USER')">
+            <li sec:authorize="isAnonymous">
                 <a th:href="@{/user/new}">Add User</a>
             </li>
-            <li sec:authorize="hasRole('ROLE_USER')">
+            <li sec:authorize="isAuthenticated()">
                 <a th:href="@{/logout}">
                     Logout <span sec:authentication="name"></span>
                 </a>

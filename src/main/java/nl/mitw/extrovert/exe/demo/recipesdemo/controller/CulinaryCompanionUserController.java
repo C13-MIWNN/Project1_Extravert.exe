@@ -49,4 +49,11 @@ public class CulinaryCompanionUserController {
         culinaryCompanionUserService.saveUser(culinaryCompanionUserFormDTO);
         return "redirect:/user/new";
     }
-}
+
+        @GetMapping("/login")
+        public String showLoginPage() {
+            return "login";
+        }
+
+
+    }
