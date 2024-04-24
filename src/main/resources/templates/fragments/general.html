@@ -31,7 +31,12 @@
         </ul>
     </div>
 </div>
-
+<div th:fragment="searchbar" th:class="searchbar">
+    <form action="/search" method="GET">
+        <input type="text" name="keyword" placeholder="Search all recipes...">
+        <button type="submit">Search</button>
+    </form>
+</div>
 <div th:fragment="navbar">
     <ul class="nav justify-content-center">
         <li class="nav-item">
@@ -44,13 +49,6 @@
             <a class="nav-link" th:href="@{/recipe/new}">Add Recipe</a>
         </li>
     </ul>
-</div>
-
-<div th:fragment="searchbar" th:class="searchbar">
-    <form action="/search" method="GET">
-    <input type="text" name="keyword" placeholder="Search all recipes...">
-    <button type="submit">Search</button>
-    </form>
 </div>
 
 <div th:fragment="footer">

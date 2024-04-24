@@ -33,14 +33,23 @@ footer {
     padding: 20px 10px;
 }
 
+#submitButton {
+    font-size: 24px;
+    width: 250px;
+    top:77%;
+    left:75%;
+    height:55px;
+    position: relative;
+}
 .searchbar {
-    display: flex;
-    margin-bottom: 30px;
-    margin-top: 30px;
+    position: absolute;
+    top: 30px;
+    left: 40px;
 }
 
 .searchbar input[type=text] {
     flex: 1;
+    width: 350px;
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 0.25rem 0 0 0.25rem;
@@ -60,14 +69,6 @@ footer {
     background-color: #466f67;
 }
 
-#submitButton {
-    font-size: 24px;
-    width: 250px;
-    top:77%;
-    left:75%;
-    height:55px;
-    position: relative;
-}
 /* logo header classes  */
 .logo {
     position: relative;
@@ -113,10 +114,99 @@ footer {
     background-color: #f2f2f2;
 }
 
-.nutrition-container {
-    max-width: 600px; /* Set a maximum width for the container */
-    height: 400px;
-    overflow-y: auto;
+/*recipeDetail*/
+
+.title-details {
+    font-size: 40px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.top-details {
+    display: flex;
+    font-size: 20px;
+    color: #243631;
+}
+
+.top-details p {
+    margin-right: 20px;
+}
+
+.tags {
+    padding: 5px 10px;
+    background-color: #659d94;
+    color: #f2f2f2;
+    border: 1px solid #487566;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.directions-ingredients-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+.ingredient-container .directions-container {
+    flex: 1;
+    margin-right: 100px;
+}
+
+.ingredient-container {
+    margin-right: 100px;
+}
+
+.ingredient-table {
+    background-color: #cdd9d3;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid #f2f2f2;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.ingredient-table th {
+    font-size: 20px;
+    font-weight: normal;
+
+}
+
+.ingredient-table th, .ingredient-table td {
+    padding: 10px;
+    line-height: 0.8;
+}
+
+.directions-wrapper {
+    text-align: left;
+    border-collapse: separate;
+    border-spacing: 20px;
+    border: 2px solid #659d94;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    line-height: 3;
+}
+.directions-wrapper h3 {
+    font-size: 20px;
+}
+
+
+.nutrition-table {
+    width: 20%;
+}
+
+.nutrition-table th,
+.nutrition-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+.nutrition-table td:first-child {
+    border-top: 1px solid #ddd; /* Add border between "Calories" and "Fat" */
+}
+
+.nutrition-table td:last-child {
+    border-bottom: 1px solid #ddd; /* Add border after "Protein" */
 }
 
 .container {
@@ -125,9 +215,4 @@ footer {
     overflow: auto;
     border-radius: 8px;
     margin-bottom: 120px;
-}
-
-
-.card {
-    width: 100%;
 }
