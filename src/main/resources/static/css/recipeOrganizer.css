@@ -33,14 +33,23 @@ footer {
     padding: 20px 10px;
 }
 
+#submitButton {
+    font-size: 24px;
+    width: 250px;
+    top:77%;
+    left:75%;
+    height:55px;
+    position: relative;
+}
 .searchbar {
-    display: flex;
-    margin-bottom: 30px;
-    margin-top: 30px;
+    position: absolute;
+    top: 30px;
+    left: 40px;
 }
 
 .searchbar input[type=text] {
     flex: 1;
+    width: 350px;
     padding: 10px;
     border: 1px solid #ced4da;
     border-radius: 0.25rem 0 0 0.25rem;
@@ -60,14 +69,6 @@ footer {
     background-color: #466f67;
 }
 
-#submitButton {
-    font-size: 24px;
-    width: 250px;
-    top:77%;
-    left:75%;
-    height:55px;
-    position: relative;
-}
 /* logo header classes  */
 .logo {
     position: relative;
