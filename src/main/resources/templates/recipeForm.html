@@ -91,7 +91,7 @@
             let ingredientId = document.getElementById("ingredientsField").value;
             let ingredientOption = document.getElementById("ingredientsField").
                 options[document.getElementById("ingredientsField").selectedIndex];
-            let ingredientName = ingredientOption.getAttribute("text")
+            let ingredientName = ingredientOption.text;
             let unitValue = ingredientOption.getAttribute("data-unit-value");
             let amount = document.getElementById("ingredientAmountField").value;
 
