@@ -9,7 +9,11 @@ import java.util.List;
 
 public interface SearchRepository extends JpaRepository<Recipe, Long> {
 
-    @Query(value = "select recipe FROM Recipe recipe"
-            + " WHERE recipe.name LIKE %?1%")
+    @Query(value = "SELECT recipe FROM Recipe recipe"
+            + " LEFT JOIN recipe.ingredients ingredient"
+            + " LEFT JOIN recipe.tags tag"
+            + " WHERE recipe.name LIKE %?1%"
+            + " OR ingredient.ingredient.name LIKE %?1%"
+            + " OR tag.nameTag LIKE %?1%")
     List<Recipe> search(String keyword);
 }
