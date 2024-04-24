@@ -84,6 +84,10 @@
             </tr>
         </table>
         <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
+
+        <div>
+            <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
+        </div>
     </form>
 
     <script>
@@ -136,7 +140,7 @@
         }
     </script>
 
-    <script th:inline="javascript">
+    <script>
         function addStep() {
             let stepsTable = document.getElementById('stepsTable');
             let newRow = stepsTable.insertRow(-1);

@@ -13,62 +13,6 @@
 
     <h1>Edit a recipe</h1>
 
-
-    <form th:action="@{'/recipe/' + ${recipe.recipeId} + '/edit'}" method="post" th:object="${recipe}">
-        <input type="hidden" th:field="*{recipeId}">
-        <input type="hidden" id="removedIngredients" name="removedIngredients" />
-
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col"><label for="nameField">Add a name:</label></th>
-                <th scope="col"><label for="servingsField">Number of servings:</label></th>
-                <th scope="col"><label for="preparationTimeField">Preparation Time</label></th>
-                <th scope="col"><label for="TagField">Tags:</label></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td><input type="text" id="nameField" class="form-control" th:field="*{name}" /></td>
-                <td><input type="text" id="servingsField" class="form-control" th:field="*{numberOfServings}" /></td>
-                <td>
-                    <select id="preparationTimeField" class="form-control" th:field="*{preparationTime}">
-                        <option value="15 min">15 min</option>
-                        <option value="30 min">30 min</option>
-                        <option value="60 min">60 min</option>
-                        <option value="1 uur 30 min">1 uur 30 min</option>
-                        <option value="1 uur 30 min+">1 uur 30 min+</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="TagField" class="form-control" th:field="*{tags}" multiple>
-                        <option th:each="tag : ${allTags}" th:value="${tag.tagId}" th:text="${tag.nameTag}"></option>
-                    </select>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div>
-            <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
-        </div>
-
-        <div id="addedIngredients"></div>
-
-        <h3>Directions</h3>
-        <p>Click on "Next step" to add step-by-step directions to your recipe</p>
-        <table id="stepsTable">
-            <tr>
-                <td><label for="recipeStepInput">Steps:</label></td>
-            </tr>
-            <tr th:each="step, index : *{recipeSteps}">
-                <td><input type="text" id="recipeStepInput" class="form-control"
-                           th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
-                </td>
-            </tr>
-        </table>
-        <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
-    </form>
-
     <h3>Ingredients</h3>
     <table class="table" id="ingredientTable">
         <thead class="thead-light">
@@ -105,6 +49,8 @@
         </tbody>
     </table>
 
+    <div id="addedIngredients"></div>
+
     <table>
         <tr>
             <td>
@@ -115,6 +61,70 @@
             </td>
         </tr>
     </table>
+
+
+
+    <form th:action="@{'/recipe/' + ${recipe.recipeId} + '/edit'}" method="post" th:object="${recipe}">
+        <input type="hidden" th:field="*{recipeId}">
+        <input type="hidden" id="removedIngredients" name="removedIngredients" />
+
+        <h3>Directions</h3>
+        <p>Click on "Next step" to add step-by-step directions to your recipe</p>
+        <table id="stepsTable">
+            <tr>
+                <td>
+                    <label for="recipeStepInput">Steps:</label>
+                </td>
+            </tr>
+            <tr th:each="step, index : *{recipeSteps}">
+                <td>
+                    <input type="text" id="recipeStepInput" class="form-control"
+                           th:field="*{recipeSteps[__${index.index}__]}" size="100"/>
+                </td>
+            </tr>
+        </table>
+        <button type="button" onclick="addStep()" class="btn btn-secondary btn-sm">Next step</button>
+
+        <table class="table">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"><label for="nameField">Add a name:</label></th>
+                <th scope="col"><label for="servingsField">Number of servings:</label></th>
+                <th scope="col"><label for="preparationTimeField">Preparation Time</label></th>
+                <th scope="col"><label for="TagField">Tags:</label></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input type="text" id="nameField" class="form-control" th:field="*{name}" /></td>
+                <td><input type="text" id="servingsField" class="form-control" th:field="*{numberOfServings}" /></td>
+                <td>
+                    <select id="preparationTimeField" class="form-control" th:field="*{preparationTime}">
+                        <option value="15 min">15 min</option>
+                        <option value="30 min">30 min</option>
+                        <option value="60 min">60 min</option>
+                        <option value="1 uur 30 min">1 uur 30 min</option>
+                        <option value="1 uur 30 min+">1 uur 30 min+</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="TagField" class="form-control" th:field="*{tags}" multiple>
+                        <option th:each="tag : ${allTags}" th:value="${tag.tagId}" th:text="${tag.nameTag}"></option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <button type="submit" id="submitButton" class="btn btn-secondary btn-lg btn-block">Save recipe</button>
+        </div>
+
+    </form>
+
+
+
+
 
     <script>
         function addIngredient() {
