@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Represents the relation between a recipe and an ingredient
@@ -11,6 +14,9 @@ import jakarta.persistence.ManyToOne;
  * @author B.J. Falkena
  */
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class RecipeIngredient {
     private static final int GRAMS_IN_HUNDRED_GRAMS = 100;
@@ -26,12 +32,8 @@ public class RecipeIngredient {
 
     @ManyToOne Recipe recipe;
 
-    public RecipeIngredient() {
-
-    }
-
     public double calculateCarbsForAmount() {
-        return calculateMacroForAmount(ingredient.getCarbohydrates());
+        return calculateMacroForAmount(ingredient.getCarbohydrate());
     }
 
     public double calculateFatForAmount() {
@@ -53,37 +55,5 @@ public class RecipeIngredient {
     @Override
     public String toString() {
         return String.format("%d %s", this.amount, this.ingredient);
-    }
-
-    public Long getRecipeIngredientId() {
-        return recipeIngredientId;
-    }
-
-    public void setRecipeIngredientId(Long recipeIngredientId) {
-        this.recipeIngredientId = recipeIngredientId;
-    }
-
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
     }
 }

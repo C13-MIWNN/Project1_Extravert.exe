@@ -86,7 +86,7 @@ public class InitializeController {
         ingredient.setName(name);
         ingredient.setUnit(unit);
         ingredient.setProtein(protein);
-        ingredient.setCarbohydrates(carb);
+        ingredient.setCarbohydrate(carb);
         ingredient.setFat(fat);
         ingredientRepository.save(ingredient);
         return ingredient;

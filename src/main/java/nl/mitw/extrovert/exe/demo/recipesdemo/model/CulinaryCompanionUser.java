@@ -3,6 +3,7 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +17,7 @@ import java.util.List;
  * People who work for the Culinary Companion recipe application
  **/
 
+@Setter
 @Entity
 public class CulinaryCompanionUser implements UserDetails {
 
@@ -60,21 +62,5 @@ public class CulinaryCompanionUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

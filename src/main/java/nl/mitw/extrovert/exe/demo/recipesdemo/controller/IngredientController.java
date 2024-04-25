@@ -30,12 +30,10 @@ import java.util.Optional;
 public class IngredientController {
     private final IngredientRepository ingredientRepository;
     private final List <Unit> units;
-    private final TagRepository tagRepository;
 
-    public IngredientController(IngredientRepository ingredientRepository, TagRepository tagRepository) {
+    public IngredientController(IngredientRepository ingredientRepository) {
         this.ingredientRepository = ingredientRepository;
         this.units = Arrays.asList(Unit.values());
-        this.tagRepository = tagRepository;
     }
 
     @GetMapping ("/ingredient")

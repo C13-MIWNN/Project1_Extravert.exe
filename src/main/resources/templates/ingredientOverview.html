@@ -25,7 +25,7 @@
                 <td th:text="${ingredient.name}"></td>
                 <td th:text="${ingredient.unit}"></td>
                 <td th:text="${ingredient.protein}"></td>
-                <td th:text="${ingredient.carbohydrates}"></td>
+                <td th:text="${ingredient.carbohydrate}"></td>
                 <td th:text="${ingredient.fat}"></td>
                 <td th:text="${ingredient.calculateCalories()}"></td>
                 <td><a th:href="@{/ingredient/edit/{ingredientName}(ingredientName = ${ingredient.name})}">
@@ -43,7 +43,7 @@
                         </select>
                     </td>
                     <td><input type="text" th:field="*{protein}"></td>
-                    <td><input type="text" th:field="*{carbohydrates}"></td>
+                    <td><input type="text" th:field="*{carbohydrate}"></td>
                     <td><input type="text" th:field="*{fat}"></td>
                 </tr>
                 <tr>

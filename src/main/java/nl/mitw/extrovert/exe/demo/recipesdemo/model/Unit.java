@@ -1,5 +1,7 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
+import lombok.Getter;
+
 /**
  * Represents a measuring unit that can only have a set of values
  *
@@ -7,6 +9,7 @@ package nl.mitw.extrovert.exe.demo.recipesdemo.model;
  */
 
 
+@Getter
 public enum Unit {
     TSP("teaspoons"),
     TBS("tablespoons"),
@@ -18,9 +21,5 @@ public enum Unit {
 
     Unit(String value) {
         this.value = value;
-    }
-
-    public String getValue() {
-        return value;
     }
 }

@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import nonapi.io.github.classgraph.json.JSONUtils;
 
 import java.util.Set;
@@ -13,6 +16,10 @@ import java.util.Set;
  *
  * @author B.J. Falkena
  */
+
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 public class Tag {
     @Id @GeneratedValue
@@ -24,37 +31,8 @@ public class Tag {
     @ManyToMany(mappedBy = "tags")
     private Set<Recipe> recipes;
 
-    public Tag() {
-
-    }
-
-
     @Override
     public String toString() {
         return nameTag;
-    }
-
-    public Long getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(Long tagId) {
-        this.tagId = tagId;
-    }
-
-    public String getNameTag() {
-        return nameTag;
-    }
-
-    public void setNameTag(String nameTag) {
-        this.nameTag = nameTag;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
     }
 }
