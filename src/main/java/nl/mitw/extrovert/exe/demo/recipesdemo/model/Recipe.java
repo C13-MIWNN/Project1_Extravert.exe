@@ -1,6 +1,9 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+import jakarta.websocket.OnError;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,9 +22,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 public class Recipe {
+
+
     @Id @GeneratedValue
     private Long recipeId;
 
+    @NotEmpty(message = "Please add a name")
     @Column(unique = true)
     private String name;
 
@@ -32,6 +38,7 @@ public class Recipe {
 
     @ElementCollection @OrderColumn
     private List<String> recipeSteps = new ArrayList<>();
+
 
     @OneToMany (mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RecipeIngredient> ingredients = new ArrayList<>();

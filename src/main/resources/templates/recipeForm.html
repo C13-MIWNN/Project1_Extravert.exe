@@ -32,6 +32,10 @@
                                 th:data-unit-value="${ingredient.unit.value}"
                                 th:text="${ingredient.name}"></option>
                     </select>
+                    <div th:if="${ingredientError}" class="form-text text-danger">
+                        Please select at least one ingredient.
+                    </div>
+
                 </td>
                 <td><input class="form-control" type="text" id="ingredientAmountField"></td>
                 <td>
@@ -75,7 +79,9 @@
             </thead>
             <tbody>
             <tr>
-                <td><input type="text" id="nameField" class="form-control" th:field="*{name}" /></td>
+                <td><input type="text" id="nameField" class="form-control" th:field="*{name}" />
+                    <small id="usernameHelp" class="form-text text-danger" th:if="${#fields.hasErrors('name')}"
+                           th:errors="*{name}"></small></td>
                 <td><input type="text" id="servingsField" class="form-control" th:field="*{numberOfServings}" /></td>
                 <td>
                     <select id="preparationTimeField" class="form-control" th:field="*{preparationTime}">

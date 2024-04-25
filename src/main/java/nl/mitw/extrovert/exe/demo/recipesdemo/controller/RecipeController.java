@@ -1,4 +1,7 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.RecipeIngredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
@@ -12,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +41,7 @@ public class RecipeController {
         this.recipeIngredientRepository = recipeIngredientRepository;
     }
 
-    @GetMapping({"/","/recipe"})
+    @GetMapping({"/", "/recipe"})
     private String showRecipeOverview(Model model) {
 
         model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
@@ -48,24 +52,35 @@ public class RecipeController {
     }
 
     @GetMapping("recipe/new")
-    private String showRecipeForm (Model model) {
+    private String showRecipeForm(Model model) {
         model.addAttribute("recipe", new Recipe());
+        return recipeFormSetup(model);
+    }
+
+    private String recipeFormSetup(Model model) {
         model.addAttribute("allIngredients", ingredientRepository.findAll(Sort.by("name")));
         model.addAttribute("allTags", tagRepository.findAll());
         model.addAttribute("allRecipeIngredientAmounts", recipeIngredientRepository.findAll());
-        model.addAttribute(("RecipeIngredient"),new RecipeIngredient());
+        model.addAttribute(("RecipeIngredient"), new RecipeIngredient());
 
         return "recipeForm";
     }
 
     @PostMapping("/recipe/new")
     private String saveRecipe(
-            @ModelAttribute("recipe") Recipe recipeToBeSaved,
-            @RequestParam("selectedIngredients") List<Long> selectedIngredientIds,
-            @RequestParam("ingredientAmounts") List<Integer> ingredientAmounts,
-            BindingResult recipeResult) {
+            @ModelAttribute("recipe") @Valid Recipe recipeToBeSaved, BindingResult recipeResult,
+            @RequestParam(value = "selectedIngredients", required = false) List<Long> selectedIngredientIds,
+            @RequestParam(value = "ingredientAmounts", required = false) List<Integer> ingredientAmounts,
+            Model model) {
 
-        if (!recipeResult.hasErrors()) {
+        if (selectedIngredientIds == null || selectedIngredientIds.isEmpty()) {
+            model.addAttribute("ingredientError", true);
+            return recipeFormSetup(model);
+        }
+
+        if (recipeResult.hasErrors()) {
+            return recipeFormSetup(model);
+        }
 
         Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
 
@@ -79,9 +94,7 @@ public class RecipeController {
             recipeIngredient.setIngredient(ingredient);
             recipeIngredient.setAmount(amount);
 
-                recipeIngredientRepository.save(recipeIngredient);
-            }
-
+            recipeIngredientRepository.save(recipeIngredient);
         }
 
         return "redirect:/";
