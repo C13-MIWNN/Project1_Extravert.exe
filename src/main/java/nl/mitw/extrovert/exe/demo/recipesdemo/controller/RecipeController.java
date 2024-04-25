@@ -1,22 +1,19 @@
 package nl.mitw.extrovert.exe.demo.recipesdemo.controller;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
-import nl.mitw.extrovert.exe.demo.recipesdemo.model.Ingredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.RecipeIngredient;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.IngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeIngredientRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.RecipeRepository;
 import nl.mitw.extrovert.exe.demo.recipesdemo.model.Recipe;
 import nl.mitw.extrovert.exe.demo.recipesdemo.repositories.TagRepository;
+import nl.mitw.extrovert.exe.demo.recipesdemo.services.newRecipeService;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,15 +27,17 @@ public class RecipeController {
     private final RecipeRepository recipeRepository;
     private final TagRepository tagRepository;
     private final RecipeIngredientRepository recipeIngredientRepository;
+    private final newRecipeService recipeService;
 
     public RecipeController(RecipeRepository recipeRepository,
                             IngredientRepository ingredientRepository,
                             TagRepository tagRepository,
-                            RecipeIngredientRepository recipeIngredientRepository) {
+                            RecipeIngredientRepository recipeIngredientRepository, newRecipeService recipeService) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
         this.tagRepository = tagRepository;
         this.recipeIngredientRepository = recipeIngredientRepository;
+        this.recipeService = recipeService;
     }
 
     @GetMapping({"/", "/recipe"})
@@ -66,39 +65,27 @@ public class RecipeController {
         return "recipeForm";
     }
 
-    @PostMapping("/recipe/new")
-    private String saveRecipe(
-            @ModelAttribute("recipe") @Valid Recipe recipeToBeSaved, BindingResult recipeResult,
-            @RequestParam(value = "selectedIngredients", required = false) List<Long> selectedIngredientIds,
-            @RequestParam(value = "ingredientAmounts", required = false) List<Integer> ingredientAmounts,
-            Model model) {
+    @PostMapping("recipe/new")
+    private String showRecipeForm
+            (@ModelAttribute("recipe") @Valid Recipe recipeToBeSaved, BindingResult recipeResult,
+             @RequestParam(value = "selectedIngredients", required = false) List<Long> selectedIngredientIds,
+             @RequestParam(value = "ingredientAmounts", required = false) List<Integer> ingredientAmounts,
+             Model model) {
 
         if (selectedIngredientIds == null || selectedIngredientIds.isEmpty()) {
             model.addAttribute("ingredientError", true);
             return recipeFormSetup(model);
         }
-
         if (recipeResult.hasErrors()) {
             return recipeFormSetup(model);
         }
 
-        Recipe savedRecipe = recipeRepository.save(recipeToBeSaved);
-
-        List<Ingredient> selectedIngredients = ingredientRepository.findAllById(selectedIngredientIds);
-        for (int i = 0; i < selectedIngredients.size(); i++) {
-            Ingredient ingredient = selectedIngredients.get(i);
-            Integer amount = ingredientAmounts.get(i);
-
-            RecipeIngredient recipeIngredient = new RecipeIngredient();
-            recipeIngredient.setRecipe(savedRecipe);
-            recipeIngredient.setIngredient(ingredient);
-            recipeIngredient.setAmount(amount);
-
-            recipeIngredientRepository.save(recipeIngredient);
-        }
+        recipeService.saveRecipe(recipeToBeSaved, selectedIngredientIds, ingredientAmounts);
 
         return "redirect:/";
     }
+
+
 
     @GetMapping("/recipe/{id}/edit")
     private String showEditForm(@PathVariable("id") Long id, Model model) {
