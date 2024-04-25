@@ -77,7 +77,9 @@ public class Recipe {
         return Math.round(recipeMacro / numberOfServings);
     }
 
-    public int calculateRecipeCaloriesPerPortion() {
-        return (int) (4 * calculateRecipeProtein() + 4 * calculateRecipeCarbs() + 9 * calculateRecipeFat());
+    public double calculateRecipeCaloriesPerPortion() {
+        return (Ingredient.FACTOR_PROTEIN_TO_KCAL * calculateRecipeProtein() +
+                Ingredient.FACTOR_CARBS_TO_KCAL * calculateRecipeCarbs() +
+                Ingredient.FACTOR_FAT_TO_KCAL * calculateRecipeFat());
     }
 }
