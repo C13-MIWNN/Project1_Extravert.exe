@@ -99,7 +99,7 @@ public class RecipeCalculateMacroTest {
     private static Recipe getRecipe(int fat, int carbs, int protein, int amount, int servings) {
         Ingredient ingredient = new Ingredient();
         ingredient.setFat(fat);
-        ingredient.setCarbohydrates(carbs);
+        ingredient.setCarbohydrate(carbs);
         ingredient.setProtein(protein);
 
         RecipeIngredient recipeIngredient = new RecipeIngredient();
