@@ -37,7 +37,7 @@
                     </div>
 
                 </td>
-                <td><input class="form-control" type="text" id="ingredientAmountField"></td>
+                <td><input class="form-control small-input" type="text" id="ingredientAmountField"></td>
                 <td>
                     <button type="button" onclick="addIngredient()" class="btn btn-secondary btn-sm">Add Ingredient</button>
                 </td>
@@ -82,7 +82,7 @@
                 <td><input type="text" id="nameField" class="form-control" th:field="*{name}" />
                     <small id="usernameHelp" class="form-text text-danger" th:if="${#fields.hasErrors('name')}"
                            th:errors="*{name}"></small></td>
-                <td><input type="text" id="servingsField" class="form-control" th:field="*{numberOfServings}" /></td>
+                <td><input type="text" id="servingsField" class="form-control small-input" th:field="*{numberOfServings}" /></td>
                 <td>
                     <select id="preparationTimeField" class="form-control" th:field="*{preparationTime}">
                         <option value="15 min">15 min</option>
@@ -169,6 +169,12 @@
             newInput.setAttribute('name', 'recipeSteps');
             newInput.classList.add('form-control');
             newInput.setAttribute('size', '100');
+
+            newInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
             cell1.appendChild(newInput);
 
             let removeButton = document.createElement('button');
@@ -190,6 +196,17 @@
             document.getElementById("selectedUnitValue").textContent = selectedOption.getAttribute("data-unit-value");
         }
         updateUnitValue();
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('input').forEach(function(input) {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                    }
+                });
+            });
+        });
     </script>
 </div>
 

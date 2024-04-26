@@ -216,3 +216,7 @@ footer {
     border-radius: 8px;
     margin-bottom: 120px;
 }
+
+.small-input {
+    width: 100px;
+}
